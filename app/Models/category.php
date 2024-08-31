@@ -9,7 +9,7 @@ use Filament\Forms\Get;
 use Filament\Forms\Set;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-class category extends Model
+class Category extends Model
 {
     use HasFactory;
     protected $guarded = [];
