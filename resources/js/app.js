@@ -44,6 +44,7 @@ window.MiniSearch = MiniSearch
 Alpine.store('sidebar', { isOpen: false })
 
 Alpine.plugin(Tooltip)
+//livewire
 Livewire.start()
 // Docsearch
 docsearch({
