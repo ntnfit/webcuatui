@@ -13,7 +13,7 @@ import docsearch from '@docsearch/js'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
-
+import { Livewire, Alpine } from '../../vendor/livewire/livewire/dist/livewire.esm';
 // Swiper
 Swiper.use([Navigation, Pagination])
 window.Swiper = Swiper
@@ -44,7 +44,7 @@ window.MiniSearch = MiniSearch
 Alpine.store('sidebar', { isOpen: false })
 
 Alpine.plugin(Tooltip)
-
+Livewire.start()
 // Docsearch
 docsearch({
     container: '#docsearch',
