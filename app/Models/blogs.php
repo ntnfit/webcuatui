@@ -15,6 +15,7 @@ use Filament\Forms\Get;
 use Filament\Forms\Set;
 use FilamentTiptapEditor\TiptapEditor;
 use App\Enums\PostStatus;
+use App\Enums\TypePost;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -38,6 +39,7 @@ class blogs extends Model
     {
         return $this->belongsToMany(Category::class, 'category_post', 'post_id', 'category_id');
     }
+   
     public function tags(): BelongsToMany
     {
         return $this->belongsToMany(Tag::class,'post_tag','post_id','tag_id');
@@ -205,6 +207,16 @@ class blogs extends Model
 //                                ->minDate(now()->addMinutes(5))
 //                                ->native(false),
                         ]),
+                    Fieldset::make('Type')
+                    ->schema([
+                        ToggleButtons::make('type')
+                                ->live()
+                                ->inline()
+                                ->options(TypePost::class)
+                                ->default(TypePost::ARTICLE)
+                                ->required(),
+                    ]),
+
                     Select::make('user_id')
                      ->relationship('user', 'name')
                         ->nullable(false)
@@ -216,5 +228,25 @@ class blogs extends Model
     public function getTable()
     {
         return 'posts';
+    }
+    
+    public function getDataArray(): array
+    {
+      
+        return [
+            'id' => $this->slug,
+            'title' => $this->title,
+            'slug' => $this->slug,
+            'publish_date' => $this->published_at->diffForHumans(),
+            'thumbnail_url' =>'storage/'. $this->cover_photo_path,
+            'author' => [
+                'name' => $this->user->name,
+                'avatar' => null,
+            ],
+            'categories' => $this->categories->pluck('slug'),
+            'type' => $this->type,
+            'versions' => $this->versions,
+            'canonical_url' => $this->canonical_url,
+        ];
     }
 }
