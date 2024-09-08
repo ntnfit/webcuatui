@@ -95,5 +95,5 @@ return [
     */
     'extensions_script' => null,
     'extensions_styles' => null,
-    'extensions' => ['CodeBlockLowlight '],
+    'extensions' => [],
 ];
