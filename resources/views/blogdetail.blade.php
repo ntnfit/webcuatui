@@ -84,10 +84,11 @@
                          selection:bg-stone-500/30 prose-a:break-words 
                          prose-blockquote:not-italic 
                          prose-code:break-words 
-                         prose-code:rounded 
+                         prose-code:bg-black-100
+                         p-code:bg-merino
                          prose-code:px-1.5 prose-code:py-0.5 
                          prose-code:font-normal prose-code:before:hidden 
-                         prose-code:after:hidden [&_p]:before:hidden [&_p]:after:hidden">
+                         prose-code:after:hidden [&_p]:before:hidden [&_p]:after:hidden  [&_code:not([class])]:bg-merino">
                         {{-- {!! tiptap_converter()->asHTML($article->body, toc: true, maxDepth: 3) !!} --}}
                         {!! $article->body !!}
                     </div>
