@@ -88,7 +88,7 @@
                          prose-code:px-1.5 prose-code:py-0.5 
                          prose-code:font-normal prose-code:before:hidden 
                          prose-code:after:hidden [&_p]:before:hidden [&_p]:after:hidden">
-                        {!! tiptap_converter()->asHTML($article->body, toc: true, maxDepth: 3) !!}
+                        {{-- {!! tiptap_converter()->asHTML($article->body, toc: true, maxDepth: 3) !!} --}}
                         {!! $article->body !!}
                     </div>
                 </div>
