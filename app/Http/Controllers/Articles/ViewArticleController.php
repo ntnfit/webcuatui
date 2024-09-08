@@ -11,6 +11,7 @@ class ViewArticleController extends Controller
     {
         seo()
             ->title("{$blogs->title} by {$blogs->user->name}")
+            ->description($blogs->title)
             ->image('https://previewlinks.io/generate/templates/1055/meta?url=' . url()->current())
             ->tag('previewlinks:overline', 'Filament')
             ->tag('previewlinks:title', $blogs->title)
@@ -18,7 +19,9 @@ class ViewArticleController extends Controller
             ->tag('previewlinks:image', 'https://filamentphp.com/images/icon.png')
             ->tag('previewlinks:repository', 'filament/filament')
             ->withUrl()
-            ->url($article->canonical_url ?? request()->url());
+            ->url($article->canonical_url ?? request()->url())
+            ->rawTag('<meta name="description" content="'. $blogs->title.'">')
+            ->rawTag('fb_url', '<meta property="fb:url" content="bar" />');
         $types= collect([
         'article' => [
             'slug' => 'article',
