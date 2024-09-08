@@ -14,6 +14,7 @@ use Filament\Forms\Components\ToggleButtons;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
 use FilamentTiptapEditor\TiptapEditor;
+use FilamentTiptapEditor\Enums\TiptapOutput;
 use App\Enums\PostStatus;
 use App\Enums\TypePost;
 use Illuminate\Database\Eloquent\Builder;
@@ -143,6 +144,7 @@ class blogs extends Model
                                         ->profile('default')
                                         ->disableFloatingMenus()
                                         ->extraInputAttributes(['style' => 'max-height: 30rem; min-height: 24rem'])
+                                        ->output(TiptapOutput::Html)
                                         ->required()
                                         ->columnSpanFull(),
                                 ]),

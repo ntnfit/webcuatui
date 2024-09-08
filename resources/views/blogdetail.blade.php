@@ -1,4 +1,7 @@
 <x-layouts.appclient>
+    @push('css')
+        <link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@11.9.0/styles/default.min.css">
+    @endpush
     <section x-cloak x-data="{
         back_button_is_hovering: false,
     }" x-ref="section" x-init="() => {
@@ -77,13 +80,16 @@
                 {{-- Content --}}
                 <div class="pt-8">
                     <div
-                        class="prose w-max-[80ch] w-full max-w-full sm:max-w-screen-sm 
-                        md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl px-4 sm:px-6 md:px-8 lg:px-12 mx-auto
-                         selection:bg-stone-500/30 prose-a:break-words prose-blockquote:not-italic 
-                         prose-code:break-words prose-code:rounded  prose-code:px-1.5 
-                         prose-code:py-0.5 prose-code:font-normal prose-code:before:hidden 
+                        class="prose w-max-[80ch] w-full max-w-full sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl px-4 sm:px-6 md:px-8 lg:px-12 mx-auto
+                         selection:bg-stone-500/30 prose-a:break-words 
+                         prose-blockquote:not-italic 
+                         prose-code:break-words 
+                         prose-code:rounded 
+                         prose-code:px-1.5 prose-code:py-0.5 
+                         prose-code:font-normal prose-code:before:hidden 
                          prose-code:after:hidden [&_p]:before:hidden [&_p]:after:hidden">
                         {!! tiptap_converter()->asHTML($article->body, toc: true, maxDepth: 3) !!}
+                        {!! $article->body !!}
                     </div>
                 </div>
             </div>
@@ -290,7 +296,7 @@
                 <span class="mb-3 block font-semibold">Tags</span>
                 <div class="space-x-2 space-y-1">
                     @foreach ($article->tags as $tag)
-                        {{-- <a href="{{ route('tag.post', ['tag' => $tag->slug]) }}" --}}
+                        {{-- <a href="{{ route('filamentblog.tag.post', ['tag' => $tag->slug]) }}" --}}
                         <a href="#"
                             class="rounded-full border border-slate-300 px-3 py-1 text-sm font-medium font-medium text-black text-slate-600 hover:bg-slate-100">
                             {{ $tag->name }}
@@ -300,5 +306,10 @@
             </div>
         @endif
     </section>
-
+    @push('js')
+        <script src="https://unpkg.com/@highlightjs/cdn-assets@11.9.0/highlight.min.js"></script>
+        <script>
+            hljs.highlightAll();
+        </script>
+    @endpush
 </x-layouts.appclient>

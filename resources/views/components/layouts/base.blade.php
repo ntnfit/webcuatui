@@ -27,6 +27,7 @@
     <meta name="msapplication-config" content="/favicon/browserconfig.xml?v=w1dBNxT7Wg" />
     <meta name="theme-color" content="#ffffff" />
 
+
     <!-- Fonts -->
     @googlefonts
 
@@ -52,5 +53,6 @@
 
     {{ $slot }}
 </body>
+
 
 </html>
