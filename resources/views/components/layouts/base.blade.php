@@ -37,6 +37,7 @@
         }
     </style>
     @livewireStyles
+    @filamentStyles
     @vite('resources/css/app.css')
 
     <!-- Scripts -->
