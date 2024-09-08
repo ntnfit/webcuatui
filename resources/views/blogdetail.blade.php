@@ -77,8 +77,12 @@
                 {{-- Content --}}
                 <div class="pt-8">
                     <div
-                        class="prose w-max-[80ch] w-full max-w-full sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl px-4 sm:px-6 md:px-8 lg:px-12 mx-auto
-                         selection:bg-stone-500/30 prose-a:break-words prose-blockquote:not-italic prose-code:break-words prose-code:rounded prose-code:bg-merino prose-code:px-1.5 prose-code:py-0.5 prose-code:font-normal prose-code:before:hidden prose-code:after:hidden [&_p]:before:hidden [&_p]:after:hidden">
+                        class="prose w-max-[80ch] w-full max-w-full sm:max-w-screen-sm 
+                        md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl px-4 sm:px-6 md:px-8 lg:px-12 mx-auto
+                         selection:bg-stone-500/30 prose-a:break-words prose-blockquote:not-italic 
+                         prose-code:break-words prose-code:rounded  prose-code:px-1.5 
+                         prose-code:py-0.5 prose-code:font-normal prose-code:before:hidden 
+                         prose-code:after:hidden [&_p]:before:hidden [&_p]:after:hidden">
                         {!! tiptap_converter()->asHTML($article->body, toc: true, maxDepth: 3) !!}
                     </div>
                 </div>
