@@ -21,6 +21,8 @@ Route::middleware('auth')->group(function () {
     // blogs here
 
 });
+
+// Route::get('/tags/{tag:slug}', [TagController::class, 'posts'])->name('tag.post');
 Route::prefix('/blogs')->group(function () {
     Route::get('/', ListArticlesController::class)->name('blogs');
 });

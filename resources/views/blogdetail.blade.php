@@ -286,7 +286,8 @@
                 <span class="mb-3 block font-semibold">Tags</span>
                 <div class="space-x-2 space-y-1">
                     @foreach ($article->tags as $tag)
-                        <a href="{{ route('filamentblog.tag.post', ['tag' => $tag->slug]) }}"
+                        {{-- <a href="{{ route('tag.post', ['tag' => $tag->slug]) }}" --}}
+                        <a href="#"
                             class="rounded-full border border-slate-300 px-3 py-1 text-sm font-medium font-medium text-black text-slate-600 hover:bg-slate-100">
                             {{ $tag->name }}
                         </a>
