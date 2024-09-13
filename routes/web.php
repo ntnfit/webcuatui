@@ -23,7 +23,7 @@ Route::name('tools.')->prefix('cong-cu')->group(function () {
     Route::get('/', function () {
         return view('tools');
     })->name('index');
-    route::get('/check-var-sao-ket', function () {
+    route::get('/check-var-sao-ke', function () {
         return view('tools.saoke');
     })->name('saoke');
     Route::get('/search-var', [ToolsController::class, 'search'])->name('search.var');
