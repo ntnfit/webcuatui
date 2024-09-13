@@ -69,29 +69,39 @@
 
     {{-- Nav Links --}}
     <div class="flex items-center justify-end gap-8 font-semibold sm:gap-14">
-        <a href="{{ route('tools') }}" @class([
-            'hidden transition duration-300 hover:opacity-100 focus:text-butter motion-reduce:transition-none lg:block',
+        <a href="{{ route('tools.index') }}" @class([
+            'group/nav-link relative hidden text-evening transition duration-300 hover:opacity-100 
+                                            focus:text-butter motion-reduce:transition-none lg:block',
             'text-evening opacity-80' => !request()->routeIs('tools*'),
             'text-butter' => request()->routeIs('tools*'),
         ])>
             <div class="gsap-fadein">Công cụ</div>
+            @if (request()->routeIs('tools*'))
+                <div class="gsap-popout absolute -bottom-4 right-1/2 translate-x-1/2">
+                    <div
+                        class="h-2 w-2 bg-butter transition duration-300 group-hover/nav-link:rotate-90
+                         group-hover/nav-link:bg-purple-400 motion-reduce:transition-none">
+                    </div>
+                </div>
+            @endif
         </a>
 
-        <a href="#" @class([
-            'group/nav-link relative hidden text-evening transition duration-300 hover:opacity-100 focus:text-butter motion-reduce:transition-none lg:block',
+        <a href="{{ route('shop.index') }}" @class([
+            'group/nav-link relative hidden text-evening transition duration-300 hover:opacity-100 
+                                            focus:text-butter motion-reduce:transition-none lg:block',
             'opacity-80',
-            // 'opacity-80' => !request()->routeIs('plugins*'),
-            // 'font-bold' => request()->routeIs('plugins*'),
+            'opacity-80' => !request()->routeIs('shop*'),
+            'font-bold' => request()->routeIs('shop*'),
         ])>
-            <div class="gsap-fadein">Plugins</div>
+            <div class="gsap-fadein">shop</div>
 
-            {{-- @if (request()->routeIs('plugins*'))
+            @if (request()->routeIs('plugins*'))
                 <div class="gsap-popout absolute -bottom-4 right-1/2 translate-x-1/2">
                     <div
                         class="h-2 w-2 bg-butter transition duration-300 group-hover/nav-link:rotate-90 group-hover/nav-link:bg-purple-400 motion-reduce:transition-none">
                     </div>
                 </div>
-            @endif --}}
+            @endif
         </a>
 
         <a href="{{ route('blogs') }}" @class([
@@ -101,40 +111,39 @@
         ])>
             <div class="gsap-fadein">Bài viết</div>
 
-            {{-- @if (request()->routeIs('articles*'))
+            @if (request()->routeIs('blogs*'))
                 <div class="gsap-popout absolute -bottom-4 right-1/2 translate-x-1/2">
                     <div
                         class="h-2 w-2 bg-butter transition duration-300 group-hover/nav-link:rotate-90 group-hover/nav-link:bg-purple-400 motion-reduce:transition-none">
                     </div>
                 </div>
-            @endif --}}
+            @endif
         </a>
 
-        <a href="#" @class([
+        <a href="{{ route('aitools.index') }}" @class([
             'group/nav-link relative hidden text-evening transition duration-300 hover:opacity-100 focus:text-butter motion-reduce:transition-none lg:block',
-            'opacity-80' => !request()->routeIs('consulting*'),
-            'font-bold' => request()->routeIs('consulting*'),
+            'opacity-80' => !request()->routeIs('aitools*'),
+            'font-bold' => request()->routeIs('aitools*'),
         ])>
-            <div class="gsap-fadein">Consulting</div>
-            {{-- 
-            @if (request()->routeIs('consulting*'))
+            <div class="gsap-fadein">AI Tools</div>
+            @if (request()->routeIs('aitools*'))
                 <div class="gsap-popout absolute -bottom-4 right-1/2 translate-x-1/2">
                     <div
                         class="h-2 w-2 bg-butter transition duration-300 group-hover/nav-link:rotate-90 group-hover/nav-link:bg-purple-400 motion-reduce:transition-none">
                     </div>
                 </div>
-            @endif --}}
+            @endif
         </a>
 
-        <a href="https://shop.filamentphp.com"
+        {{-- <a href="https://shop.filamentphp.com"
             class="group/nav-link relative hidden text-evening opacity-80 transition duration-300 hover:opacity-100 focus:text-butter motion-reduce:transition-none lg:block">
             <div class="gsap-fadein">Shop</div>
-        </a>
+        </a> --}}
 
         {{-- Github --}}
         <div class="group/github relative">
             {{-- Github Icon --}}
-            <a href="https://github.com/filamentphp/filament" target="_blank"
+            <a href="https://github.com/ntnfit" target="_blank"
                 class="peer text-evening opacity-80 transition delay-75 duration-300 group-hover/github:opacity-100 motion-reduce:transition-none">
                 <div class="gsap-fadein">
                     <svg fill="currentColor" viewBox="0 0 29 29" class="h-7 w-7">
@@ -148,7 +157,7 @@
             {{-- Star Count --}}
             <div
                 class="invisible absolute right-1/2 top-7 -translate-y-2 translate-x-1/3 p-3 opacity-0 transition delay-75 duration-300 hover:visible hover:translate-y-0 hover:opacity-100 peer-hover:visible peer-hover:translate-y-0 peer-hover:opacity-100 motion-reduce:transition-none min-[1400px]:translate-x-1/2">
-                <div
+                {{-- <div
                     class="flex items-center justify-center gap-2 whitespace-nowrap rounded-xl bg-cream py-2.5 pl-2.5 pr-4 shadow-xl shadow-black/5">
                     <svg xmlns="http://www.w3.org/2000/svg" class="scale-90 text-butter" width="24" height="24"
                         viewBox="0 0 24 24">
@@ -159,7 +168,7 @@
                         8k
                         Stars
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>

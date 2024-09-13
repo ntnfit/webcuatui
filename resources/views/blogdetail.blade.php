@@ -174,8 +174,6 @@
         </div>
         <div class="mx-auto mt-5 w-full max-w-[82.5rem] border-t border-merino">
         </div>
-        <div class="mx-auto mt-5 w-full max-w-[82.5rem] border-t border-merino">
-        </div>
         @if ($article->tags->count())
             <div class="pt-10">
                 <span class="mb-3 block font-semibold">Tags</span>
@@ -191,6 +189,4 @@
             </div>
         @endif
     </section>
-    @push('js')
-    @endpush
 </x-layouts.appclient>

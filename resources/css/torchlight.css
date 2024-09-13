@@ -160,3 +160,7 @@ button.copyBtn {
     position: absolute;
     right: 44em;
 }
+
+source_code_editor {
+    height: 500px;
+}

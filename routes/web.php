@@ -9,10 +9,6 @@ use Illuminate\Support\Facades\App;
 
 Route::view('/', 'home')->name('home');
 
-Route::view('/cong-cu', 'tools')->name('tools');
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -21,7 +17,25 @@ Route::middleware('auth')->group(function () {
     // blogs here
 
 });
-
+//
+Route::name('tools.')->prefix('cong-cu')->group(function () {
+    Route::get('/', function () {
+        return view('tools');
+    })->name('index');
+    route::get('/check-var-sao-ket', function () {
+        return view('tools.saoke');
+    })->name('saoke');
+});
+Route::name('aitools.')->prefix('ai-tool')->group(function () {
+    Route::get('/', function () {
+        return view('tools');
+    })->name('index');
+});
+Route::name('shop.')->prefix('shop')->group(function () {
+    Route::get('/', function () {
+        return view('tools');
+    })->name('index');
+});
 // Route::get('/tags/{tag:slug}', [TagController::class, 'posts'])->name('tag.post');
 Route::prefix('/blogs')->group(function () {
     Route::get('/', ListArticlesController::class)->name('blogs');

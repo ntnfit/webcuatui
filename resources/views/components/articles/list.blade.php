@@ -1,4 +1,4 @@
-<section class="mx-auto w-full max-w-8xl px-5 sm:px-10" x-cloak x-ref="section" x-init="() => {
+<section class="mx-auto w-full max-w-7xl px-4 sm:px-2 xl:px-0" x-cloak x-ref="section" x-init="() => {
     // Reset the page number on search input change
     $watch('search', (newValue, oldValue) => {
         if (newValue !== oldValue) {
@@ -124,62 +124,62 @@
     }">
     <div class="flex flex-col gap-3 pt-5 min-[900px]:flex-row min-[900px]:items-center">
         {{-- Type Toggle --}}
-        <div
-            class="relative z-10 flex h-11 select-none items-center justify-start gap-5 rounded-full bg-white px-[.55rem] text-sm font-medium shadow-lg shadow-black/[0.01]">
-            <div x-on:click="selectedType = 'all'" class="relative z-20 w-16 text-center transition duration-300"
-                :class="{
-                    'cursor-pointer text-evening/70 hover:text-evening': selectedType !== 'all',
-                    'text-salmon': selectedType === 'all',
-                }">
-                All
-            </div>
-            @foreach ($types as $type)
-                <div x-on:click="selectedType = @js($type['slug'])"
-                    class="relative z-20 flex w-20 items-center gap-2 text-center transition duration-300"
-                    :class="{
-                        'cursor-pointer text-evening/70 hover:text-evening': selectedType !== @js($type['slug']),
-                        @js(
-                            match ($type['color']) {
-                                'amber' => 'text-amber-600',
-                                'blue' => 'text-blue-600',
-                                'violet' => 'text-violet-600',
-                            }
-                        ): selectedType === @js($type['slug']),
-                    }">
-                    {!! $type['icon'] !!}
+        {{--        <div --}}
+        {{--            class="relative z-10 flex h-11 select-none items-center justify-start gap-5 rounded-full bg-white px-[.55rem] text-sm font-medium shadow-lg shadow-black/[0.01]"> --}}
+        {{--            <div x-on:click="selectedType = 'all'" class="relative z-20 w-16 text-center transition duration-300" --}}
+        {{--                 :class="{ --}}
+        {{--                    'cursor-pointer text-evening/70 hover:text-evening': selectedType !== 'all', --}}
+        {{--                    'text-salmon': selectedType === 'all', --}}
+        {{--                }"> --}}
+        {{--                All --}}
+        {{--            </div> --}}
+        {{--            @foreach ($types as $type) --}}
+        {{--                <div x-on:click="selectedType = @js($type['slug'])" --}}
+        {{--                     class="relative z-20 flex w-20 items-center gap-2 text-center transition duration-300" --}}
+        {{--                     :class="{ --}}
+        {{--                        'cursor-pointer text-evening/70 hover:text-evening': selectedType !== @js($type['slug']), --}}
+        {{--                        @js( --}}
+        {{--                            match ($type['color']) { --}}
+        {{--                                'amber' => 'text-amber-600', --}}
+        {{--                                'blue' => 'text-blue-600', --}}
+        {{--                                'violet' => 'text-violet-600', --}}
+        {{--                            } --}}
+        {{--                        ): selectedType === @js($type['slug']), --}}
+        {{--                    }"> --}}
+        {{--                    {!! $type['icon'] !!} --}}
 
-                    <div>
-                        {{ $type['name'] }}
-                    </div>
-                </div>
-            @endforeach
+        {{--                    <div> --}}
+        {{--                        {{ $type['name'] }} --}}
+        {{--                    </div> --}}
+        {{--                </div> --}}
+        {{--            @endforeach --}}
 
-            @php
-                $typeConditionalColorClasses = $types
-                    ->map(
-                        fn(array $type): string => \Illuminate\Support\Js::from(
-                            match ($type['color']) {
-                                'amber' => 'bg-amber-100/60',
-                                'blue' => 'bg-blue-100/60',
-                                'violet' => 'bg-violet-100/60',
-                            },
-                        ) .
-                            ': selectedType === ' .
-                            \Illuminate\Support\Js::from($type['slug']),
-                    )
-                    ->implode(',');
-            @endphp
+        {{--            @php --}}
+        {{--                $typeConditionalColorClasses = $types --}}
+        {{--                    ->map( --}}
+        {{--                        fn(array $type): string => \Illuminate\Support\Js::from( --}}
+        {{--                            match ($type['color']) { --}}
+        {{--                                'amber' => 'bg-amber-100/60', --}}
+        {{--                                'blue' => 'bg-blue-100/60', --}}
+        {{--                                'violet' => 'bg-violet-100/60', --}}
+        {{--                            }, --}}
+        {{--                        ) . --}}
+        {{--                            ': selectedType === ' . --}}
+        {{--                            \Illuminate\Support\Js::from($type['slug']), --}}
+        {{--                    ) --}}
+        {{--                    ->implode(','); --}}
+        {{--            @endphp --}}
 
-            <div class="absolute left-[.35rem] top-[.35rem] -z-10 h-[2.1rem] rounded-full transition duration-300 ease-out will-change-transform"
-                :class="{
-                    'bg-fair-pink w-[4.5rem]': selectedType === 'all',
-                    'translate-x-[4.5rem] w-[6.5rem]': selectedType === 'article',
-                    'translate-x-[10.7rem] w-[6rem]': selectedType === 'news',
-                    'translate-x-[17rem] w-[6rem]': selectedType === 'trick',
-                    {{ $typeConditionalColorClasses }},
-                }">
-            </div>
-        </div>
+        {{--            <div class="absolute left-[.35rem] top-[.35rem] -z-10 h-[2.1rem] rounded-full transition duration-300 ease-out will-change-transform" --}}
+        {{--                 :class="{ --}}
+        {{--                    'bg-fair-pink w-[4.5rem]': selectedType === 'all', --}}
+        {{--                    'translate-x-[4.5rem] w-[6.5rem]': selectedType === 'article', --}}
+        {{--                    'translate-x-[10.7rem] w-[6rem]': selectedType === 'news', --}}
+        {{--                    'translate-x-[17rem] w-[6rem]': selectedType === 'trick', --}}
+        {{--                    {{ $typeConditionalColorClasses }}, --}}
+        {{--                }"> --}}
+        {{--            </div> --}}
+        {{--        </div> --}}
 
         <div
             class="flex w-full flex-1 flex-wrap items-center gap-3 min-[900px]:w-auto min-[900px]:flex-nowrap min-[900px]:justify-end">
@@ -220,7 +220,7 @@
             class="flex w-full flex-wrap items-center gap-3 min-[900px]:w-auto min-[900px]:flex-nowrap min-[900px]:justify-end">
             {{-- Search Bar --}}
             <div
-                class="group/search-bar relative w-full overflow-hidden rounded-full bg-white shadow-lg shadow-black/[0.01] transition duration-200 focus-within:shadow-xl focus-within:shadow-black/[0.02] sm:max-w-xs">
+                class="group/search-bar relative w-full overflow-hidden rounded-full bg-white shadow-lg shadow-black/[0.01] border border-[#0000003e] transition duration-200 focus-within:shadow-xl focus-within:shadow-black/[0.02] sm:max-w-xs">
                 {{-- Magnify Icon --}}
                 <div
                     class="absolute left-1.5 top-1.5 grid h-8 w-8 place-items-center rounded-full bg-fair-pink text-salmon">
@@ -245,7 +245,7 @@
                     </svg>
                 </div>
                 {{-- Search Input --}}
-                <input type="text" x-model="search" placeholder="Search ..."
+                <input type="text" x-model="search" placeholder="{{ __('Search') }} ..."
                     class="w-full appearance-none border-none bg-transparent py-3 pl-12 pr-10 text-sm outline-none placeholder:transition placeholder:duration-200 focus:ring-0 group-focus-within/search-bar:placeholder:translate-x-1 group-focus-within/search-bar:placeholder:opacity-0" />
             </div>
         </div>
@@ -253,7 +253,7 @@
 
     {{-- Categories --}}
     <div class="pt-5">
-        <div class="font-semibold">Categories</div>
+        <div class="font-semibold">{{ __('Categories') }}</div>
 
         {{-- List Of Categories --}}
         <div class="flex flex-wrap gap-x-2.5 gap-y-3 pt-5">
@@ -280,17 +280,17 @@
             <div class="flex items-center justify-between px-1 py-3">
                 <div class="flex flex-1 items-center justify-between">
                     <div x-show="filteredArticles.length" class="text-sm text-gray-700">
-                        Showing
+                        {{ __('Showing') }}
                         <span class="font-extrabold" x-text="(currentPage - 1) * perPage + 1"></span>
-                        to
+                        {{ __('to') }}
                         <span class="font-extrabold" x-text="Math.min(currentPage * perPage, totalItems)"></span>
-                        of
+                        {{ __('of') }}
                         <span class="font-extrabold" x-text="totalItems"></span>
-                        results
+                        {{ __('results') }}
                     </div>
                     <div x-show="!filteredArticles.length">
                         <div class="text-sm text-gray-700">
-                            No results found
+                            {{ __('No results found') }}
                         </div>
                     </div>
                     <x-ui.pagination />
