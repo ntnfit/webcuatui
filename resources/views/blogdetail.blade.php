@@ -1,7 +1,9 @@
 <x-layouts.appclient>
+    @push('css')
+        <link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@11.9.0/styles/default.min.css">
+    @endpush
     <section x-cloak x-data="{
         back_button_is_hovering: false,
-        ,
     }" x-ref="section" x-init="() => {
         if (reducedMotion) return
         gsap.fromTo(
@@ -16,7 +18,7 @@
             },
         )
     }"
-        class="mx-auto w-full max-w-7xl px-5 xl:px-0">
+        class="mx-auto w-full max-w-8xl px-5 sm:px-10">
         <div class="flex flex-wrap items-center justify-between gap-5 pt-20">
             {{-- Back Button --}}
             <a x-on:mouseenter="back_button_is_hovering = true" x-on:mouseleave="back_button_is_hovering = false"
@@ -43,7 +45,6 @@
                 </div>
                 <div class="text-3xl font-extrabold leading-normal">
                     {{ App::getLocale() === 'vi' ? $article->title : $article->title_en ?? $article->title }}
-
                 </div>
 
                 <p>
@@ -173,6 +174,8 @@
         </div>
         <div class="mx-auto mt-5 w-full max-w-[82.5rem] border-t border-merino">
         </div>
+        <div class="mx-auto mt-5 w-full max-w-[82.5rem] border-t border-merino">
+        </div>
         @if ($article->tags->count())
             <div class="pt-10">
                 <span class="mb-3 block font-semibold">Tags</span>
@@ -180,7 +183,7 @@
                     @foreach ($article->tags as $tag)
                         {{-- <a href="{{ route('filamentblog.tag.post', ['tag' => $tag->slug]) }}" --}}
                         <a href="#"
-                            class="rounded-full border border-slate-300 px-3 py-1 text-sm font-medium text-slate-600 hover:bg-slate-100">
+                            class="rounded-full border border-slate-300 px-3 py-1 text-sm font-medium text-black text-slate-600 hover:bg-slate-100">
                             {{ $tag->name }}
                         </a>
                     @endforeach
