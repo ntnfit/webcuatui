@@ -180,7 +180,7 @@
                     @foreach ($article->tags as $tag)
                         {{-- <a href="{{ route('filamentblog.tag.post', ['tag' => $tag->slug]) }}" --}}
                         <a href="#"
-                            class="rounded-full border border-slate-300 px-3 py-1 text-sm font-medium font-medium text-black text-slate-600 hover:bg-slate-100">
+                            class="rounded-full border border-slate-300 px-3 py-1 text-sm font-medium text-slate-600 hover:bg-slate-100">
                             {{ $tag->name }}
                         </a>
                     @endforeach
