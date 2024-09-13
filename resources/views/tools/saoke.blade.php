@@ -38,10 +38,13 @@
 
     <script>
         const gridOptions = {
+            autoSizeStrategy: {
+                type: "fitCellContents",
+            },
             columnDefs: [{
                     headerName: 'Ngày GD',
                     field: 'd',
-
+                    width: 150
                 },
                 {
                     headerName: 'Mã GD',
@@ -101,7 +104,8 @@
 
                 // Update the grid data
                 gridOptions.api.setGridOption('rowData', data);
-
+                // Apply auto size strategy
+                gridOptions.api.sizeColumnsToFit();
                 document.getElementById('loading').classList.add('hidden');
             } catch (error) {
                 console.error('Error fetching search data:', error);
