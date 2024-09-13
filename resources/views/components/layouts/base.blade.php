@@ -27,7 +27,18 @@
     <meta name="msapplication-TileColor" content="#ffc40d" />
     <meta name="msapplication-config" content="/favicon/browserconfig.xml?v=w1dBNxT7Wg" />
     <meta name="theme-color" content="#ffffff" />
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D6ST66SW7Q"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
 
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-D6ST66SW7Q');
+    </script>
 
     <!-- Fonts -->
     @googlefonts
