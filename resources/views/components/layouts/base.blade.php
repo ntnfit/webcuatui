@@ -43,6 +43,7 @@
     @vite('resources/css/app.css')
 
     <!-- Scripts -->
+    @filamentScripts
     @livewireScripts
     @vite('resources/js/app.js')
     @stack('scripts')

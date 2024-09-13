@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BlogsController;
 use App\Http\Controllers\Articles\ListArticlesController;
 use App\Http\Controllers\Articles\ViewArticleController;
+use App\Http\Controllers\ToolsController;
 use Illuminate\Support\Facades\App;
 
 Route::view('/', 'home')->name('home');
@@ -25,6 +26,7 @@ Route::name('tools.')->prefix('cong-cu')->group(function () {
     route::get('/check-var-sao-ket', function () {
         return view('tools.saoke');
     })->name('saoke');
+    Route::get('/search-var', [ToolsController::class, 'search'])->name('search.var');
 });
 Route::name('aitools.')->prefix('ai-tool')->group(function () {
     Route::get('/', function () {
