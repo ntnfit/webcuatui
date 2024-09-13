@@ -13,6 +13,10 @@
     <section class="mx-auto w-full max-w-8xl px-5 sm:px-10">
         <div class="rounded-lg shadow-md">
             <h1 class="text-2xl font-bold mb-4 text-slate-800">Check var quyên góp</h1>
+            <p class="text-sm text-slate-600 mb-4">
+                Dữ liệu được lấy từ file của page: <a href="https://www.facebook.com/thongtinchinhphu/" target="_blank"
+                    class="text-blue-500 hover:text-blue-600">Thông Tin Chính Phủ</a> - từ ngày 01/09 - 10/09 năm 2024
+            </p>
             <div id="searchContainer" class="mb-6">
                 <div class="flex">
                     <input type="text" id="searchInput" placeholder="Nhập từ khóa tìm kiếm"
