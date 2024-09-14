@@ -3,34 +3,31 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\DB;
 class ToolsController extends Controller
 {
     public function search(Request $request)
     {
         $query = $request->input('query');
-        $regex = '/' . preg_quote($this->removeVietnameseTones($query)) . '/i';
-
-        $results = [];
-
-        // Path to your content JSON files
-        for ($i = 1; $i <= 11; $i++) {
-            $filePath = resource_path("content/data-{$i}.json");
-
-            if (File::exists($filePath)) {
-                $jsonContent = json_decode(File::get($filePath), true);
-                
-                $filteredData = array_filter($jsonContent, function ($item) use ($regex) {
-                    return preg_match($regex, $item['c']) || preg_match($regex, $item['no']) || preg_match($regex, $this->removeVietnameseTones($item['am']));
-                });
-
-                $results = array_merge($results, $filteredData);
-            }
-        }
-
+        $bank = $request->input('bank'); // Nhận giá trị bank từ request
+        $regex = '%' . preg_quote($this->removeVietnameseTones($query)) . '%';
+    
+        // Tìm kiếm trong bảng sao_ke với điều kiện bank
+        $results = DB::table('saoke')
+            ->where(function ($q) use ($regex) {
+                $q->where('c', 'like', $regex)
+                  ->orWhere('no', 'like', $regex)
+                  ->orWhereRaw('LOWER(am) like ?', [strtolower($regex)])
+                  ->orWhereRaw('LOWER(am) like ?', [strtolower($this->removeVietnameseTones($regex))]);
+            })
+            ->when($bank, function ($q) use ($bank) { 
+                return $q->where('bank', $bank); // Thêm điều kiện where cho cột bank nếu có giá trị
+            })
+            ->get();
+    
         return response()->json($results);
     }
-
+    
     private function removeVietnameseTones($str)
     {
         $str = preg_replace(
@@ -41,11 +38,12 @@ class ToolsController extends Controller
                 "/[ÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠ]/u", "/[ÙÚỤỦŨƯỪỨỰỬỮ]/u", "/[ỲÝỴỶỸ]/u", "/[Đ]/u"
             ], 
             [
-                'a', 'e', 'i', 'o', 'u', 'y', 'd', 'A', 'E', 'I', 'O', 'U', 'Y', 'D'
+                'a', 'e', 'i', 'o', 'u', 'y', 'd', 'A', 'E', 'I', 'O', 'u', 'Y', 'D'
             ], 
             $str
         );
-
+    
         return $str;
-    }
+    }    
+    
 }

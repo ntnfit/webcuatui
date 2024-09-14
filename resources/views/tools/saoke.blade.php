@@ -15,12 +15,16 @@
             <h1 class="text-2xl font-bold mb-4 text-slate-800">Check var quyên góp</h1>
             <p class="text-sm text-slate-600 mb-4">
                 Dữ liệu được lấy từ file của page: <a href="https://www.facebook.com/thongtinchinhphu/" target="_blank"
-                    class="text-blue-500 hover:text-blue-600">Thông Tin Chính Phủ</a> - từ ngày 01/09 - 10/09 năm 2024
+                    class="text-blue-500 hover:text-blue-600">Thông Tin Chính Phủ</a> - từ ngày 01/09 - 12/09 năm 2024
             </p>
             <div id="searchContainer" class="mb-6">
                 <div class="flex">
                     <input type="text" id="searchInput" placeholder="Nhập từ khóa tìm kiếm"
                         class="flex-grow px-4 py-2 border border-slate-300 rounded-l-md">
+                    <select id="bankSelect" class="border-slate-300 rounded-l-md px-4 py-2">
+                        <option value="vcb" selected>VCB</option>
+                        <option value="viettinbank">ViettinBank</option>
+                    </select>
                     <button id="searchButton" class="bg-blue-500 text-white px-6 py-2 rounded-r-md">Tìm kiếm</button>
                 </div>
             </div>
@@ -87,8 +91,9 @@
 
             document.getElementById('searchButton').addEventListener('click', function() {
                 const query = document.getElementById('searchInput').value;
+                const bank = document.getElementById('bankSelect').value;
                 if (query) {
-                    searchData(query);
+                    searchData(query, bank);
                 }
             });
 
@@ -99,15 +104,15 @@
             });
         });
 
-        async function searchData(query) {
+        async function searchData(query, bank) {
             document.getElementById('loading').classList.remove('hidden');
 
             try {
-                const response = await fetch('{{ route('tools.search.var') }}?query=' + query);
+                const response = await fetch(`{{ route('tools.search.var') }}?query=${query}&bank=${bank}`);
                 const data = await response.json();
 
                 // Update the grid data
-                gridOptions.api.setGridOption('rowData', data);
+                gridOptions.api.setRowData(data);
                 // Apply auto size strategy
                 gridOptions.api.sizeColumnsToFit();
                 document.getElementById('loading').classList.add('hidden');
