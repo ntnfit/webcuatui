@@ -7,6 +7,7 @@ use App\Http\Controllers\Articles\ListArticlesController;
 use App\Http\Controllers\Articles\ViewArticleController;
 use App\Http\Controllers\ToolsController;
 use Illuminate\Support\Facades\App;
+use App\Http\Controllers\SitemapController;
 
 Route::view('/', 'home')->name('home');
 
@@ -18,6 +19,10 @@ Route::middleware('auth')->group(function () {
     // blogs here
 
 });
+Route::get('/sitemap.xml', [
+    SitemapController::class, 
+    'generateSitemap'
+]);
 //
 Route::name('tools.')->prefix('cong-cu')->group(function () {
     Route::get('/', function () {
