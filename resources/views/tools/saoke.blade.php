@@ -126,7 +126,7 @@
                 // Update the grid data
                 gridOptions.api.setGridOption('rowData', data);
                 // Apply auto size strategy
-                gridOptions.api.sizeColumnsToFit();
+                // gridOptions.api.sizeColumnsToFit();
                 document.getElementById('loading').classList.add('hidden');
             } catch (error) {
                 console.error('Error fetching search data:', error);
