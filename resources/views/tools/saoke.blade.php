@@ -16,6 +16,11 @@
             <p class="text-sm text-slate-600 mb-4">
                 Dữ liệu được lấy từ file của page: <a href="https://www.facebook.com/thongtinchinhphu/" target="_blank"
                     class="text-blue-500 hover:text-blue-600">Thông Tin Chính Phủ</a> - từ ngày 01/09 - 12/09 năm 2024
+                <span class="text-red-400 italic font-bold">(* sẽ cập nhật thêm)</span>
+            </p>
+            <p class="text-blue-500 pb-4">
+                Miễn trừ trách nhiệm: Thông tin được cung c​ấp từ MTTQVN, chúng tôi chỉ XỬ LÝ DỮ LIỆU và giúp việc tìm
+                kiếm, lọc dữ liệu đơn giản hơn.
             </p>
             <div id="searchContainer" class="mb-6">
                 <!-- Select Bank nằm bên trên -->
@@ -24,17 +29,15 @@
                         hàng:</label>
                     <select id="bankSelect"
                         class="block w-full md:w-1/3 px-4 py-2 border border-slate-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                        <option value="vcb" selected>VCB</option>
+                        <option value="vcb" selected>Vietcombank</option>
                         <option value="viettinbank">ViettinBank</option>
                     </select>
                 </div>
                 <!-- Search Input và Button -->
                 <div class="flex flex-col md:flex-row">
                     <input type="text" id="searchInput" placeholder="Nhập từ khóa tìm kiếm"
-                        class="flex-grow px-4 py-2 border border-slate-300 rounded-t-md md:rounded-l-md md:rounded-t-none focus:ring-blue-500 focus:border-blue-500">
-                    <button id="searchButton"
-                        class="bg-blue-500 text-white px-6 py-2 rounded-b-md md:rounded-r-md md:rounded-b-none mt-2 md:mt-0">Tìm
-                        kiếm</button>
+                        class="flex-grow px-4 py-2 border border-slate-300 rounded-l-md">
+                    <button id="searchButton" class="bg-blue-500 text-white px-6 py-2 rounded-r-md">Tìm kiếm</button>
                 </div>
             </div>
             <div id="loading" class="hidden text-center text-sky-600 my-4">
