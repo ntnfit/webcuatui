@@ -112,7 +112,7 @@
                 const data = await response.json();
 
                 // Update the grid data
-                gridOptions.api.setRowData(data);
+                gridOptions.api.setGridOption('rowData', data);
                 // Apply auto size strategy
                 gridOptions.api.sizeColumnsToFit();
                 document.getElementById('loading').classList.add('hidden');
