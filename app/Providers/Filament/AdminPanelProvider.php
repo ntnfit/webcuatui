@@ -19,6 +19,8 @@ use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Filament\Support\Assets\Js;
 use Filament\Support\Facades\FilamentAsset;
+use Jeffgreco13\FilamentBreezy\BreezyCore;
+
 class AdminPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
@@ -55,6 +57,20 @@ class AdminPanelProvider extends PanelProvider
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
             ])
+            ->plugin(
+                BreezyCore::make()
+                ->myProfile(
+                    shouldRegisterUserMenu: true, // Sets the 'account' link in the panel User Menu (default = true)
+                    shouldRegisterNavigation: false, // Adds a main navigation item for the My Profile page (default = false)
+                    navigationGroup: 'Group Profile', // Sets the navigation group for the My Profile page (default = null)
+                    hasAvatars: false, // Enables the avatar upload form component (default = false)
+                    slug: 'my-profile' // Sets the slug for the profile page (default = 'my-profile')
+                )
+                ->enableTwoFactorAuthentication(
+                    force: false, // force the user to enable 2FA before they can use the application (default = false)
+                   // action: CustomTwoFactorPage::class // optionally, use a custom 2FA page
+                )
+            )
             ->authMiddleware([
                 Authenticate::class,
             ])->spa()->topNavigation();
