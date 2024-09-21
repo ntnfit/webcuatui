@@ -69,25 +69,8 @@
 
     {{-- Nav Links --}}
     <div class="flex items-center justify-end gap-8 font-semibold sm:gap-14">
-        <a href="{{ route('tools.index') }}" @class([
-            'group/nav-link relative hidden text-evening transition duration-300 hover:opacity-100 
-                                            focus:text-butter motion-reduce:transition-none lg:block',
-            'text-evening opacity-80' => !request()->routeIs('tools*'),
-            'text-butter' => request()->routeIs('tools*'),
-        ])>
-            <div class="gsap-fadein">Công cụ</div>
-            @if (request()->routeIs('tools*'))
-                <div class="gsap-popout absolute -bottom-4 right-1/2 translate-x-1/2">
-                    <div
-                        class="h-2 w-2 bg-butter transition duration-300 group-hover/nav-link:rotate-90
-                         group-hover/nav-link:bg-purple-400 motion-reduce:transition-none">
-                    </div>
-                </div>
-            @endif
-        </a>
-
         <a href="{{ route('shop.index') }}" @class([
-            'group/nav-link relative hidden text-evening transition duration-300 hover:opacity-100 
+            'group/nav-link relative hidden text-evening transition duration-300 hover:opacity-100
                                             focus:text-butter motion-reduce:transition-none lg:block',
             'opacity-80',
             'opacity-80' => !request()->routeIs('shop*'),
@@ -95,7 +78,7 @@
         ])>
             <div class="gsap-fadein">shop</div>
 
-            @if (request()->routeIs('plugins*'))
+            @if (request()->routeIs('shop*'))
                 <div class="gsap-popout absolute -bottom-4 right-1/2 translate-x-1/2">
                     <div
                         class="h-2 w-2 bg-butter transition duration-300 group-hover/nav-link:rotate-90 group-hover/nav-link:bg-purple-400 motion-reduce:transition-none">
@@ -134,7 +117,22 @@
                 </div>
             @endif
         </a>
-
+        <a href="{{ route('contact.index') }}" @class([
+            'group/nav-link relative hidden text-evening transition duration-300 hover:opacity-100
+                                            focus:text-butter motion-reduce:transition-none lg:block',
+            'text-evening opacity-80' => !request()->routeIs('tools*'),
+            'text-butter' => request()->routeIs('contact*'),
+        ])>
+            <div class="gsap-fadein">Liên hệ</div>
+            @if (request()->routeIs('contact*'))
+                <div class="gsap-popout absolute -bottom-4 right-1/2 translate-x-1/2">
+                    <div
+                        class="h-2 w-2 bg-butter transition duration-300 group-hover/nav-link:rotate-90
+                         group-hover/nav-link:bg-purple-400 motion-reduce:transition-none">
+                    </div>
+                </div>
+            @endif
+        </a>
         {{-- <a href="https://shop.filamentphp.com"
             class="group/nav-link relative hidden text-evening opacity-80 transition duration-300 hover:opacity-100 focus:text-butter motion-reduce:transition-none lg:block">
             <div class="gsap-fadein">Shop</div>

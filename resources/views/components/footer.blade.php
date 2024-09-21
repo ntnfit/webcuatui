@@ -34,16 +34,14 @@
                         class="p-2 transition duration-300 will-change-transform hover:translate-x-1 hover:text-black motion-reduce:transition-none motion-reduce:hover:transform-none">
                         Home
                     </a>
-
-                    <a href="{{ route('tools.index') }}"
-                        class="p-2 transition duration-300 will-change-transform hover:translate-x-1 hover:text-black motion-reduce:transition-none motion-reduce:hover:transform-none">
-                        Công cụ
-                    </a>
                     <a href="{{ route('blogs') }}"
                         class="p-2 transition duration-300 will-change-transform hover:translate-x-1 hover:text-black motion-reduce:transition-none motion-reduce:hover:transform-none">
                         blogs
                     </a>
-
+                    <a href="{{ route('contact.index') }}"
+                       class="p-2 transition duration-300 will-change-transform hover:translate-x-1 hover:text-black motion-reduce:transition-none motion-reduce:hover:transform-none">
+                        Liên hệ
+                    </a>
                 </div>
                 {{-- <div class="flex flex-col items-start gap-3 text-sm font-medium">
                     <a href="https://shop.filamentphp.com"

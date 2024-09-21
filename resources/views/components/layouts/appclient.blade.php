@@ -34,34 +34,6 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('tools.index') }}" @class([
-                    'group/sidebar-link block w-full rounded-lg px-4 py-2 transition duration-300',
-                    'font-medium hover:bg-merino',
-                    'bg-merino font-black',
-                ])>
-                    <div @class([
-                        'transition duration-300',
-                        'group-hover/sidebar-link:translate-x-1',
-                    ])>
-                        Bài viết
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="#" @class([
-                    'group/sidebar-link block w-full rounded-lg px-4 py-2 transition duration-300',
-                    'font-medium hover:bg-merino',
-                    'bg-merino font-black',
-                ])>
-                    <div @class([
-                        'transition duration-300',
-                        'group-hover/sidebar-link:translate-x-1' => !request()->routeIs('plugins*'),
-                    ])>
-                        Plugins
-                    </div>
-                </a>
-            </li>
-            <li>
                 <a href="{{ route('blogs') }}" @class([
                     'group/sidebar-link block w-full rounded-lg px-4 py-2 transition duration-300',
                     'font-medium hover:bg-merino',
@@ -76,26 +48,30 @@
                 </a>
             </li>
             <li>
-                <a target="_blank" href="https://status.filamentphp.com"
-                    class="group/sidebar-link block w-full rounded-lg px-4 py-2 font-medium transition duration-300 hover:bg-merino">
-                    <div class="transition duration-300 group-hover/sidebar-link:translate-x-1">
-                        Status
+                <a href="{{ route('aitools.index') }}" @class([
+                    'group/sidebar-link block w-full rounded-lg px-4 py-2 transition duration-300',
+                    'font-medium hover:bg-merino',
+                    'bg-merino font-black',
+                ])>
+                    <div @class([
+                        'transition duration-300',
+                        'group-hover/sidebar-link:translate-x-1' => !request()->routeIs('plugins*'),
+                    ])>
+                        AI tools
                     </div>
                 </a>
             </li>
             <li>
-                <a target="_blank" href="https://github.com/filamentphp/filament/discussions/new"
-                    class="group/sidebar-link block w-full rounded-lg px-4 py-2 font-medium transition duration-300 hover:bg-merino">
-                    <div class="transition duration-300 group-hover/sidebar-link:translate-x-1">
-                        Help
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="https://github.com/filamentphp/filament?sponsor=1"
-                    class="group/sidebar-link block w-full rounded-lg px-4 py-2 font-medium transition duration-300 hover:bg-merino">
-                    <div class="transition duration-300 group-hover/sidebar-link:translate-x-1">
-                        Sponsor
+                <a href="{{ route('contact.index') }}" @class([
+                    'group/sidebar-link block w-full rounded-lg px-4 py-2 transition duration-300',
+                    'font-medium hover:bg-merino',
+                    'bg-merino font-black',
+                ])>
+                    <div @class([
+                        'transition duration-300',
+                        'group-hover/sidebar-link:translate-x-1',
+                    ])>
+                        Liên hệ
                     </div>
                 </a>
             </li>

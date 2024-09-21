@@ -20,13 +20,13 @@ Route::middleware('auth')->group(function () {
 
 });
 Route::get('/sitemap.xml', [
-    SitemapController::class, 
+    SitemapController::class,
     'generateSitemap'
 ]);
 //
-Route::name('tools.')->prefix('cong-cu')->group(function () {
+Route::name('contact.')->prefix('lien-he')->group(function () {
     Route::get('/', function () {
-        return view('tools');
+        return view('contact');
     })->name('index');
     route::get('/check-var-sao-ke', function () {
         return view('tools.saoke');
@@ -35,12 +35,12 @@ Route::name('tools.')->prefix('cong-cu')->group(function () {
 });
 Route::name('aitools.')->prefix('ai-tool')->group(function () {
     Route::get('/', function () {
-        return view('tools');
+        return view('aitools');
     })->name('index');
 });
 Route::name('shop.')->prefix('shop')->group(function () {
     Route::get('/', function () {
-        return view('tools');
+        return view('contact');
     })->name('index');
 });
 // Route::get('/tags/{tag:slug}', [TagController::class, 'posts'])->name('tag.post');
