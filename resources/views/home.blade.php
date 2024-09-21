@@ -1,8 +1,8 @@
 @php
     seo()
         ->image(asset('images/og.jpg'))
-        ->description('website chia sẻ kinh nghiệp về SAP B1/ERP')
-        ->title('SAP B1/ERP')
+        ->description('website chia sẻ kinh nghiệm về SAP Business One(SAP B1),SAP S4HANA,SAP BTP, Webapp,ERP và các công nghệ')
+        ->title('SAP Business One(SAP B1) | SAP S4HANA | Webapp | ERP | HarryDev')
         ->twitterImage(asset('images/og.jpg'))
         ->url(url()->current());
 
