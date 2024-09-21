@@ -168,7 +168,7 @@
                     {{-- More From This Author --}}
                     <div class="mx-auto w-full">
                         <div class="text-lg font-extrabold">
-                            {{ __('More from this author') }}
+                            Bài viết Gần đây
                         </div>
 
                         <div class="w-full space-y-5 pt-7">

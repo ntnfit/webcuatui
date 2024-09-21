@@ -52,8 +52,8 @@ class ViewArticleController extends Controller
             'color' => 'violet',
         ],
     ]);
-$type=showBadgeType($blogs->type);
-        $mostBlog= blogs::query()->orderBy('id','desc')->limit(10)->get();
+    $type=showBadgeType($blogs->type);
+        $mostBlog= blogs::query()->orderBy('id','desc')->inRandomOrder()->limit(10)->get();
         return view('blogdetail', ['article' => $blogs,'mostBlogs'=>$mostBlog,'type'=>  $type]);
     }
 }
