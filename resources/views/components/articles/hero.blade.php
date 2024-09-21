@@ -62,7 +62,7 @@
             <div class="flex items-start gap-3">
                 {{-- Title --}}
                 <div class="text-5xl font-black" x-ref="plugins">
-                    {{ __('Content') }}
+                    {{ __('Nội dung') }}
                 </div>
 
                 {{-- Star --}}
@@ -76,7 +76,7 @@
 
             {{-- Message --}}
             <div x-ref="message" class="w-[23rem] pt-10 text-lg font-medium text-dolphin">
-                {{ __('A collection of articles written by the TSC team.') }}
+              Vài dòng chia sẻ của tớ.
             </div>
 
             {{-- Stats --}}
