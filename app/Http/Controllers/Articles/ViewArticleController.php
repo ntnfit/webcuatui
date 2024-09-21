@@ -13,6 +13,10 @@ class ViewArticleController extends Controller
             ->title("{$blogs->title} by {$blogs->user->name}")
             ->description($blogs->title)
             ->image($blogs->featurePhoto)
+            ->keywords('SAP Business One, SAP S4HANA, Webapp, ERP,
+        Oracle Netsuite, SAP B1, SAP BTP, SAP ABAP, SAP Fiori, SAP UI5, SAP HANA,
+        Dịch vụ vận hành SAP B1, Quản trị hệ thống SAP B1, Dịch vụ tư vấn SAP B1, Dịch vụ tư vấn SAP S4HANA, Dịch vụ tư vấn Webapp, Dịch vụ tư vấn ERP, Dịch vụ tư vấn Oracle Netsuite, Dịch vụ tư vấn SAP BTP, Dịch vụ tư vấn SAP ABAP,
+      ,Gia hạn license SAP B1,Dịch vụ tư vấn SAP HANA')
             // ->image('https://previewlinks.io/generate/templates/1055/meta?url=' . url()->current())
             ->tag('previewlinks:overline', 'Filament')
             ->tag('previewlinks:title', $blogs->title)
