@@ -34,5 +34,19 @@ return [
             'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
         ],
     ],
-
+    'google' => [
+        'client_id'     => env('GOOGLE_CLIENT_ID'),
+        'client_secret' => env('GOOGLE_CLIENT_SECRET'),
+        'redirect'      => env('GOOGLE_REDIRECT_URL')
+    ],
+    'github' => [
+        'client_id' => env('GITHUB_ID'),
+        'client_secret' => env('GITHUB_SECRET'),
+        'redirect' => env('GITHUB_URL'),
+    ],
+    'linkedin-openid' => [
+        'client_id' =>  env('linkedin_ID'),
+        'client_secret' => env('linkedin_SECRET'),
+        'redirect' => env('linkedin_URL'),
+    ],
 ];

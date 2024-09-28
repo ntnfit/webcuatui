@@ -11,7 +11,7 @@ use App\Http\Controllers\SitemapController;
 
 Route::view('/', 'home')->name('home');
 
-
+require_once __DIR__ . '/auth.php';
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -43,6 +43,9 @@ Route::name('shop.')->prefix('shop')->group(function () {
         return view('contact');
     })->name('index');
 });
+
+
+
 // Route::get('/tags/{tag:slug}', [TagController::class, 'posts'])->name('tag.post');
 Route::prefix('/blogs')->group(function () {
     Route::get('/', ListArticlesController::class)->name('blogs');
@@ -50,6 +53,8 @@ Route::prefix('/blogs')->group(function () {
 Route::name('admin.')->prefix('/{blogs:slug}')->group(function () {
     Route::get('/', ViewArticleController::class)->name('post.show');
 });
+
+
 
 
 
