@@ -3,6 +3,7 @@
 namespace App\Models;
 
 
+use App\Forms\Components\CKEditor;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\FileUpload;
@@ -25,6 +26,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Filament\Forms\Components\Tabs;
 use Illuminate\Support\Str;
+use AmidEsfahani\FilamentTinyEditor\TinyEditor;
+use App\Forms\Components\NEditor;
 class blogs extends Model
 {
     use HasFactory;
@@ -40,7 +43,7 @@ class blogs extends Model
     {
         return $this->belongsToMany(Category::class, 'category_post', 'post_id', 'category_id');
     }
-   
+
     public function tags(): BelongsToMany
     {
         return $this->belongsToMany(Tag::class,'post_tag','post_id','tag_id');
@@ -140,13 +143,25 @@ class blogs extends Model
                                     Textarea::make('sub_title')
                                         ->maxLength(255)
                                         ->columnSpanFull(),
-                                    TiptapEditor::make('body')
-                                        ->profile('default')
-                                        ->disableFloatingMenus()
-                                        ->extraInputAttributes(['style' => 'max-height: 30rem; min-height: 24rem','source_code_editor'])
-                                        ->output(TiptapOutput::Html)
-                                        ->required()
-                                        ->columnSpanFull(),
+//                                    TiptapEditor::make('body')
+//                                        ->profile('default')
+//                                        ->disableFloatingMenus()
+//                                        ->extraInputAttributes(['style' => 'max-height: 30rem; min-height: 24rem','source_code_editor'])
+//                                        ->output(TiptapOutput::Html)
+//                                        ->required()
+//                                        ->columnSpanFull(),
+                                   TinyEditor::make('body')
+                                       ->fileAttachmentsDisk('public')
+                                       ->fileAttachmentsVisibility('public')
+                                       ->fileAttachmentsDirectory('uploads')
+                                       ->profile('full')
+                                       ->ltr() // Set RTL or use ->direction('auto|rtl|ltr')
+                                       ->columnSpan('full')
+                                       ->required(),
+                                // NEditor::make('body')
+
+                                //     ->required(),
+
                                 ]),
                             Tabs\Tab::make('Enghlish')
                                 ->schema([
@@ -231,10 +246,10 @@ class blogs extends Model
     {
         return 'posts';
     }
-    
+
     public function getDataArray(): array
     {
-      
+
         return [
             'id' => $this->slug,
             'title' => $this->title,

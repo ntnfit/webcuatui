@@ -18,7 +18,9 @@ use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Filament\Support\Assets\Js;
+use Filament\Support\Assets\Css;
 use Filament\Support\Facades\FilamentAsset;
+use Illuminate\Support\Facades\Vite;
 use Jeffgreco13\FilamentBreezy\BreezyCore;
 
 class AdminPanelProvider extends PanelProvider
@@ -75,5 +77,12 @@ class AdminPanelProvider extends PanelProvider
                 Authenticate::class,
             ])->spa()->topNavigation();
     }
-
+ public function boot(): void
+ {
+     FilamentAsset::register([
+         Css::make('ckeditor5', 'https://cdn.ckeditor.com/ckeditor5/43.2.0/ckeditor5.css'),
+//         Js::make('ckeditor5', 'https://cdn.ckeditor.com/ckeditor5/43.2.0/ckeditor5.js'),
+//         Js::make('ckeditor5/', 'https://cdn.ckeditor.com/ckeditor5/43.2.0/'),
+     ]);
+ }
 }
