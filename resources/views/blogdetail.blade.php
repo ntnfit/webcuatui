@@ -188,7 +188,7 @@
                         </div>
 
                         <div class="w-full space-y-5 pt-7">
-                            @foreach ($mostBlogs->take(3) as $otherArticle)
+                            @foreach ($mostBlogs->take(10) as $otherArticle)
                                 <a href="{{ route('admin.post.show', ['blogs' => $otherArticle]) }}"
                                     class="relative block w-full rounded-2xl bg-white px-5 py-3 shadow-lg shadow-hurricane/5 transition duration-300 ease-out will-change-transform hover:translate-x-2">
                                     <div class="flex w-full items-center justify-between gap-5">
