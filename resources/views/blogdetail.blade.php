@@ -97,7 +97,7 @@
                          p-code:bg-merino
                          prose-code:px-1.5 prose-code:py-0.5
                          prose-code:font-normal prose-code:before:hidden
-                         prose-code:after:hidden [&_p]:before:hidden [&_p]:after:hidden  [&_code:not([class])]:bg-merino">
+                         prose-code:after:hidden [&_p]:before:hidden [&_p]:after:hidden ">
                         {!! App::getLocale() === 'vi' ? $article->body : $article->body_en ?? $article->body !!}
 
                     </div>
@@ -112,22 +112,37 @@
                         <!-- Icons -->
                         <div class="flex space-x-2">
                             <!-- Facebook Icon -->
-                            <a href="https://www.facebook.com/sharer/sharer.php?u={{ url()->current()}}" target="_blank" class="text-blue-600 hover:text-blue-800">
-                                <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M20 1C21.6569 1 23 2.34315 23 4V20C23 21.6569 21.6569 23 20 23H4C2.34315 23 1 21.6569 1 20V4C1 2.34315 2.34315 1 4 1H20ZM20 3C20.5523 3 21 3.44772 21 4V20C21 20.5523 20.5523 21 20 21H15V13.9999H17.0762C17.5066 13.9999 17.8887 13.7245 18.0249 13.3161L18.4679 11.9871C18.6298 11.5014 18.2683 10.9999 17.7564 10.9999H15V8.99992C15 8.49992 15.5 7.99992 16 7.99992H18C18.5523 7.99992 19 7.5522 19 6.99992V6.31393C19 5.99091 18.7937 5.7013 18.4813 5.61887C17.1705 5.27295 16 5.27295 16 5.27295C13.5 5.27295 12 6.99992 12 8.49992V10.9999H10C9.44772 10.9999 9 11.4476 9 11.9999V12.9999C9 13.5522 9.44771 13.9999 10 13.9999H12V21H4C3.44772 21 3 20.5523 3 20V4C3 3.44772 3.44772 3 4 3H20Z"></path>
+                            <a href="https://www.facebook.com/sharer/sharer.php?u={{ url()->current() }}"
+                                target="_blank" class="text-blue-600 hover:text-blue-800">
+                                <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M20 1C21.6569 1 23 2.34315 23 4V20C23 21.6569 21.6569 23 20 23H4C2.34315 23 1 21.6569 1 20V4C1 2.34315 2.34315 1 4 1H20ZM20 3C20.5523 3 21 3.44772 21 4V20C21 20.5523 20.5523 21 20 21H15V13.9999H17.0762C17.5066 13.9999 17.8887 13.7245 18.0249 13.3161L18.4679 11.9871C18.6298 11.5014 18.2683 10.9999 17.7564 10.9999H15V8.99992C15 8.49992 15.5 7.99992 16 7.99992H18C18.5523 7.99992 19 7.5522 19 6.99992V6.31393C19 5.99091 18.7937 5.7013 18.4813 5.61887C17.1705 5.27295 16 5.27295 16 5.27295C13.5 5.27295 12 6.99992 12 8.49992V10.9999H10C9.44772 10.9999 9 11.4476 9 11.9999V12.9999C9 13.5522 9.44771 13.9999 10 13.9999H12V21H4C3.44772 21 3 20.5523 3 20V4C3 3.44772 3.44772 3 4 3H20Z">
+                                    </path>
                                 </svg>
                             </a>
                             <!-- X (formerly Twitter) Icon -->
-                            <a href="http://twitter.com/share?text={{$article->slug}}&amp;url={{ url()->current()}}" target="_blank" class="text-black hover:text-gray-700">
-                                <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" image-rendering="optimizeQuality" fill-rule="evenodd" clip-rule="evenodd" viewBox="0 0 512 512">
-                                    <path d="M256 0c141.385 0 256 114.615 256 256S397.385 512 256 512 0 397.385 0 256 114.615 0 256 0z" />
-                                    <path fill="#fff" fill-rule="nonzero" d="M318.64 157.549h33.401l-72.973 83.407 85.85 113.495h-67.222l-52.647-68.836-60.242 68.836h-33.423l78.052-89.212-82.354-107.69h68.924l47.59 62.917 55.044-62.917zm-11.724 176.908h18.51L205.95 176.493h-19.86l120.826 157.964z" />
+                            <a href="http://twitter.com/share?text={{ $article->slug }}&amp;url={{ url()->current() }}"
+                                target="_blank" class="text-black hover:text-gray-700">
+                                <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg"
+                                    shape-rendering="geometricPrecision" text-rendering="geometricPrecision"
+                                    image-rendering="optimizeQuality" fill-rule="evenodd" clip-rule="evenodd"
+                                    viewBox="0 0 512 512">
+                                    <path
+                                        d="M256 0c141.385 0 256 114.615 256 256S397.385 512 256 512 0 397.385 0 256 114.615 0 256 0z" />
+                                    <path fill="#fff" fill-rule="nonzero"
+                                        d="M318.64 157.549h33.401l-72.973 83.407 85.85 113.495h-67.222l-52.647-68.836-60.242 68.836h-33.423l78.052-89.212-82.354-107.69h68.924l47.59 62.917 55.044-62.917zm-11.724 176.908h18.51L205.95 176.493h-19.86l120.826 157.964z" />
                                 </svg>
                             </a>
                             <!-- Email Icon -->
-                            <a href="mailto:?subject={{$article->slug}}&amp;body={{ url()->current()}}" target="_blank" class="text-pink-500 hover:text-pink-700">
-                                <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M10 19H6.2C5.0799 19 4.51984 19 4.09202 18.782C3.71569 18.5903 3.40973 18.2843 3.21799 17.908C3 17.4802 3 16.9201 3 15.8V8.2C3 7.0799 3 6.51984 3.21799 6.09202C3.40973 5.71569 3.71569 5.40973 4.09202 5.21799C4.51984 5 5.0799 5 6.2 5H17.8C18.9201 5 19.4802 5 19.908 5.21799C20.2843 5.40973 20.5903 5.71569 20.782 6.09202C21 6.51984 21 7.0799 21 8.2V10M20.6067 8.26229L15.5499 11.6335C14.2669 12.4888 13.6254 12.9165 12.932 13.0827C12.3192 13.2295 11.6804 13.2295 11.0677 13.0827C10.3743 12.9165 9.73279 12.4888 8.44975 11.6335L3.14746 8.09863M14 21L16.025 20.595C16.2015 20.5597 16.2898 20.542 16.3721 20.5097C16.4452 20.4811 16.5147 20.4439 16.579 20.399C16.6516 20.3484 16.7152 20.2848 16.8426 20.1574L21 16C21.5523 15.4477 21.5523 14.5523 21 14C20.4477 13.4477 19.5523 13.4477 19 14L14.8426 18.1574C14.7152 18.2848 14.6516 18.3484 14.601 18.421C14.5561 18.4853 14.5189 18.5548 14.4903 18.6279C14.458 18.7102 14.4403 18.7985 14.405 18.975L14 21Z" stroke="#1E88E5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <a href="mailto:?subject={{ $article->slug }}&amp;body={{ url()->current() }}"
+                                target="_blank" class="text-pink-500 hover:text-pink-700">
+                                <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M10 19H6.2C5.0799 19 4.51984 19 4.09202 18.782C3.71569 18.5903 3.40973 18.2843 3.21799 17.908C3 17.4802 3 16.9201 3 15.8V8.2C3 7.0799 3 6.51984 3.21799 6.09202C3.40973 5.71569 3.71569 5.40973 4.09202 5.21799C4.51984 5 5.0799 5 6.2 5H17.8C18.9201 5 19.4802 5 19.908 5.21799C20.2843 5.40973 20.5903 5.71569 20.782 6.09202C21 6.51984 21 7.0799 21 8.2V10M20.6067 8.26229L15.5499 11.6335C14.2669 12.4888 13.6254 12.9165 12.932 13.0827C12.3192 13.2295 11.6804 13.2295 11.0677 13.0827C10.3743 12.9165 9.73279 12.4888 8.44975 11.6335L3.14746 8.09863M14 21L16.025 20.595C16.2015 20.5597 16.2898 20.542 16.3721 20.5097C16.4452 20.4811 16.5147 20.4439 16.579 20.399C16.6516 20.3484 16.7152 20.2848 16.8426 20.1574L21 16C21.5523 15.4477 21.5523 14.5523 21 14C20.4477 13.4477 19.5523 13.4477 19 14L14.8426 18.1574C14.7152 18.2848 14.6516 18.3484 14.601 18.421C14.5561 18.4853 14.5189 18.5548 14.4903 18.6279C14.458 18.7102 14.4403 18.7985 14.405 18.975L14 21Z"
+                                        stroke="#1E88E5" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round"></path>
                                 </svg>
                             </a>
                         </div>
@@ -137,10 +152,11 @@
                     <div class="relative flex w-full max-w-lg">
                         <!-- Link Input -->
                         <input type="text" id="linkInput" value="{{ url()->current() }}"
-                               class="flex-grow rounded-l-md border border-gray-300 px-4 py-4 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 pr-16" readonly />
+                            class="flex-grow rounded-l-md border border-gray-300 px-4 py-4 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 pr-16"
+                            readonly />
                         <!-- Copy Button -->
                         <button id="copyButton" onclick="copyToClipboard()"
-                                class="absolute right-1 top-1 bottom-1 bg-purple-500 px-4 py-2 text-white hover:bg-purple-700
+                            class="absolute right-1 top-1 bottom-1 bg-purple-500 px-4 py-2 text-white hover:bg-purple-700
         focus:outline-none focus:ring-2 focus:ring-purple-500 rounded-md">
                             sao chép
                         </button>
@@ -236,28 +252,31 @@
         @endif
 
     </section>
-        <script>
-            function copyToClipboard() {
-                // Lấy giá trị của input
-                var copyText = document.getElementById("linkInput");
+    <script>
+        hljs.highlightAll();
+    </script>
+    <script>
+        function copyToClipboard() {
+            // Lấy giá trị của input
+            var copyText = document.getElementById("linkInput");
 
-                // Chọn toàn bộ nội dung của input
-                copyText.select();
-                copyText.setSelectionRange(0, 99999); // Đảm bảo cho các thiết bị di động
+            // Chọn toàn bộ nội dung của input
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); // Đảm bảo cho các thiết bị di động
 
-                // Thực hiện copy đến clipboard
-                navigator.clipboard.writeText(copyText.value).then(function() {
-                    // Thay đổi văn bản nút
-                    var copyButton = document.getElementById("copyButton");
-                    copyButton.textContent = "Đã sao chép";
+            // Thực hiện copy đến clipboard
+            navigator.clipboard.writeText(copyText.value).then(function() {
+                // Thay đổi văn bản nút
+                var copyButton = document.getElementById("copyButton");
+                copyButton.textContent = "Đã sao chép";
 
-                    // Đặt lại văn bản nút sau 2 giây
-                    setTimeout(function() {
-                        copyButton.textContent = "sao chép";
-                    }, 2000);
-                }).catch(function(error) {
-                    console.error("Không thể sao chép: ", error);
-                });
-            }
-        </script>
+                // Đặt lại văn bản nút sau 2 giây
+                setTimeout(function() {
+                    copyButton.textContent = "sao chép";
+                }, 2000);
+            }).catch(function(error) {
+                console.error("Không thể sao chép: ", error);
+            });
+        }
+    </script>
 </x-layouts.appclient>
