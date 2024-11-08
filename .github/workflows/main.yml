@@ -4,27 +4,27 @@ on :
   push:
     branches: [master]
 
-  jobs: 
-    deploy:
-     runs on : ubuntu-latest
-     steps:
-      - name: deploye ssh vps
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{secrets.HOST_WEB}}
-          username: ${{secrets.USER_NAME}}
-          password: ${{secrets.PASSWORD}}
-          port: 22
-          script: |
-            cd /home/flashvps/toilamerp.com
-            sudo git reset --hard
-            sudo git pull
-            sudo npm install
-            sudo composer install
-            sudo npm run build
-            sudo php artisan optimize:clear
-            sudo php artisan config:clear
-            sudo php artisan optimize
+jobs: 
+  deploy:
+   runs-on : ubuntu-latest
+   steps:
+    - name: deploye ssh vps
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{secrets.HOST_WEB}}
+        username: ${{secrets.USER_NAME}}
+        password: ${{secrets.PASSWORD}}
+        port: 22
+        script: |
+          cd /home/flashvps/toilamerp.com
+          sudo git reset --hard
+          sudo git pull
+          sudo npm install
+          sudo composer install
+          sudo npm run build
+          sudo php artisan optimize:clear
+          sudo php artisan config:clear
+          sudo php artisan optimize
           
           
         
