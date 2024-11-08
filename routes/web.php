@@ -45,6 +45,9 @@ Route::name('shop.')->prefix('shop')->group(function () {
 });
 
 
+Route::get ('/test', function(){
+    return view('test');
+});
 
 // Route::get('/tags/{tag:slug}', [TagController::class, 'posts'])->name('tag.post');
 Route::prefix('/blogs')->group(function () {
