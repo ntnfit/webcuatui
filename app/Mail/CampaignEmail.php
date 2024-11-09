@@ -16,7 +16,7 @@ class CampaignEmail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct(private string $toEamil = '')
     {
         //
     }
@@ -27,6 +27,7 @@ class CampaignEmail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
+            to: $this->toEamil,
             subject: 'Sự kiện đăng kí dùng thử SAP miễn phí',
         );
     }

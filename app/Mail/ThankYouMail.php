@@ -16,7 +16,7 @@ class ThankYouMail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct(private string $toEamil = '')
     {
         //
     }
@@ -27,6 +27,7 @@ class ThankYouMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
+            to: $this->toEamil,
             subject: 'Cảm ơn bạn đã liên hệ!',
         );
     }

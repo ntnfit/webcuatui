@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Contacts;
-use App\Jobs\SendThankYouEmail;
+use App\Mail\ThankYouMail;
+use Illuminate\Support\Facades\Mail;
+
 class ContactController extends Controller
 {
     public function store(Request $request)
@@ -23,7 +25,7 @@ class ContactController extends Controller
         ]);
 
         // Send email
-         SendThankYouEmail::dispatch($request->email);
+        Mail::queue(new ThankYouMail($request->email));
         return redirect()->back()->with('success', 'Thông tin của bạn đã được gửi thành công. Chúng tôi sẽ liên hệ lại sớm nhất!');
     }
 }

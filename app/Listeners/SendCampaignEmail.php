@@ -26,9 +26,7 @@ class SendCampaignEmail
     {
         $subscribers = Contacts::all();
         foreach ($subscribers as $subscriber) {
-            //logging the email
-            // Log::info('Sending email to ' . $subscriber->email);
-            Mail::queue(new CampaignEmail( $subscriber->email));
+            Mail::queue(new CampaignEmail($subscriber->email));
         }
     }
 }
