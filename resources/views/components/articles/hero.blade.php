@@ -1,4 +1,4 @@
-git<div class="relative flex max-w-screen-lg items-start gap-10 md:gap-20 min-[840px]:justify-between">
+<div class="relative flex max-w-screen-lg items-start gap-10 md:gap-20 min-[840px]:justify-between">
         {{-- Left Side --}}
         <div x-data="{}" x-init="() => {
             if (reducedMotion) return
