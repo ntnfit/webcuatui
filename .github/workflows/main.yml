@@ -21,6 +21,7 @@ jobs:
           sudo git pull
           sudo npm install
           sudo composer install
+          sudo php artisan migrate
           sudo npm run build
           sudo php artisan optimize:clear
           sudo php artisan config:clear
