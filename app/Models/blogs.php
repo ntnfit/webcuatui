@@ -27,7 +27,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Filament\Forms\Components\Tabs;
 use Illuminate\Support\Str;
 use AmidEsfahani\FilamentTinyEditor\TinyEditor;
-use App\Forms\Components\NEditor;
+//use App\Forms\Components\NEditor;
 class blogs extends Model
 {
     use HasFactory;
@@ -158,9 +158,6 @@ class blogs extends Model
                                         ->ltr() // Set RTL or use ->direction('auto|rtl|ltr')
                                         ->columnSpan('full')
                                         ->required(),
-                                NEditor::make('body')
-                                    ->required(),
-
                                 ]),
                             Tabs\Tab::make('Enghlish')
                                 ->schema([
