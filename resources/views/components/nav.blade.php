@@ -69,23 +69,23 @@
 
     {{-- Nav Links --}}
     <div class="flex items-center justify-end gap-8 font-semibold sm:gap-14">
-        <a href="{{ route('shop.index') }}" @class([
-            'group/nav-link relative hidden text-evening transition duration-300 hover:opacity-100
-                                            focus:text-butter motion-reduce:transition-none lg:block',
-            'opacity-80',
-            'opacity-80' => !request()->routeIs('shop*'),
-            'font-bold' => request()->routeIs('shop*'),
-        ])>
-            <div class="gsap-fadein">shop</div>
+{{--        <a href="{{ route('shop.index') }}" @class([--}}
+{{--            'group/nav-link relative hidden text-evening transition duration-300 hover:opacity-100--}}
+{{--                                            focus:text-butter motion-reduce:transition-none lg:block',--}}
+{{--            'opacity-80',--}}
+{{--            'opacity-80' => !request()->routeIs('shop*'),--}}
+{{--            'font-bold' => request()->routeIs('shop*'),--}}
+{{--        ])>--}}
+{{--            <div class="gsap-fadein">shop</div>--}}
 
-            @if (request()->routeIs('shop*'))
-                <div class="gsap-popout absolute -bottom-4 right-1/2 translate-x-1/2">
-                    <div
-                        class="h-2 w-2 bg-butter transition duration-300 group-hover/nav-link:rotate-90 group-hover/nav-link:bg-purple-400 motion-reduce:transition-none">
-                    </div>
-                </div>
-            @endif
-        </a>
+{{--            @if (request()->routeIs('shop*'))--}}
+{{--                <div class="gsap-popout absolute -bottom-4 right-1/2 translate-x-1/2">--}}
+{{--                    <div--}}
+{{--                        class="h-2 w-2 bg-butter transition duration-300 group-hover/nav-link:rotate-90 group-hover/nav-link:bg-purple-400 motion-reduce:transition-none">--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            @endif--}}
+{{--        </a>--}}
 
         <a href="{{ route('blogs') }}" @class([
             'group/nav-link relative hidden text-evening transition duration-300 hover:opacity-100 focus:text-butter motion-reduce:transition-none lg:block',
@@ -103,20 +103,20 @@
             @endif
         </a>
 
-        <a href="{{ route('aitools.index') }}" @class([
-            'group/nav-link relative hidden text-evening transition duration-300 hover:opacity-100 focus:text-butter motion-reduce:transition-none lg:block',
-            'opacity-80' => !request()->routeIs('aitools*'),
-            'font-bold' => request()->routeIs('aitools*'),
-        ])>
-            <div class="gsap-fadein">AI Tools</div>
-            @if (request()->routeIs('aitools*'))
-                <div class="gsap-popout absolute -bottom-4 right-1/2 translate-x-1/2">
-                    <div
-                        class="h-2 w-2 bg-butter transition duration-300 group-hover/nav-link:rotate-90 group-hover/nav-link:bg-purple-400 motion-reduce:transition-none">
-                    </div>
-                </div>
-            @endif
-        </a>
+{{--        <a href="{{ route('aitools.index') }}" @class([--}}
+{{--            'group/nav-link relative hidden text-evening transition duration-300 hover:opacity-100 focus:text-butter motion-reduce:transition-none lg:block',--}}
+{{--            'opacity-80' => !request()->routeIs('aitools*'),--}}
+{{--            'font-bold' => request()->routeIs('aitools*'),--}}
+{{--        ])>--}}
+{{--            <div class="gsap-fadein">AI Tools</div>--}}
+{{--            @if (request()->routeIs('aitools*'))--}}
+{{--                <div class="gsap-popout absolute -bottom-4 right-1/2 translate-x-1/2">--}}
+{{--                    <div--}}
+{{--                        class="h-2 w-2 bg-butter transition duration-300 group-hover/nav-link:rotate-90 group-hover/nav-link:bg-purple-400 motion-reduce:transition-none">--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            @endif--}}
+{{--        </a>--}}
         <a href="{{ route('contact.index') }}" @class([
             'group/nav-link relative hidden text-evening transition duration-300 hover:opacity-100
                                             focus:text-butter motion-reduce:transition-none lg:block',

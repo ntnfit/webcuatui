@@ -8,6 +8,7 @@ use App\Http\Controllers\Articles\ViewArticleController;
 use App\Http\Controllers\ToolsController;
 use Illuminate\Support\Facades\App;
 use App\Http\Controllers\SitemapController;
+use App\Http\Controllers\ContactController;
 
 Route::view('/', 'home')->name('home');
 
@@ -28,6 +29,7 @@ Route::name('contact.')->prefix('lien-he')->group(function () {
     Route::get('/', function () {
         return view('contact');
     })->name('index');
+    Route::post('/contact', [ContactController::class, 'store'])->name('store');
     route::get('/check-var-sao-ke', function () {
         return view('tools.saoke');
     })->name('saoke');
