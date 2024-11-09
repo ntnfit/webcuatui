@@ -58,7 +58,7 @@ class ContactsResource extends Resource
                 TextColumn::make('topic')
                     ->label('Topic')
                     ->searchable(),
-                TextColumn::make('company')
+                TextColumn::make('company_name')
                     ->label('Company')
                     ->searchable(),
                 TextColumn::make('message')
