@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\contacts;
+use App\Models\Contacts;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 class ContactReason extends Model
 {
@@ -13,6 +13,6 @@ class ContactReason extends Model
 
     public function contacts():HasMany
     {
-        return $this->hasMany(contacts::class, 'contact_reason_id');
+        return $this->hasMany(Contacts::class, 'contact_reason_id');
     }
 }
