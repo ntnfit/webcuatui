@@ -44,7 +44,7 @@ class ContactsResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->query(Contact::with('contactReason')->orderBy('created_at', 'desc'))
+            ->query(Contacts::with('contactReason')->orderBy('created_at', 'desc'))
             ->columns([
                 TextColumn::make('full_name')
                     ->label('Full Name')
