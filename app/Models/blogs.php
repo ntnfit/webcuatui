@@ -150,14 +150,14 @@ class blogs extends Model
 //                                        ->output(TiptapOutput::Html)
 //                                        ->required()
 //                                        ->columnSpanFull(),
-                                //    TinyEditor::make('body')
-                                //        ->fileAttachmentsDisk('public')
-                                //        ->fileAttachmentsVisibility('public')
-                                //        ->fileAttachmentsDirectory('uploads')
-                                //        ->profile('full')
-                                //        ->ltr() // Set RTL or use ->direction('auto|rtl|ltr')
-                                //        ->columnSpan('full')
-                                //        ->required(),
+                                    TinyEditor::make('body')
+                                        ->fileAttachmentsDisk('public')
+                                        ->fileAttachmentsVisibility('public')
+                                        ->fileAttachmentsDirectory('uploads')
+                                        ->profile('full')
+                                        ->ltr() // Set RTL or use ->direction('auto|rtl|ltr')
+                                        ->columnSpan('full')
+                                        ->required(),
                                 NEditor::make('body')
                                     ->required(),
 

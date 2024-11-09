@@ -57,37 +57,37 @@
                                 </li>
 
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#resume">Resume</a>
+                                    <a class="nav-link" href="#resume">CV</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#services">Services</a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#portfolio">Portfolio</a>
+                                    <a class="nav-link" href="#services">Dịch vụ</a>
                                 </li>
 
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#blog">Blog</a>
+                                    <a class="nav-link" href="#portfolio">Dự án</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#blog">Bài viết</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#contact">Contact</a>
+                                    <a class="nav-link" href="#contact">Liên hệ</a>
                                 </li>
                             </ul>
                         </div>
                     </div>
                     <div class="navbar-social d-flex align-items-center pe-5 pe-lg-0 me-5 me-lg-0">
                         <div class="d-md-flex d-none gap-3">
-                            <a href="http://facebook.com">
+                            <a href="https://www.facebook.com/harry.ntnguyen">
                                 <i class="ri-facebook-circle-fill fs-18"></i>
                             </a>
                             <a href="http://twitter.com">
                                 <i class="ri-twitter-x-fill fs-18"></i>
                             </a>
-                            <a href="http://linkedin.com">
+                            <a href="https://www.linkedin.com/in/nguyen0310/">
                                 <i class="ri-linkedin-fill fs-18"></i>
                             </a>
-                            <a href="http://github.com">
+                            <a href="https://github.com/ntnfit">
                                 <i class="ri-github-fill fs-18"></i>
                             </a>
                         </div>
@@ -110,12 +110,12 @@
             <div class="offCanvas__close-icon menu-close">
                 <button><i class="ri-close-line"></i></button>
             </div>
-            <div class="offCanvas__logo mb-5"><h3 class="mb-0">Get in touch</h3></div>
+            <div class="offCanvas__logo mb-5"><h3 class="mb-0">Hãy liên hệ với mình</h3></div>
             <div class="offCanvas__side-info mb-30">
                 <div class="contact-list mb-30">
-                    <p class="fs-6 fw-medium text-200 mb-5">I'm always excited to take on new projects and collaborate with innovative minds.</p>
+                    <p class="fs-6 fw-medium text-200 mb-5">Mình luôn hào hứng đảm nhận các dự án mới và hợp tác với những người có tư duy sáng tạo.</p>
                     <div class="mb-3">
-                        <span class="text-400 fs-5">Phone Number</span>
+                        <span class="text-400 fs-5">Số điện thoại</span>
                         <p class="mb-0">+84 981 710 031</p>
                     </div>
                     <div class="mb-3">
@@ -127,7 +127,7 @@
                         <p class="mb-0">+84 981 710 031</p>
                     </div>
                     <div class="mb-3">
-                        <span class="text-400 fs-5">Address</span>
+                        <span class="text-400 fs-5">Địa chỉ</span>
                         <p class="mb-0">Hồ Chí Minh</p>
                     </div>
                 </div>
@@ -168,8 +168,7 @@
                             <nav>
                                 <ul class="mobile-menu font-heading ps-0">
                                     <li class="nav-item has-children">
-                                        <a class="nav-link active" href="#">Home</a>
-
+                                        <a class="nav-link active" href="{{route('home')}}">Trang chủ</a>
                                     </li>
 
                                     <li class="nav-item">
@@ -187,7 +186,7 @@
                                         <a class="nav-link" href="#">Blog</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#">Contact</a>
+                                        <a class="nav-link" href="{{route('contact.index')}}">Contact</a>
                                     </li>
                                 </ul>
                             </nav>
