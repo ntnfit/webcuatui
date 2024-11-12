@@ -1,4 +1,5 @@
-<section class="mx-auto w-full max-w-7xl px-4 sm:px-2 xl:px-0" x-cloak x-ref="section" x-init="() => {
+<section class="mx-auto w-full max-w-7xl px-4 sm:px-2 xl:px-0"
+         x-cloak x-ref="section" x-init="() => {
     // Reset the page number on search input change
     $watch('search', (newValue, oldValue) => {
         if (newValue !== oldValue) {
@@ -48,11 +49,11 @@
         selectedCategories: new Set(),
         selectedType: $queryString('all').usePush().as('type'),
         selectedVersion: $queryString('3').usePush().as('version'),
-    
+
         articles: @js($articles),
         categories: @js($categories),
         types: @js($types),
-    
+
         _currentPage: $queryString(1).usePush().as('page'),
         get currentPage() {
             return +this._currentPage
@@ -60,16 +61,16 @@
         set currentPage(value) {
             this._currentPage = value
         },
-    
+
         perPage: 24,
         totalItems: 0,
         get totalPages() {
             return Math.ceil(this.totalItems / this.perPage)
         },
-    
+
         get filteredArticles() {
             let filterResult = this.articles
-    
+
             // Show articles that are in the selected categories
             if (this.selectedCategories.size > 0) {
                 filterResult = filterResult.filter((article) =>
@@ -78,29 +79,29 @@
                     ),
                 )
             }
-    
+
             // Show articles that are in the selected version, or no version at all
             filterResult = filterResult.filter(
                 (article) =>
                 article.versions?.includes(+this.selectedVersion) ||
                 !article.versions?.length,
             )
-    
+
             // If the selectedType is 'all', show all records, else show only the records that match the selected type
             filterResult = filterResult.filter(
                 (record) =>
                 this.selectedType === 'all' ||
                 this.selectedType === record.type,
             )
-    
+
             // If the search is not empty, show articles that match the search
             if (this.search) {
                 const searchResult = this.searchEngine.search(this.search)
-    
+
                 filterResult = filterResult.filter((article) =>
                     searchResult.some((result) => result.id === article.id),
                 )
-    
+
                 // Order the results by the search score
                 filterResult = filterResult.sort((a, b) =>
                     searchResult.find((result) => result.id === a.id).score <
@@ -109,16 +110,16 @@
                     -1,
                 )
             }
-    
+
             // Update the total items
             this.totalItems = filterResult.length
-    
+
             // Paginate the results
             filterResult = filterResult.slice(
                 (this.currentPage - 1) * this.perPage,
                 this.currentPage * this.perPage,
             )
-    
+
             return filterResult
         },
     }">
