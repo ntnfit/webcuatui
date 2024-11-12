@@ -1,4 +1,6 @@
-<div class="relative flex max-w-screen-lg items-start gap-10 md:gap-20 min-[840px]:justify-between">
+<div x-cloak x-data="{}"
+     class="mx-auto w-full max-w-7xl px-4 sm:px-2 xl:px-0 pt-20 pb-5 border-b border-merino">
+    <div class="relative flex max-w-screen-lg items-start gap-10 md:gap-20 min-[840px]:justify-between">
         {{-- Left Side --}}
         <div x-data="{}" x-init="() => {
             if (reducedMotion) return
@@ -169,3 +171,4 @@
             </div>
         </div>
     </div>
+</div>
