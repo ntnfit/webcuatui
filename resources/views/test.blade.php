@@ -580,7 +580,7 @@
                                 <span class="text-linear-4 d-flex align-items-center"> Hợp tác </span>
                             </div>
                             <h3>
-                               Thiết kế giải phải
+                               Thiết kế giải pháp
                                 <span class="text-300">
                                 tùy chỉnh<br />
                                 để đáp ứng nhu cầu của bạn.
