@@ -18,9 +18,9 @@
     <link rel="stylesheet" href="{{asset('assets/fonts/remixicon/remixicon.css')}}" />
     <link rel="stylesheet" href="{{asset('assets/fonts/satoshi/satoshi.css')}}" />
     <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Playfair+Display:wght@400..900&family=Urbanist:wght@100..900&display=swap" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
     <!-- Main CSS -->
     <link rel="stylesheet" href="{{asset('assets/css/main.css')}}" />
 
