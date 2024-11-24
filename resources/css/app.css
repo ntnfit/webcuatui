@@ -2,3 +2,65 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+.tech-card {
+    background: white;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+.tech-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Scroll animation */
+@keyframes scrollLeft {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+@keyframes scrollRight {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+.animate-scroll-left {
+    animation: scrollLeft 10s linear infinite;
+    display: flex;
+    width: calc(100% + 400px);
+    overflow: hidden;
+    cursor: grab;
+}
+
+.animate-scroll-right {
+    animation: scrollRight 12s linear infinite;
+    display: flex;
+    width: calc(100% + 400px);
+    overflow: hidden;
+    cursor: grab;
+}
+
+.animate-scroll-left, .animate-scroll-right {
+    display: flex;
+    position: relative;
+}
+
+.interactive-scroll {
+    cursor: grab;
+}
+.interactive-scroll:active {
+    cursor: grabbing;
+}

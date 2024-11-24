@@ -31,13 +31,13 @@
         class="flex flex-col items-center justify-center gap-20 md:flex-row md:gap-10 lg:justify-between">
         <div x-ref="header">
             {{-- Live Demo --}}
-            <div class="text-3xl">
+            <div class="text-3xl dark:text-white">
                 <span>Freelancer</span>
                 <span class="font-bold">SAP, NetSuite, Tích hợp, WebApp,...</span>
             </div>
 
             {{-- Description --}}
-            <div class="min-w-[18rem] max-w-[22rem] pt-7 font-medium text-dolphin">
+            <div class="min-w-[18rem] max-w-[22rem] pt-7 font-medium text-dolphin dark:text-white">
                 Mình hiện tại cũng là 1 chuyên viên tư vấn các giải pháp từ SAP/WebApp & ERP khác.
                 Blog này là nơi mình viết về những trải nghiệm hằng ngày. Chỉ sẻ những công nghệ, công cụ mình hay sử
                 dụng cho các dư án.
@@ -85,9 +85,9 @@
                         <div class="h-1.5 w-1.5 rounded-full bg-yellow-400"></div>
                         <div class="h-1.5 w-1.5 rounded-full bg-emerald-400"></div>
                     </div>
-                    <div class="flex-1 pr-10 text-center text-[0.6rem] text-white/40">
+                    <div class="flex-1 pr-10 text-center text-[0.6rem] text-white/40 dark:text-white">
                         <span>Freelancer</span>
-                        <span class="font-bold">SAP, NetSuite, Tích hợp, WebApp,...</span>
+                        <span class="font-bold ">SAP, NetSuite, Tích hợp, WebApp,...</span>
                     </div>
                 </div>
 

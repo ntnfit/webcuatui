@@ -47,20 +47,6 @@
                     </div>
                 </a>
             </li>
-{{--            <li>--}}
-{{--                <a href="{{ route('aitools.index') }}" @class([--}}
-{{--                    'group/sidebar-link block w-full rounded-lg px-4 py-2 transition duration-300',--}}
-{{--                    'font-medium hover:bg-merino',--}}
-{{--                    'bg-merino font-black',--}}
-{{--                ])>--}}
-{{--                    <div @class([--}}
-{{--                        'transition duration-300',--}}
-{{--                        'group-hover/sidebar-link:translate-x-1' => !request()->routeIs('plugins*'),--}}
-{{--                    ])>--}}
-{{--                        AI tools--}}
-{{--                    </div>--}}
-{{--                </a>--}}
-{{--            </li>--}}
             <li>
                 <a href="{{ route('contact.index') }}" @class([
                     'group/sidebar-link block w-full rounded-lg px-4 py-2 transition duration-300',
@@ -75,6 +61,7 @@
                     </div>
                 </a>
             </li>
+
         </ul>
 
         <div class="flex flex-wrap items-center gap-3.5 text-hurricane">
@@ -115,6 +102,7 @@
                 </svg>
             </a>
         </div>
+
     </aside>
 
     {{ $slot }}

@@ -14,10 +14,26 @@
 
 @endphp
 <x-layouts.appclient>
+    <div x-data="{ loading: true, colors: ['text-red-500', 'text-blue-500', 'text-green-500', 'text-yellow-500'], index: 0 }"
+         x-init="
+        setTimeout(() => loading = false, 2000);
+        setInterval(() => { index = (index + 1) % colors.length }, 500);
+     "
+         x-show="loading"
+         class="fixed inset-0 bg-white z-50 flex items-center justify-center transition-opacity duration-300">
+        <!-- Loading Animation -->
+        <div class="flex flex-col items-center">
+            <div class="w-16 h-16 border-4 border-blue-500 border-dashed rounded-full animate-spin"></div>
+            <h1 :class="colors[index]" class="mt-4 text-xl font-semibold transition-colors duration-500">
+                Loading<span class="animate-pulse">...</span>
+            </h1>
+        </div>
+    </div>
+
     <x-home.hero />
     <x-home.intro />
-    {{-- <x-home.packages /> --}}
-    <x-home.tall />
     <x-home.project />
-
+    <x-home.skill />
+    {{-- <x-home.packages /> --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"></script>
 </x-layouts.appclient>

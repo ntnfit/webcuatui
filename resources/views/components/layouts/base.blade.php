@@ -1,5 +1,5 @@
 @props([
-    'darkMode' => false,
+    'darkMode' => true,
     'docSearch' => true,
 ])
 
@@ -63,7 +63,7 @@
 </head>
 
 <body
-    class="relative min-h-screen overflow-x-clip bg-cream font-vietnam text-midnight antialiased selection:bg-stone-500/10">
+    class="relative min-h-screen overflow-x-clip bg-cream dark:bg-[#171527] font-vietnam text-midnight antialiased selection:bg-stone-500/10">
     <div id="docsearch" class="hidden"></div>
 
     {{ $slot }}

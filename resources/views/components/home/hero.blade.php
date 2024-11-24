@@ -82,12 +82,12 @@
                 }">
                 {{-- Title --}}
                 <div x-ref="accelerated"
-                    class="bg-gradient-to-r from-[#FFB46F] to-[#B9C0B9] bg-clip-text text-transparent">
+                    class="bg-gradient-to-r from-[#FFB46F] to-[#B9C0B9] bg-clip-text text-transparent dark:text-white">
                     Web của tớ
                 </div>
 
                 {{-- Shadow --}}
-                <div x-ref="shadow" class="absolute -left-2 top-1 -z-10 select-none text-[#FFEFE1]">
+                <div x-ref="shadow" class="absolute -left-2 top-1 -z-10 select-none text-[#FFEFE1] dark:text-white-500  ">
                     Web của tớ
                 </div>
 
@@ -95,15 +95,15 @@
                 <div class="absolute -left-12 top-1/2 -translate-y-1/2 space-y-1">
                     <div class="translate-x-5">
                         <div x-ref="line1"
-                            class="h-0.5 w-7 rounded-full bg-gradient-to-r from-transparent to-[#FFC089]"></div>
+                            class="h-0.5 w-7 rounded-full bg-gradient-to-r from-transparent to-[#FFC089]dark:text-white " ></div>
                     </div>
                     <div>
                         <div x-ref="line2"
-                            class="h-0.5 w-10 rounded-full bg-gradient-to-r from-transparent to-[#FFC089]"></div>
+                            class="h-0.5 w-10 rounded-full bg-gradient-to-r from-transparent to-[#FFC089] dark:text-white"></div>
                     </div>
                     <div class="-translate-x-4">
                         <div x-ref="line3"
-                            class="h-0.5 w-12 rounded-full bg-gradient-to-r from-transparent to-[#FFC089]"></div>
+                            class="h-0.5 w-12 rounded-full bg-gradient-to-r from-transparent to-[#FFC089] dark:text-white"></div>
                     </div>
                 </div>
 
@@ -171,7 +171,7 @@
                 <div class="relative space-y-3 font-black">
                     {{-- Title --}}
                     <div x-ref="title">
-                        <div class="relative max-w-fit text-6xl lg:text-7xl">
+                        <div class="relative max-w-fit text-6xl lg:text-7xl dark:text-white">
                             HARRY
 
                             {{-- Heart Shapes --}}
@@ -192,7 +192,7 @@
                                 </svg>
                             </div>
                         </div>
-                        <div class="text-4xl lg:text-5xl">
+                        <div class="text-4xl lg:text-5xl dark:text-white">
                             Code dạo và làm ERP
                             <span class="inline-block -translate-x-2 text-butter">
                                 .
@@ -213,7 +213,7 @@
                 </div>
                 <div class="relative pt-5">
                     {{-- Description --}}
-                    <div x-ref="description" class="text-xl font-medium leading-normal opacity-90 lg:text-2xl">
+                    <div x-ref="description" class="text-xl font-medium leading-normal opacity-90 lg:text-2xl dark:text-white">
                         Nơi chia sẻ kiến thức về lập trình,
                         <br />
                         công nghệ và các dự án ERP
@@ -373,151 +373,57 @@
         {{-- Right Side --}}
         <div class="absolute -top-10 right-10 -z-10 hidden min-[500px]:block md:relative md:right-auto md:top-auto">
             <div x-data="{}" x-init="() => {
-                if (reducedMotion) return
-                gsap.timeline()
-                    .fromTo(
-                        $refs.rocket, {
-                            autoAlpha: 0,
-                            scale: 0.9,
-                            x: -50,
-                            y: 50,
-                        }, {
-                            autoAlpha: 1,
-                            scale: 1,
-                            x: 0,
-                            y: 0,
-                            duration: 0.8,
-                            ease: 'circ.out',
-                        },
-                    )
-                    .to($refs.rocket, {
-                        keyframes: {
-                            x: [0, 20],
-                            y: [0, -20],
-                        },
-                        duration: 5,
-                        repeat: -1,
-                        yoyo: true,
-                    })
-                gsap.timeline()
-                    .fromTo(
-                        $refs.rocket2, {
-                            autoAlpha: 0,
-                            scale: 0.9,
-                            x: -50,
-                            y: 50,
-                        }, {
-                            autoAlpha: 1,
-                            scale: 1,
-                            x: 0,
-                            y: 0,
-                            duration: 0.8,
-                            ease: 'circ.out',
-                        },
-                    )
-                    .to($refs.rocket2, {
-                        keyframes: {
-                            x: [0, 20],
-                            y: [0, -20],
-                        },
-                        duration: 5,
-                        repeat: -1,
-                        yoyo: true,
-                    })
-                gsap.timeline()
-                    .fromTo(
-                        $refs.rocket3, {
-                            autoAlpha: 0,
-                            scale: 0.9,
-                            x: -50,
-                            y: 50,
-                        }, {
-                            autoAlpha: 1,
-                            scale: 1,
-                            x: 0,
-                            y: 0,
-                            duration: 0.8,
-                            ease: 'circ.out',
-                        },
-                    )
-                    .to($refs.rocket3, {
-                        keyframes: {
-                            x: [0, 20],
-                            y: [0, -20],
-                        },
-                        duration: 5,
-                        repeat: -1,
-                        yoyo: true,
-                    })
-                gsap.timeline()
-                    .fromTo(
-                        $refs.rocket4, {
-                            autoAlpha: 0,
-                            scale: 0.9,
-                            x: -50,
-                            y: 50,
-                        }, {
-                            autoAlpha: 1,
-                            scale: 1,
-                            x: 0,
-                            y: 0,
-                            duration: 0.8,
-                            ease: 'circ.out',
-                        },
-                    )
-                    .to($refs.rocket4, {
-                        keyframes: {
-                            x: [0, 20],
-                            y: [0, -20],
-                        },
-                        duration: 5,
-                        repeat: -1,
-                        yoyo: true,
-                    })
-                gsap.timeline()
-                    .fromTo(
-                        $refs.circle1, {
-                            autoAlpha: 0,
-                            scale: 0,
-                        }, {
-                            autoAlpha: 1,
-                            scale: 1,
-                            duration: 0.7,
-                            ease: 'back.out',
-                        },
-                    )
-                    .fromTo(
-                        $refs.circle2, {
-                            autoAlpha: 0,
-                            scale: 0,
-                        }, {
-                            autoAlpha: 1,
-                            scale: 1,
-                            duration: 0.7,
-                            ease: 'back.out',
-                        },
-                        '<0.1',
-                    )
-            }" class="relative">
-                {{-- Rocket --}}
-                <div class="flex flex-wrap w-32 min-[550px]:w-40 md:w-60 lg:w-80">
-                    <div class="w-1/2 p-1">
-                        <img x-ref="rocket" src="{{ Vite::asset('resources/images/home/sap.jpg') }}" alt="sap"
-                            class="w-full" />
-                    </div>
-                    <div class="w-1/2 p-1">
-                        <img x-ref="rocket2" src="{{ Vite::asset('resources/images/home/netsuite.jpg') }}"
-                            alt="netsuite" class="w-full" />
-                    </div>
-                    <div class="w-1/2 p-1">
-                        <img x-ref="rocket3" src="{{ Vite::asset('resources/images/home/webapp.jpg') }}"
-                            alt="thiet ke web" class="w-full">
-                    </div>
-                    <div class="w-1/2 p-1">
-                        <img x-ref="rocket4" src="{{ Vite::asset('resources/images/home/integrate.webp') }}"
-                            alt="Rocket" class="w-full" />
+                        if (reducedMotion) return
+                        // Animation cho hình ảnh chính
+                        gsap.timeline()
+                            .fromTo(
+                                $refs.mainImage, {
+                                    autoAlpha: 0,
+                                    scale: 0.9,
+                                    x: -50,
+                                    y: 50,
+                                }, {
+                                    autoAlpha: 1,
+                                    scale: 1,
+                                    x: 0,
+                                    y: 0,
+                                    duration: 0.8,
+                                    ease: 'circ.out',
+                                },
+                            )
+                            .to($refs.mainImage, {
+                                keyframes: {
+                                    x: [0, 20],
+                                    y: [0, -20],
+                                },
+                                duration: 5,
+                                repeat: -1,
+                                yoyo: true,
+                            });
+
+                        // Animation cho icon
+                        gsap.timeline()
+                            .fromTo(
+                                $refs.iconImage, {
+                                    autoAlpha: 0,
+                                    scale: 0,
+                                }, {
+                                    autoAlpha: 1,
+                                    scale: 1,
+                                    duration: 0.7,
+                                    ease: 'back.out',
+                                },
+                            )
+                    }" class="relative">
+                <div class="flex flex-wrap w-45 min-[550px]:w-52 md:w-72 lg:w-[30rem]">
+                    <div class="relative mb-0 lg:mb-20">
+                        <img x-ref="mainImage" src="{{asset('assets/imgs/hero-1/people.png')}}" alt="harry" />
+                        <div class="absolute right-0 top-1/2 translate-y-1/2">
+                            <img x-ref="iconImage" src="{{asset('assets/imgs/hero-1/icon.svg')}}" alt="harry" />
+                        </div>
                     </div>
                 </div>
+            </div>
 
                 {{-- Decoration Circles --}}
                 <div x-ref="circle1"

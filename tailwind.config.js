@@ -18,6 +18,7 @@ export default {
                 warning: colors.amber,
                 cream: '#FFF9F5',
                 butter: '#FDAE4B',
+                'burnt-butter': '#f2911b',
                 midnight: '#0F033A',
                 evening: '#251A4D',
                 merino: '#F2E7DD',
@@ -81,6 +82,42 @@ export default {
             }),
             zIndex: {
                 '-1': '-1',
+            },
+            animation: {
+                'border-move': 'border-move 3s linear infinite', // Keep it linear for seamless transitions
+            }, keyframes: {
+                'border-move': {
+                    '0%': {
+                        'border-top-color': 'rgba(0, 255, 0, 1)',
+                        'border-right-color': 'rgba(0, 0, 0, 0)',
+                        'border-bottom-color': 'rgba(0, 0, 0, 0)',
+                        'border-left-color': 'rgba(0, 0, 0, 0)',
+                    },
+                    '25%': {
+                        'border-top-color': 'rgba(0, 0, 0, 0)',
+                        'border-right-color': 'rgba(0, 255, 0, 1)',
+                        'border-bottom-color': 'rgba(0, 0, 0, 0)',
+                        'border-left-color': 'rgba(0, 0, 0, 0)',
+                    },
+                    '50%': {
+                        'border-top-color': 'rgba(0, 0, 0, 0)',
+                        'border-right-color': 'rgba(0, 0, 0, 0)',
+                        'border-bottom-color': 'rgba(0, 255, 0, 1)',
+                        'border-left-color': 'rgba(0, 0, 0, 0)',
+                    },
+                    '75%': {
+                        'border-top-color': 'rgba(0, 0, 0, 0)',
+                        'border-right-color': 'rgba(0, 0, 0, 0)',
+                        'border-bottom-color': 'rgba(0, 0, 0, 0)',
+                        'border-left-color': 'rgba(0, 255, 0, 1)',
+                    },
+                    '100%': {
+                        'border-top-color': 'rgba(0, 255, 0, 1)',
+                        'border-right-color': 'rgba(0, 0, 0, 0)',
+                        'border-bottom-color': 'rgba(0, 0, 0, 0)',
+                        'border-left-color': 'rgba(0, 0, 0, 0)',
+                    },
+                },
             },
         },
     },
