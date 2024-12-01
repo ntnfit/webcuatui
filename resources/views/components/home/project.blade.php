@@ -1,4 +1,5 @@
-<div x-cloak  x-data="projectSlider()" class="mx-auto w-full max-w-screen-lg px-5 space-y-20 pt-20">
+<div x-cloak  x-data="projectSlider()"
+     class="mx-auto w-full max-w-screen-lg px-5 space-y-20 pt-20">
     <div x-ref="header" class="text-center ">
         <div x-ref="header_introducing" class="font-medium text-dolphin dark:text-gray-100">
             Giới thiệu
@@ -23,15 +24,15 @@
                 <h1 class="mb-4 text-2xl font-bold dark:text-green-400">Dự án gần đây</h1>
 
                 <!-- Wrapper for sliding -->
-                <div class="relative">
+                <div class="relative"     @mousedown="startDrag($event)"
+                     @mousemove="onDrag($event)"
+                     @mouseup="endDrag()"
+                     @mouseleave="endDrag()"
+                     @touchstart="startDrag($event)"
+                     @touchmove="onDrag($event)"
+                     @touchend="endDrag()">
                     <div
-                        x-transition:enter="transition transform duration-500"
-                        x-transition:enter-start="translate-x-full"
-                        x-transition:enter-end="translate-x-0"
-                        x-transition:leave="transition transform duration-500"
-                        x-transition:leave-start="translate-x-0"
-                        x-transition:leave-end="translate-x-full"
-                        class="flex transition-transform duration-500  gap-2"
+                        class="flex transition-transform duration-500 gap-2"
                         :style="`transform: translateX(-${currentProject * 100}%)`"
                     >
                         <!-- Project slides -->
@@ -161,20 +162,49 @@
                             image: '{{ Vite::asset('resources/images/home/hongky.webp') }}',
                         }
                     ],
-                    nextProject() {
-                        this.isTransitioning = true;
-                        setTimeout(() => {
-                            this.currentProject = (this.currentProject + 1) % this.projects.length;
-                            this.isTransitioning = false;
-                        }, 300);
-                    },
-                    prevProject() {
-                        this.isTransitioning = true;
-                        setTimeout(() => {
-                            this.currentProject = (this.currentProject - 1 + this.projects.length) % this.projects.length;
-                            this.isTransitioning = false;
-                        }, 300);
+                interval: null,
+                startX: 0,
+                endX: 0,
+                autoSlide() {
+                    this.interval = setInterval(() => {
+                        this.nextProject();
+                    }, 5000); // Chuyển sau mỗi 5 giây
+                },
+                stopAutoSlide() {
+                    clearInterval(this.interval);
+                },
+                nextProject() {
+                    this.isTransitioning = true;
+                    setTimeout(() => {
+                        this.currentProject = (this.currentProject + 1) % this.projects.length;
+                        this.isTransitioning = false;
+                    }, 300);
+                },
+                prevProject() {
+                    this.isTransitioning = true;
+                    setTimeout(() => {
+                        this.currentProject = (this.currentProject - 1 + this.projects.length) % this.projects.length;
+                        this.isTransitioning = false;
+                    }, 300);
+                },
+                startDrag(event) {
+                    this.stopAutoSlide();
+                    this.startX = event.clientX || event.touches[0].clientX;
+                },
+                onDrag(event) {
+                    this.endX = event.clientX || event.touches[0].clientX;
+                },
+                endDrag() {
+                    if (this.startX > this.endX + 50) {
+                        this.nextProject();
+                    } else if (this.startX < this.endX - 50) {
+                        this.prevProject();
                     }
+                    this.autoSlide();
+                },
+                init() {
+                    this.autoSlide();
+                }
                 }
             }
         </script>
