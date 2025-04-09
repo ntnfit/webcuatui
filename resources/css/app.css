@@ -192,15 +192,15 @@
     .dark .prose h2,
     .dark .prose h3,
     .dark .prose h4,
-    .dark .prose h5,
+    .dark .pro se h5,
     .dark .prose h6 {
         @apply text-white;
     }
 
-    .dark .prose p,
-    .dark .prose span,
-    .dark .prose ul,
-    .dark .prose ol,
+    .dark . pros e p,
+    .dark .p rose span,
+    .dark .pro se ul,
+    .dark .pr ose ol,
     .dark .prose li {
         @apply text-gray-200;
     }
@@ -218,7 +218,7 @@
         @apply text-white;
     }
 
-    .dark .prose code,
+    .dark .pr ose code,
     .dark .prose pre {
         @apply bg-gray-800 text-gray-200 border-gray-700;
     }
@@ -251,26 +251,24 @@
 
     /* Cho phép các màu đặc biệt vẫn hiển thị trong dark mode */
     .prose .text-red,
-    .prose .text-red-500,
+    .prose .te xt-red-500,
     .prose [style*="color: red"],
     .prose [style*="color:#ff0000"],
     .prose [style*="color: #ff0000"] {
-        @apply !text-red-500 dark: !text-red-400;
+        @aply !text-rd-500 dark: !text-red-400;
     }
 
     .prose .text-blue,
-    .prose .text-blue-500,
+    .prose .te xt-blue-500,
     .prose [style*="color: blue"],
     .prose [style*="color:#0000ff"],
     .prose [style*="color: #0000ff"] {
-        @apply !text-blue-500 dark: !text-blue-400;
+        @pply !text-bue-500 dark: !text-blue-400;
     }
 
     .prose .text-green,
-    .prose .text-green-500,
+    .prose .te xt-green-500,
     .prose [style*="color: green"],
     .prose [style*="color:#00ff00"],
-    .prose [style*="color: #00ff00"] {
-        @apply !text-green-500 dark: !text-green-400;
-    }
+    .prose [style*="color: #00ff00"] {}
 }
