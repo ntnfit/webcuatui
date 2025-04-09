@@ -244,22 +244,27 @@ class blogs extends Model
     }
 
     public function getDataArray(): array
-    {
+{
+    return [
+        'id' => $this->slug, // dùng slug làm id
+        'title' => $this->title,
+        'slug' => $this->slug,
+        'excerpt' => $this->sub_title ?? '', // dùng subtitle làm excerpt
+        'publish_date' => $this->published_at?->diffForHumans(),
+        'thumbnail_url' => asset('storage/' . $this->cover_photo_path), // đảm bảo link đầy đủ
+        'type' => $this->type,
+        'canonical_url' => $this->canonical_url,
+        'stars' => $this->stars ?? rand(20, 50), // tạm thời fake nếu chưa có field stars
 
-        return [
-            'id' => $this->slug,
-            'title' => $this->title,
-            'slug' => $this->slug,
-            'publish_date' => $this->published_at->diffForHumans(),
-            'thumbnail_url' =>'storage/'. $this->cover_photo_path,
-            'author' => [
-                'name' => $this->user->name,
-                'avatar' => null,
-            ],
-            'categories' => $this->categories->pluck('slug'),
-            'type' => $this->type,
-            'versions' => $this->versions,
-            'canonical_url' => $this->canonical_url,
-        ];
-    }
+        'author' => [
+            'name' => $this->user?->name ?? 'Ẩn danh',
+            'avatar' => $this->user?->avatar_url ?? 'https://github.com/shadcn.png',
+        ],
+
+        'categories' => $this->categories->pluck('slug')->toArray(),
+        'tags' => $this->tags->pluck('name')->toArray(),
+
+        'created_at' => $this->created_at?->toDateTimeString(),
+    ];
+}
 }

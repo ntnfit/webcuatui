@@ -1,64 +1,28 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BlogsController;
-use App\Http\Controllers\Articles\ListArticlesController;
-use App\Http\Controllers\Articles\ViewArticleController;
-use App\Http\Controllers\ToolsController;
-use Illuminate\Support\Facades\App;
-use App\Http\Controllers\SitemapController;
-use App\Http\Controllers\ContactController;
+use Inertia\Inertia;
 
-Route::view('/', 'home')->name('home');
+Route::get('/test', [BlogsController::class, 'index']);
+Route::get('/', function () {
+    $posts = \App\Models\blogs::with(['user', 'categories', 'tags'])->published()->take(6)->get();
+    return Inertia::render('Index', [
+        'latestArticles' => $posts->map(fn ($post) => $post->getDataArray()),
+    ]);
+})->name('home');
 
-require_once __DIR__ . '/auth.php';
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    // blogs here
+// Blog routes
+Route::get('/blogs', [BlogsController::class, 'index'])->name('blogs.index');
 
-});
-Route::get('/sitemap.xml', [
-    SitemapController::class,
-    'generateSitemap'
-]);
-//
-Route::name('contact.')->prefix('lien-he')->group(function () {
-    Route::get('/', function () {
-        return view('contact');
-    })->name('index');
-    Route::post('/contact', [ContactController::class, 'store'])->name('store');
-    route::get('/check-var-sao-ke', function () {
-        return view('tools.saoke');
-    })->name('saoke');
-    Route::get('/search-var', [ToolsController::class, 'search'])->name('search.var');
-});
-Route::name('aitools.')->prefix('ai-tool')->group(function () {
-    Route::get('/', function () {
-        return view('aitools');
-    })->name('index');
-});
-Route::name('shop.')->prefix('shop')->group(function () {
-    Route::get('/', function () {
-        return view('contact');
-    })->name('index');
-});
+Route::get('/blogs/{slug}', [BlogsController::class, 'show'])->name('blogs.show');
+// Blog detail route with slug - phải đặt trước các route khác có pattern tương tự
+//Route::get('/blogss/{slug}', [BlogController::class, 'show'])->name('blogs.show');
 
-
-Route::get ('/test', function(){
-    return view('test');
-});
-
-// Route::get('/tags/{tag:slug}', [TagController::class, 'posts'])->name('tag.post');
-Route::prefix('/blogs')->group(function () {
-    Route::get('/', ListArticlesController::class)->name('blogs');
-});
-Route::name('admin.')->prefix('/{blogs:slug}')->group(function () {
-    Route::get('/', ViewArticleController::class)->name('post.show');
-});
-
+// // 404 route - must be the last route
+// Route::fallback(function () {
+//     return Inertia::render('NotFound');
+// })->name('not-found');
 
 
 

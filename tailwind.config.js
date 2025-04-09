@@ -1,129 +1,97 @@
-import preset from './vendor/filament/support/tailwind.config.preset'
-const colors = require('tailwindcss/colors')
-const { fontFamily } = require('tailwindcss/defaultTheme')
-
+/** @type {import('tailwindcss').Config} */
 export default {
-    presets: [preset],
     content: [
-        './app/Filament/**/*.php',
-        './resources/views/**/*.blade.php',
-        './vendor/filament/**/*.blade.php',
+        "./resources/**/*.js",
+        "./resources/**/*.jsx",
+        "./resources/**/*.ts",
+        "./resources/**/*.tsx",
     ],
+    darkMode: 'class',
     theme: {
         extend: {
             colors: {
-                danger: colors.rose,
-                primary: colors.amber,
-                success: colors.green,
-                warning: colors.amber,
-                cream: '#FFF9F5',
-                butter: '#FDAE4B',
-                'burnt-butter': '#f2911b',
-                midnight: '#0F033A',
-                evening: '#251A4D',
-                merino: '#F2E7DD',
-                hurricane: '#807575',
-                dolphin: '#6C6489',
-                'burnt-dolphin': '#454059',
-                'peach-orange': '#FFC497',
-                'seashell-peach': '#FFF0E8',
-                'dawn-pink': '#F1E5E4',
-                salmon: '#F89377',
-                'fair-pink': '#FFEAE4',
+                'apple-blue': '#0071e3',
+                'apple-dark-gray': '#1d1d1f',
+                'apple-gray': '#86868b',
+                'apple-light-gray': '#f5f5f7',
+                'apple-white': '#fbfbfd',
             },
-            fontFamily: {
-                cursive: ['Kalam', ...fontFamily.serif],
-                heading: ['Lexend', ...fontFamily.sans],
-                mono: ['JetBrains Mono', ...fontFamily.sans],
-                sans: ['DM Sans', ...fontFamily.sans],
-                vietnam: ['Be Vietnam Pro', ...fontFamily.sans],
-                'roboto-mono': ['Roboto Mono', ...fontFamily.sans],
-            },
-            maxWidth: {
-                '8xl': '88rem',
-            },
-            typography: (theme) => ({
-                DEFAULT: {
-                    css: {
-                        a: {
-                            '&:hover': {
-                                color: theme('colors.primary.600'),
+            typography(theme) {
+                return {
+                    DEFAULT: {
+                        css: {
+                            color: theme('colors.gray.800'),
+                            a: { color: theme('colors.apple-blue'), textDecoration: 'none', '&:hover': { textDecoration: 'underline' } },
+                            strong: { color: theme('colors.apple-dark-gray') },
+                            'ul > li::marker': { color: theme('colors.apple-blue') },
+                            blockquote: {
+                                borderLeftColor: theme('colors.apple-blue'),
+                                color: theme('colors.gray.600'),
                             },
-                            '&:focus': {
-                                color: theme('colors.primary.600'),
+                            hr: { borderColor: theme('colors.gray.200') },
+                            th: { backgroundColor: theme('colors.gray.100'), color: theme('colors.gray.700') },
+                            td: { borderColor: theme('colors.gray.200') },
+                            code: {
+                                color: theme('colors.pink.600'),
+                                backgroundColor: theme('colors.gray.100'),
+                                padding: '0.2em 0.4em',
+                                borderRadius: '0.25rem',
+                                fontWeight: '500',
                             },
-                        },
-                        blockquote: {
-                            fontStyle: 'normal',
-                        },
-                        'blockquote p:first-of-type::before': {
-                            content: 'none',
-                        },
-                        'blockquote p:first-of-type::after': {
-                            content: 'none',
-                        },
-                        code: {
-                            fontWeight: theme('fontWeight.normal'),
-                        },
-                    },
-                },
-                invert: {
-                    css: {
-                        a: {
-                            '&:hover': {
-                                color: theme('colors.primary.500'),
+                            'pre code': {
+                                backgroundColor: 'transparent',
+                                padding: '0',
+                                fontWeight: 'normal',
+                                color: 'inherit',
                             },
-                            '&:focus': {
-                                color: theme('colors.primary.500'),
+                            pre: {
+                                backgroundColor: theme('colors.gray.100'),
+                                color: theme('colors.gray.800'),
+                                borderRadius: '0.5rem',
+                                padding: theme('spacing.4'),
+                                boxShadow: 'inset 0 0 0 1px ' + theme('colors.gray.200'),
+                                overflowX: 'auto',
+                                position: 'relative',
+                                marginBottom: '1.5em',
                             },
                         },
                     },
-                },
-            }),
-            zIndex: {
-                '-1': '-1',
-            },
-            animation: {
-                'border-move': 'border-move 3s linear infinite', // Keep it linear for seamless transitions
-            }, keyframes: {
-                'border-move': {
-                    '0%': {
-                        'border-top-color': 'rgba(0, 255, 0, 1)',
-                        'border-right-color': 'rgba(0, 0, 0, 0)',
-                        'border-bottom-color': 'rgba(0, 0, 0, 0)',
-                        'border-left-color': 'rgba(0, 0, 0, 0)',
+                    dark: {
+                        css: {
+                            color: theme('colors.gray.200'),
+                            a: { color: theme('colors.blue.400') },
+                            strong: { color: theme('colors.blue.400') },
+                            'h1, h2, h3, h4': { color: theme('colors.white') },
+                            'ul > li::marker': { color: theme('colors.blue.400') },
+                            blockquote: {
+                                color: theme('colors.gray.300'),
+                                borderLeftColor: theme('colors.blue.500'),
+                            },
+                            hr: { borderColor: theme('colors.gray.700') },
+                            th: { backgroundColor: theme('colors.gray.800'), color: theme('colors.gray.200') },
+                            td: { borderColor: theme('colors.gray.700') },
+                            code: {
+                                color: theme('colors.pink.400'),
+                                backgroundColor: theme('colors.gray.800'),
+                            },
+                            'pre code': {
+                                backgroundColor: 'transparent',
+                            },
+                            pre: {
+                                backgroundColor: theme('colors.gray.800'),
+                                color: theme('colors.gray.200'),
+                                boxShadow: 'inset 0 0 0 1px ' + theme('colors.gray.700'),
+                                position: 'relative',
+                            },
+                            p: { color: theme('colors.gray.200') },
+                            li: { color: theme('colors.gray.200') },
+                            img: { backgroundColor: theme('colors.gray.800') },
+                            'figure figcaption': { color: theme('colors.gray.400') },
+                        },
                     },
-                    '25%': {
-                        'border-top-color': 'rgba(0, 0, 0, 0)',
-                        'border-right-color': 'rgba(0, 255, 0, 1)',
-                        'border-bottom-color': 'rgba(0, 0, 0, 0)',
-                        'border-left-color': 'rgba(0, 0, 0, 0)',
-                    },
-                    '50%': {
-                        'border-top-color': 'rgba(0, 0, 0, 0)',
-                        'border-right-color': 'rgba(0, 0, 0, 0)',
-                        'border-bottom-color': 'rgba(0, 255, 0, 1)',
-                        'border-left-color': 'rgba(0, 0, 0, 0)',
-                    },
-                    '75%': {
-                        'border-top-color': 'rgba(0, 0, 0, 0)',
-                        'border-right-color': 'rgba(0, 0, 0, 0)',
-                        'border-bottom-color': 'rgba(0, 0, 0, 0)',
-                        'border-left-color': 'rgba(0, 255, 0, 1)',
-                    },
-                    '100%': {
-                        'border-top-color': 'rgba(0, 255, 0, 1)',
-                        'border-right-color': 'rgba(0, 0, 0, 0)',
-                        'border-bottom-color': 'rgba(0, 0, 0, 0)',
-                        'border-left-color': 'rgba(0, 0, 0, 0)',
-                    },
-                },
+                };
             },
         },
     },
-    plugins: [
-        require('@tailwindcss/aspect-ratio'),
-        require('@tailwindcss/forms'),
-        require('@tailwindcss/typography'),
-    ],
+    plugins: [require('@tailwindcss/typography')],
 }
