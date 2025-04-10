@@ -27,7 +27,7 @@ export interface ContactFormData {
     name: string;
     email: string;
     message: string;
-    company?: string;
+    company_name?: string;
     phone_number?: string;
     contact_reason_id?: number;
 } 

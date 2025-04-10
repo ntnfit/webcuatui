@@ -65,7 +65,7 @@ class ContactController extends Controller
             'email' => 'required|email|max:255',
             'message' => 'required|string',
             'phone_number' => 'nullable|string|max:20',
-            'company' => 'nullable|string|max:255',
+            'company_name' => 'nullable|string|max:255',
             'contact_reason_id' => 'nullable|exists:contact_reasons,id',
         ]);
 
@@ -93,7 +93,7 @@ class ContactController extends Controller
             'full_name' => $request->name,
             'email' => $request->email,
             'phone_number' => $request->phone_number,
-            'company' => $request->company,
+            'company_name' => $request->company_name,
             'message' => $request->message,
             'contact_reason_id' => $contact_reason_id,
         ]);

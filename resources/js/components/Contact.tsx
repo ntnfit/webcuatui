@@ -20,7 +20,7 @@ const Contact: React.FC = () => {
     name: '',
     email: '',
     message: '',
-    company: '',
+    company_name: '',
     phone_number: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -48,7 +48,7 @@ const Contact: React.FC = () => {
         name: '',
         email: '',
         message: '',
-        company: '',
+        company_name: '',
         phone_number: ''
       });
 
@@ -242,14 +242,14 @@ const Contact: React.FC = () => {
                     </div>
 
                     <div>
-                      <label htmlFor="company" className="block text-sm font-medium text-apple-dark-gray/70 dark:text-gray-300 mb-1 transition-colors duration-500">
+                      <label htmlFor="company_name" className="block text-sm font-medium text-apple-dark-gray/70 dark:text-gray-300 mb-1 transition-colors duration-500">
                         Công ty
                       </label>
                       <input
                         type="text"
-                        id="company"
-                        name="company"
-                        value={formData.company}
+                        id="company_name"
+                        name="company_name"
+                        value={formData.company_name}
                         onChange={handleChange}
                         className="w-full px-4 py-3 rounded-xl border border-apple-gray dark:border-gray-700 bg-white dark:bg-gray-900 text-apple-dark-gray dark:text-white focus:border-apple-blue dark:focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-apple-blue/30 dark:focus:ring-blue-500/30 transition-all duration-300"
                         placeholder="Tên công ty của bạn (nếu có)"

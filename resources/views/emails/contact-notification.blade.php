@@ -80,8 +80,8 @@
                 <p><span class="label">Số điện thoại:</span> {{ $contact->phone_number }}</p>
                 @endif
                 
-                @if($contact->company)
-                <p><span class="label">Công ty:</span> {{ $contact->company }}</p>
+                @if($contact->company_name)
+                <p><span class="label">Công ty:</span> {{ $contact->company_name }}</p>
                 @endif
                 
                 <p><span class="label">Thời gian:</span> {{ $contact->created_at->format('d/m/Y H:i:s') }}</p>
