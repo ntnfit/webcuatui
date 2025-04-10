@@ -6,12 +6,14 @@ import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
 interface Article {
-    id: number;
+    id: number | string;
     title: string;
     excerpt: string;
     image?: string;
+    thumbnail_url?: string;
     stars: number;
     tags: string[];
+    slug?: string;
 }
 
 interface LatestArticlesProps {
@@ -76,7 +78,7 @@ const LatestArticles: React.FC<LatestArticlesProps> = ({ articles }) => {
                             variants={titleVariants}
                         >
                             <h2 className="text-4xl md:text-5xl font-bold text-apple-dark-gray dark:text-white">
-                                Latest Articles
+                                Bài Viết Mới Nhất
                             </h2>
                             <div className="mt-4 w-24 h-1 bg-apple-blue mx-auto rounded-full" />
                         </motion.div>
@@ -95,19 +97,30 @@ const LatestArticles: React.FC<LatestArticlesProps> = ({ articles }) => {
                                     whileHover={{ y: -5, transition: { duration: 0.2 } }}
                                     className="group bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300"
                                 >
-                                    <div className="relative h-48 overflow-hidden">
+                                    <Link
+                                        href={`/blogs/${article.id}`}
+                                        className="block relative h-48 overflow-hidden"
+                                    >
                                         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                                         <img
-                                            src={article.image}
+                                            src={article.image || article.thumbnail_url || '/images/placeholder.jpg'}
                                             alt={article.title}
                                             className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-300"
+                                            onError={(e) => {
+                                                const target = e.target as HTMLImageElement;
+                                                target.onerror = null;
+                                                target.src = '/images/placeholder.jpg';
+                                            }}
                                         />
-                                    </div>
+                                    </Link>
                                     <div className="p-6">
                                         <div className="flex items-center justify-between mb-4">
-                                            <h3 className="text-xl font-semibold text-apple-dark-gray dark:text-white line-clamp-1 group-hover:text-apple-blue dark:group-hover:text-blue-400 transition-colors">
+                                            <Link
+                                                href={`/blogs/${article.id}`}
+                                                className="text-xl font-semibold text-apple-dark-gray dark:text-white line-clamp-1 group-hover:text-apple-blue dark:group-hover:text-blue-400 transition-colors"
+                                            >
                                                 {article.title}
-                                            </h3>
+                                            </Link>
                                             <div className="flex items-center text-yellow-500">
                                                 <Star className="h-4 w-4 fill-current" />
                                                 <span className="ml-1">{article.stars}</span>
@@ -116,15 +129,25 @@ const LatestArticles: React.FC<LatestArticlesProps> = ({ articles }) => {
                                         <p className="text-gray-600 dark:text-gray-400 mb-4 line-clamp-2">
                                             {article.excerpt}
                                         </p>
-                                        <div className="flex flex-wrap gap-2">
-                                            {article.tags.map((tag, index) => (
+                                        <div className="flex flex-wrap gap-2 mb-4">
+                                            {article.tags && article.tags.length > 0 ? article.tags.map((tag, index) => (
                                                 <span
                                                     key={index}
                                                     className="px-2 py-1 text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded-full transition-colors hover:bg-apple-blue hover:text-white"
                                                 >
                                                     {tag}
                                                 </span>
-                                            ))}
+                                            )) : null}
+                                        </div>
+
+                                        <div className="pt-2 border-t border-gray-100 dark:border-gray-700">
+                                            <Link
+                                                href={`/blogs/${article.id}`}
+                                                className="inline-flex items-center text-sm font-medium text-apple-blue dark:text-blue-400 hover:text-apple-blue/80 dark:hover:text-blue-300 transition-colors"
+                                            >
+                                                Đọc thêm
+                                                <ArrowRight className="ml-1 h-3.5 w-3.5" />
+                                            </Link>
                                         </div>
                                     </div>
                                 </motion.div>

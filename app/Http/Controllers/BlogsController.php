@@ -130,7 +130,7 @@ class BlogsController extends Controller
                     'body' => $this->adjustInlineStylesForDarkMode($blog->body),
                     'excerpt' => $blog->excerpt,
                     'featured_image' => $blog->featured_image,
-                    'thumbnail_url' =>asset('storage/' .$blog->cover_photo_path),
+                    'thumbnail_url' => asset('storage/' . $blog->cover_photo_path),
                     'categories' => $blog->categories->pluck('name'),
                     'tags' => $blog->tags->pluck('name'),
                     'type' => $blog->type,

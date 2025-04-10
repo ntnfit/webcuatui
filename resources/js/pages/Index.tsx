@@ -14,6 +14,7 @@ interface BlogPost {
     title: string;
     excerpt: string;
     image?: string;
+    thumbnail_url?: string;
     stars: number;
     tags: string[];
 }
@@ -24,6 +25,11 @@ interface IndexPageProps {
 
 const Index: React.FC<IndexPageProps> = ({ latestArticles }) => {
     const { toast } = useToast();
+
+    const articlesWithImage = latestArticles.map(article => ({
+        ...article,
+        image: article.thumbnail_url || article.image || '/images/placeholder.jpg'
+    }));
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -68,7 +74,7 @@ const Index: React.FC<IndexPageProps> = ({ latestArticles }) => {
                 <About />
                 <Skills />
                 <Projects />
-                <LatestArticles articles={latestArticles} />
+                <LatestArticles articles={articlesWithImage} />
                 <Contact />
                 <Footer />
             </div>
