@@ -101,7 +101,9 @@ const Navbar: React.FC = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" className="flex-shrink-0">
-            <span className="text-2xl font-bold text-gray-600 dark:text-white transition-colors duration-500">HarryDev</span>
+            <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 via-purple-500 to-pink-500 text-transparent bg-clip-text transform hover:scale-105 transition-all duration-300">
+              HarryDev
+            </span>
           </Link>
 
           {/* Desktop Menu */}

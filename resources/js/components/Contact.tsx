@@ -1,11 +1,12 @@
 import React, { FormEvent, useState } from 'react';
 import { cn } from '@/lib/utils';
 import { useInView } from '@/utils/animations';
-import { ContactInfo } from '@/types';
+import { ContactInfo, ContactFormData } from '@/types';
+import axios from 'axios';
 
 const contactInfo: ContactInfo = {
-  email: 'contact@example.com',
-  phone: '+1 (555) 123-4567',
+  email: 'ntnguyen0310@gmail.com',
+  phone: '0981710031',
   social: {
     github: 'https://github.com',
     linkedin: 'https://linkedin.com',
@@ -15,35 +16,51 @@ const contactInfo: ContactInfo = {
 
 const Contact: React.FC = () => {
   const [ref, isInView] = useInView<HTMLDivElement>();
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<ContactFormData>({
     name: '',
     email: '',
-    message: ''
+    message: '',
+    company: '',
+    phone_number: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setError(null);
 
-    // Simulate form submission
-    setTimeout(() => {
-      console.log('Form submitted:', formData);
+    try {
+      // Gửi dữ liệu đến Laravel backend
+      const response = await axios.post('/api/contact', formData);
+
+      console.log('Form submitted:', response.data);
       setIsSubmitting(false);
       setIsSubmitted(true);
-      setFormData({ name: '', email: '', message: '' });
+      setFormData({
+        name: '',
+        email: '',
+        message: '',
+        company: '',
+        phone_number: ''
+      });
 
       // Reset success message after 5 seconds
       setTimeout(() => {
         setIsSubmitted(false);
       }, 5000);
-    }, 1500);
+    } catch (err) {
+      setIsSubmitting(false);
+      setError('Đã có lỗi xảy ra khi gửi tin nhắn. Vui lòng thử lại sau.');
+      console.error('Error submitting form:', err);
+    }
   };
 
   return (
@@ -51,13 +68,13 @@ const Contact: React.FC = () => {
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <div className="inline-block px-3 py-1 rounded-full bg-apple-blue/10 dark:bg-blue-900/20 text-apple-blue dark:text-blue-400 text-xs font-medium mb-4 transition-colors duration-500">
-            Get In Touch
+            Liên Hệ Với Tôi
           </div>
           <h2 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-apple-dark-gray dark:text-white transition-colors duration-500">
-            Let's Start a Conversation
+            Hãy Bắt Đầu Trò Chuyện
           </h2>
           <p className="text-lg text-apple-dark-gray/80 dark:text-gray-300/80 max-w-2xl mx-auto transition-colors duration-500">
-            Whether you have a project in mind or just want to connect, I'm always open to discussing new opportunities.
+            Cho dù bạn có một dự án trong tâm trí hay chỉ muốn kết nối, tôi luôn sẵn sàng thảo luận về những cơ hội mới.
           </p>
         </div>
 
@@ -71,7 +88,7 @@ const Contact: React.FC = () => {
             )}
           >
             <div className="bg-apple-white dark:bg-gray-800 rounded-2xl p-8 shadow-xl h-full glass-card transition-colors duration-500">
-              <h3 className="text-2xl font-bold mb-6 text-apple-dark-gray dark:text-white transition-colors duration-500">Contact Information</h3>
+              <h3 className="text-2xl font-bold mb-6 text-apple-dark-gray dark:text-white transition-colors duration-500">Thông Tin Liên Hệ</h3>
 
               <div className="space-y-6">
                 <div className="flex items-start">
@@ -96,7 +113,7 @@ const Contact: React.FC = () => {
                     </svg>
                   </div>
                   <div>
-                    <h4 className="text-sm font-medium text-apple-dark-gray/60 dark:text-gray-400 mb-1 transition-colors duration-500">Phone</h4>
+                    <h4 className="text-sm font-medium text-apple-dark-gray/60 dark:text-gray-400 mb-1 transition-colors duration-500">Điện thoại</h4>
                     <a href={`tel:${contactInfo.phone}`} className="text-apple-dark-gray dark:text-gray-300 hover:text-apple-blue dark:hover:text-blue-400 transition-colors duration-300">
                       {contactInfo.phone}
                     </a>
@@ -104,7 +121,7 @@ const Contact: React.FC = () => {
                 </div>
 
                 <div>
-                  <h4 className="text-sm font-medium text-apple-dark-gray/60 dark:text-gray-400 mb-3 transition-colors duration-500">Social Media</h4>
+                  <h4 className="text-sm font-medium text-apple-dark-gray/60 dark:text-gray-400 mb-3 transition-colors duration-500">Mạng xã hội</h4>
                   <div className="flex space-x-4">
                     {contactInfo.social.github && (
                       <a
@@ -164,22 +181,22 @@ const Contact: React.FC = () => {
             )}
           >
             <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-xl h-full glass-card transition-colors duration-500">
-              <h3 className="text-2xl font-bold mb-6 text-apple-dark-gray dark:text-white transition-colors duration-500">Send a Message</h3>
+              <h3 className="text-2xl font-bold mb-6 text-apple-dark-gray dark:text-white transition-colors duration-500">Gửi Tin Nhắn</h3>
 
               {isSubmitted ? (
                 <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 text-green-700 dark:text-green-300 rounded-xl p-6 text-center transition-colors duration-500">
                   <svg className="w-12 h-12 mx-auto mb-4 text-green-500 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                   </svg>
-                  <h4 className="text-xl font-bold mb-2">Message Sent Successfully!</h4>
-                  <p>Thank you for reaching out. I'll get back to you as soon as possible.</p>
+                  <h4 className="text-xl font-bold mb-2">Tin Nhắn Đã Được Gửi!</h4>
+                  <p>Cảm ơn bạn đã liên hệ. Tôi sẽ phản hồi trong thời gian sớm nhất.</p>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit}>
-                  <div className="grid grid-cols-1 gap-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                       <label htmlFor="name" className="block text-sm font-medium text-apple-dark-gray/70 dark:text-gray-300 mb-1 transition-colors duration-500">
-                        Name
+                        Họ tên
                       </label>
                       <input
                         type="text"
@@ -189,7 +206,7 @@ const Contact: React.FC = () => {
                         onChange={handleChange}
                         required
                         className="w-full px-4 py-3 rounded-xl border border-apple-gray dark:border-gray-700 bg-white dark:bg-gray-900 text-apple-dark-gray dark:text-white focus:border-apple-blue dark:focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-apple-blue/30 dark:focus:ring-blue-500/30 transition-all duration-300"
-                        placeholder="Your name"
+                        placeholder="Họ và tên của bạn"
                       />
                     </div>
 
@@ -205,13 +222,43 @@ const Contact: React.FC = () => {
                         onChange={handleChange}
                         required
                         className="w-full px-4 py-3 rounded-xl border border-apple-gray dark:border-gray-700 bg-white dark:bg-gray-900 text-apple-dark-gray dark:text-white focus:border-apple-blue dark:focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-apple-blue/30 dark:focus:ring-blue-500/30 transition-all duration-300"
-                        placeholder="Your email address"
+                        placeholder="Địa chỉ email của bạn"
                       />
                     </div>
 
                     <div>
+                      <label htmlFor="phone_number" className="block text-sm font-medium text-apple-dark-gray/70 dark:text-gray-300 mb-1 transition-colors duration-500">
+                        Số điện thoại
+                      </label>
+                      <input
+                        type="tel"
+                        id="phone_number"
+                        name="phone_number"
+                        value={formData.phone_number}
+                        onChange={handleChange}
+                        className="w-full px-4 py-3 rounded-xl border border-apple-gray dark:border-gray-700 bg-white dark:bg-gray-900 text-apple-dark-gray dark:text-white focus:border-apple-blue dark:focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-apple-blue/30 dark:focus:ring-blue-500/30 transition-all duration-300"
+                        placeholder="Số điện thoại của bạn"
+                      />
+                    </div>
+
+                    <div>
+                      <label htmlFor="company" className="block text-sm font-medium text-apple-dark-gray/70 dark:text-gray-300 mb-1 transition-colors duration-500">
+                        Công ty
+                      </label>
+                      <input
+                        type="text"
+                        id="company"
+                        name="company"
+                        value={formData.company}
+                        onChange={handleChange}
+                        className="w-full px-4 py-3 rounded-xl border border-apple-gray dark:border-gray-700 bg-white dark:bg-gray-900 text-apple-dark-gray dark:text-white focus:border-apple-blue dark:focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-apple-blue/30 dark:focus:ring-blue-500/30 transition-all duration-300"
+                        placeholder="Tên công ty của bạn (nếu có)"
+                      />
+                    </div>
+
+                    <div className="md:col-span-2">
                       <label htmlFor="message" className="block text-sm font-medium text-apple-dark-gray/70 dark:text-gray-300 mb-1 transition-colors duration-500">
-                        Message
+                        Tin nhắn
                       </label>
                       <textarea
                         id="message"
@@ -221,11 +268,17 @@ const Contact: React.FC = () => {
                         required
                         rows={5}
                         className="w-full px-4 py-3 rounded-xl border border-apple-gray dark:border-gray-700 bg-white dark:bg-gray-900 text-apple-dark-gray dark:text-white focus:border-apple-blue dark:focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-apple-blue/30 dark:focus:ring-blue-500/30 transition-all duration-300 resize-none"
-                        placeholder="How can I help you?"
+                        placeholder="Tôi có thể giúp gì cho bạn?"
                       />
                     </div>
 
-                    <div>
+                    {error && (
+                      <div className="md:col-span-2 text-red-500 dark:text-red-400 bg-red-50 dark:bg-red-900/20 p-3 rounded-lg border border-red-200 dark:border-red-800">
+                        {error}
+                      </div>
+                    )}
+
+                    <div className="md:col-span-2">
                       <button
                         type="submit"
                         disabled={isSubmitting}
@@ -246,10 +299,10 @@ const Contact: React.FC = () => {
                               <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                               <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                             </svg>
-                            Sending...
+                            Đang gửi...
                           </span>
                         ) : (
-                          'Send Message'
+                          'Gửi Tin Nhắn'
                         )}
                       </button>
                     </div>
