@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link, usePage } from '@inertiajs/react';
+import { Head, Link, usePage } from '@inertiajs/react';
 import { motion } from 'framer-motion';
 import {
     ChevronLeft, ChevronRight, Calendar, Clock, Eye, Star, Share2,
@@ -473,22 +473,34 @@ const BlogDetail: React.FC = () => {
     // Xử lý khi có lỗi
     if (error) {
         return (
-            <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-500">
-                <Navbar />
-                <div className="pt-24 max-w-4xl mx-auto px-4 py-8">
-                    <div className="text-center">
-                        <h1 className="text-2xl font-bold text-red-500 dark:text-red-400 mb-4">Lỗi</h1>
-                        <p className="text-gray-600 dark:text-gray-400 mb-8">{error}</p>
-                        <Link
-                            href="/blogs"
-                            className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                        >
-                            <ArrowLeft className="mr-2 h-4 w-4" />
-                            Quay lại danh sách bài viết
-                        </Link>
+            <>
+                <Head>
+                    <title>{`${blog.title} | My Blog`}</title>
+                    <meta name="description" content={blog.excerpt} />
+                    <meta property="og:title" content={blog.title} />
+                    <meta property="og:description" content={blog.excerpt} />
+                    <meta property="og:image" content={blog.thumbnail_url || blog.featured_image || '/default-image.jpg'} />
+                    <meta property="og:url" content={typeof window !== 'undefined' ? window.location.href : ''} />
+                    <meta name="twitter:card" content="summary_large_image" />
+                </Head>
+
+                <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-500">
+                    <Navbar />
+                    <div className="pt-24 max-w-4xl mx-auto px-4 py-8">
+                        <div className="text-center">
+                            <h1 className="text-2xl font-bold text-red-500 dark:text-red-400 mb-4">Lỗi</h1>
+                            <p className="text-gray-600 dark:text-gray-400 mb-8">{error}</p>
+                            <Link
+                                href="/blogs"
+                                className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                            >
+                                <ArrowLeft className="mr-2 h-4 w-4" />
+                                Quay lại danh sách bài viết
+                            </Link>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </>
         );
     }
 
