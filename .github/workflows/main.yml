@@ -23,6 +23,10 @@ jobs:
           sudo composer install
           sudo php artisan migrate
           sudo npm run build
+          php artisan vendor:publish --provider="AmidEsfahani\FilamentTinyEditor\TinyeditorServiceProvider"
+          php artisan vendor:publish --provider="AmidEsfahani\FilamentTinyEditor\TinyeditorServiceProvider" --tag="config"
+          php artisan vendor:publish --provider="AmidEsfahani\FilamentTinyEditor\TinyeditorServiceProvider" --tag="views"
+          php artisan vendor:publish --provider="AmidEsfahani\FilamentTinyEditor\TinyeditorServiceProvider" --tag="public"
           php artisan filament:optimize-clear
           php artisan filament:optimize
           sudo php artisan optimize:clear
