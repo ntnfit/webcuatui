@@ -336,6 +336,41 @@ const BlogDetail: React.FC = () => {
     const [linkCopied, setLinkCopied] = useState(false);
     const blogContentRef = useRef<HTMLDivElement>(null);
 
+    // Add meta tags dynamically
+    useEffect(() => {
+        if (blog) {
+            const metaTitle = `${blog.title} | My Blog`;
+            const metaDescription = blog.excerpt;
+            const metaImage = blog.thumbnail_url || blog.featured_image || '/default-image.jpg';
+            const metaUrl = typeof window !== 'undefined' ? window.location.href : '';
+
+            document.title = metaTitle;
+
+            const metaTags = [
+                { name: 'description', content: metaDescription },
+                { property: 'og:title', content: metaTitle },
+                { property: 'og:description', content: metaDescription },
+                { property: 'og:image', content: metaImage },
+                { property: 'og:url', content: metaUrl },
+                { name: 'twitter:card', content: 'summary_large_image' },
+                { name: 'twitter:title', content: metaTitle },
+                { name: 'twitter:description', content: metaDescription },
+                { name: 'twitter:image', content: metaImage }
+            ];
+
+            metaTags.forEach(({ name, property, content }) => {
+                let metaTag = document.querySelector(`meta[${name ? 'name' : 'property'}="${name || property}"]`);
+                if (!metaTag) {
+                    metaTag = document.createElement('meta');
+                    if (name) metaTag.setAttribute('name', name);
+                    if (property) metaTag.setAttribute('property', property);
+                    document.head.appendChild(metaTag);
+                }
+                metaTag.setAttribute('content', content);
+            });
+        }
+    }, [blog]);
+
     // Áp dụng style tùy chỉnh
     useEffect(() => {
         // Thêm style vào head
@@ -930,4 +965,4 @@ const BlogDetail: React.FC = () => {
     );
 };
 
-export default BlogDetail; 
+export default BlogDetail;
