@@ -95,12 +95,12 @@ const LatestArticles: React.FC<LatestArticlesProps> = ({ articles }) => {
                                     key={article.id}
                                     className="relative group"
                                 >
-                                    {/* Dash border element that appears on hover */}
-                                    <div className="absolute inset-0 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                                    {/* Hover */}
+                                    <div className="absolute inset-0 bg-gradient-to-r from-blue-300 via-purple-300 to-pink-300 dark:bg-gradient-to-r dark:from-blue-500 dark:via-purple-500 dark:to-pink-500 animate-border-flow rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 
                                     <motion.div
                                         variants={itemVariants}
-                                        className="bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-lg group-hover:shadow-2xl transition-all duration-300 group-hover:translate-x-[-10px] group-hover:translate-y-[-10px]"
+                                        className="bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-lg group-hover:shadow-2xl transition-all duration-300 group-hover:translate-x-[-6px] group-hover:translate-y-[-6px]"
                                     >
                                         <Link
                                             href={`/blogs/${article.id}`}
@@ -182,7 +182,7 @@ const LatestArticles: React.FC<LatestArticlesProps> = ({ articles }) => {
                         >
                             <Link
                                 href="/blogs"
-                                className="inline-flex items-center px-6 py-3 rounded-full bg-gradient-to-r from-sky-500 to-indigo-500 dark:from-purple-500 dark:to-pink-500 text-white hover:bg-blue-700 dark:hover:bg-blue-600 transition-colors duration-300"
+                                className="inline-flex items-center px-6 py-3 rounded-full bg-gradient-to-r from-sky-500 to-indigo-500 dark:from-purple-500 dark:to-pink-500 text-white hover:bg-blue-700 dark:hover:bg-blue-600 transition-colors duration-300 font-semibold"
                             >
                                 Xem tất cả bài viết
                                 <ArrowRight className="ml-2 h-4 w-4" />

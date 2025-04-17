@@ -313,7 +313,7 @@ const BlogDetail: React.FC = () => {
 
                         const copyButton = document.createElement("button");
                         copyButton.className =
-                            "text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 transition-colors duration-200 flex items-center justify-center w-8 h-8 rounded-md bg-white/90 dark:bg-gray-700/90 shadow-sm";
+                            "cursor-pointer text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 transition-colors duration-200 flex items-center justify-center w-8 h-8 rounded-md bg-white/90 dark:bg-gray-700/90 shadow-sm";
                         copyButton.innerHTML =
                             '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg>';
                         copyButton.title = "Sao chép code";
@@ -326,6 +326,7 @@ const BlogDetail: React.FC = () => {
                                     "text-green-500",
                                     "dark:text-green-400",
                                 );
+                                copyButton.style.cursor = "default";
 
                                 setTimeout(() => {
                                     copyButton.innerHTML =
@@ -334,6 +335,7 @@ const BlogDetail: React.FC = () => {
                                         "text-green-500",
                                         "dark:text-green-400",
                                     );
+                                    copyButton.style.cursor = "pointer";
                                 }, 2000);
                             });
                         });
@@ -668,7 +670,7 @@ const BlogDetail: React.FC = () => {
                                                         <Button
                                                             variant="ghost"
                                                             size="sm"
-                                                            className="h-8 w-8 p-0 rounded-full text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
+                                                            className="cursor-pointer h-8 w-8 p-0 rounded-full text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
                                                             onClick={() =>
                                                                 setShowShareModal(
                                                                     false,
@@ -739,7 +741,7 @@ const BlogDetail: React.FC = () => {
                                                         <div className="flex items-center gap-3">
                                                             <Button
                                                                 variant="outline"
-                                                                className="flex-1 flex items-center justify-center gap-2 bg-white hover:bg-blue-50 text-blue-600 border-blue-200 dark:bg-gray-800 dark:text-blue-400 dark:border-blue-900/50 dark:hover:bg-blue-900/20"
+                                                                className="cursor-pointer flex-1 flex items-center justify-center gap-2 bg-white hover:bg-blue-50 text-blue-600 border-blue-200 dark:bg-gray-800 dark:text-blue-400 dark:border-blue-900/50 dark:hover:bg-blue-900/20"
                                                                 onClick={
                                                                     shareToFacebook
                                                                 }
@@ -751,7 +753,7 @@ const BlogDetail: React.FC = () => {
                                                             </Button>
                                                             <Button
                                                                 variant="outline"
-                                                                className="flex-1 flex items-center justify-center gap-2 bg-white hover:bg-sky-50 text-sky-500 border-sky-200 dark:bg-gray-800 dark:text-sky-400 dark:border-sky-900/50 dark:hover:bg-sky-900/20"
+                                                                className="cursor-pointer flex-1 flex items-center justify-center gap-2 bg-white hover:bg-sky-50 text-sky-500 border-sky-200 dark:bg-gray-800 dark:text-sky-400 dark:border-sky-900/50 dark:hover:bg-sky-900/20"
                                                                 onClick={
                                                                     shareToTwitter
                                                                 }
@@ -763,7 +765,7 @@ const BlogDetail: React.FC = () => {
                                                             </Button>
                                                             <Button
                                                                 variant="outline"
-                                                                className="flex-1 flex items-center justify-center gap-2 bg-white hover:bg-blue-50 text-blue-700 border-blue-200 dark:bg-gray-800 dark:text-blue-400 dark:border-blue-900/50 dark:hover:bg-blue-900/20"
+                                                                className="cursor-pointer flex-1 flex items-center justify-center gap-2 bg-white hover:bg-blue-50 text-blue-700 border-blue-200 dark:bg-gray-800 dark:text-blue-400 dark:border-blue-900/50 dark:hover:bg-blue-900/20"
                                                                 onClick={
                                                                     shareToLinkedIn
                                                                 }

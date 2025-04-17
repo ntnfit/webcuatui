@@ -334,7 +334,7 @@ const Blogs: React.FC = () => {
             >
                 <Button
                     variant={isSelected ? "default" : "outline"}
-                    className={`rounded-full border px-4 py-2 ${colors.light} ${colors.dark} transition-colors duration-300`}
+                    className={`rounded-full border px-4 py-2 ${colors.light} ${colors.dark} transition-colors duration-300 cursor-pointer`}
                     onClick={() => handleTypeSelect(type)}
                 >
                     {type === "Bài viết" && typeIcons["Bài viết"]}
@@ -452,7 +452,7 @@ const Blogs: React.FC = () => {
                                             ? "default"
                                             : "outline"
                                     }
-                                    className={`rounded-full border px-4 py-2 ${
+                                    className={`rounded-full border px-4 py-2 cursor-pointer ${
                                         selectedType === ""
                                             ? "bg-blue-50 text-blue-600 border-blue-200 hover:bg-blue-100 dark:bg-blue-900/30 dark:text-blue-400 dark:border-blue-800/50 dark:hover:bg-blue-900/40"
                                             : "bg-gray-50 text-gray-600 border-gray-200 hover:bg-gray-100 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600 dark:hover:bg-gray-600"
@@ -504,7 +504,7 @@ const Blogs: React.FC = () => {
                                                 ? "default"
                                                 : "outline"
                                         }
-                                        className={`rounded-full border px-4 py-2 ${
+                                        className={`rounded-full border px-4 py-2 cursor-pointer ${
                                             selectedCategories.length === 0
                                                 ? "bg-blue-50 text-blue-600 border-blue-200 hover:bg-blue-100 dark:bg-blue-900/30 dark:text-blue-400 dark:border-blue-800/50 dark:hover:bg-blue-900/40"
                                                 : "bg-gray-50 text-gray-600 border-gray-200 hover:bg-gray-100 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600 dark:hover:bg-gray-600"
@@ -546,7 +546,7 @@ const Blogs: React.FC = () => {
                                                             ? "default"
                                                             : "outline"
                                                     }
-                                                    className={`rounded-full border px-4 py-2 ${colors.light} ${colors.dark} transition-colors duration-300`}
+                                                    className={`rounded-full border px-4 py-2 ${colors.light} ${colors.dark} transition-colors duration-300 cursor-pointer`}
                                                     onClick={() =>
                                                         handleCategorySelect(
                                                             category,
@@ -594,15 +594,15 @@ const Blogs: React.FC = () => {
                                         key={post.id}
                                         className="h-full relative group"
                                     >
-                                        {/* Dash border element that appears on hover */}
-                                        <div className="absolute inset-0 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                                        {/* Hover */}
+                                        <div className="absolute inset-0 bg-gradient-to-r from-blue-300 via-purple-300 to-pink-300 dark:bg-gradient-to-r dark:from-blue-500 dark:via-purple-500 dark:to-pink-500 animate-border-flow rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 
                                         <motion.div
                                             variants={postVariants}
                                             initial="hidden"
                                             animate="visible"
                                             custom={index}
-                                            className="h-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden transition-all duration-300 group-hover:shadow-md dark:group-hover:shadow-gray-800/50 group-hover:translate-x-[-10px] group-hover:translate-y-[-10px]"
+                                            className="h-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden transition-all duration-300 group-hover:shadow-md dark:group-hover:shadow-gray-800/50 group-hover:translate-x-[-6px] group-hover:translate-y-[-6px]"
                                         >
                                             {/* Hình ảnh với thứ tự ưu tiên: thumbnail > featured_image > placeholder */}
                                             <Link
@@ -616,7 +616,7 @@ const Blogs: React.FC = () => {
                                                         "https://via.placeholder.com/800x400?text=Blog+Image"
                                                     }
                                                     alt={post.title}
-                                                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+                                                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                                                     loading="lazy"
                                                     onError={(e) => {
                                                         (
@@ -814,7 +814,7 @@ const Blogs: React.FC = () => {
                                     paginate(pagination.currentPage - 1)
                                 }
                                 disabled={pagination.currentPage === 1}
-                                className="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 text-apple-dark-gray dark:text-gray-200 border-gray-200 dark:border-gray-700 transition-colors duration-300"
+                                className="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 text-apple-dark-gray dark:text-gray-200 border-gray-200 dark:border-gray-700 transition-colors duration-300 cursor-pointer"
                             >
                                 <ChevronLeft className="h-4 w-4" />
                             </Button>
@@ -828,7 +828,7 @@ const Blogs: React.FC = () => {
                                                 ? "default"
                                                 : "outline"
                                         }
-                                        className={`w-10 h-10 bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 text-apple-dark-gray dark:text-gray-200 border-gray-200 dark:border-gray-700 transition-colors duration-300 ${pagination.currentPage === index + 1 ? "bg-rose-500 dark:bg-rose-600 hover:bg-rose-600 dark:hover:bg-rose-700 text-white" : ""}`}
+                                        className={`w-10 h-10 bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 text-apple-dark-gray dark:text-gray-200 border-gray-200 dark:border-gray-700 transition-colors duration-300 ${pagination.currentPage === index + 1 ? "bg-rose-500 dark:bg-rose-600 hover:bg-rose-600 dark:hover:bg-rose-700 text-white cursor-pointer" : ""}`}
                                         onClick={() => paginate(index + 1)}
                                     >
                                         {index + 1}
@@ -848,7 +848,7 @@ const Blogs: React.FC = () => {
                                     pagination.currentPage ===
                                     pagination.lastPage
                                 }
-                                className="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 text-apple-dark-gray dark:text-gray-200 border-gray-200 dark:border-gray-700 transition-colors duration-300"
+                                className="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 text-apple-dark-gray dark:text-gray-200 border-gray-200 dark:border-gray-700 transition-colors duration-300 cursor-pointer"
                             >
                                 <ChevronRight className="h-4 w-4" />
                             </Button>

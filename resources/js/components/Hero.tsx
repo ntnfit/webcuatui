@@ -1,25 +1,25 @@
-import React, { useEffect, useState } from 'react';
-import { cn } from '@/lib/utils';
-import { useInView } from '@/utils/animations';
-import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
+import React, { useEffect, useState } from "react";
+import { cn } from "@/lib/utils";
+import { useInView } from "@/utils/animations";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
 const Hero: React.FC = () => {
     const [ref, isInView] = useInView<HTMLDivElement>();
-    const [typedText, setTypedText] = useState('');
+    const [typedText, setTypedText] = useState("");
     const [currentTextIndex, setCurrentTextIndex] = useState(0);
     const [isTyping, setIsTyping] = useState(true);
     const [nameAnimation, setNameAnimation] = useState(false);
-    const [typedName, setTypedName] = useState('');
+    const [typedName, setTypedName] = useState("");
     const [isNameTyping, setIsNameTyping] = useState(true);
 
     const texts = [
-        'Lập trình viên WebApp',
-        'Chuyên gia ERP',
-        'Chuyên gia React & Vue',
-        'Chuyên gia tích hợp hệ thống',
+        "Lập trình viên WebApp",
+        "Chuyên gia ERP",
+        "Chuyên gia React & Vue",
+        "Chuyên gia tích hợp hệ thống",
     ];
 
-    const name = 'Harry Dev';
+    const name = "Harry Dev";
 
     useEffect(() => {
         const nameTimer = setTimeout(() => {
@@ -86,8 +86,10 @@ const Hero: React.FC = () => {
 
             <div
                 className={cn(
-                    'max-w-4xl mx-auto text-center transition-all duration-1000',
-                    isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+                    "max-w-4xl mx-auto text-center transition-all duration-1000",
+                    isInView
+                        ? "opacity-100 translate-y-0"
+                        : "opacity-0 translate-y-10",
                 )}
             >
                 {/* Avatar glow */}
@@ -109,11 +111,11 @@ const Hero: React.FC = () => {
                 </div>
 
                 <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-gray-800 dark:text-white mb-4 leading-tight font-sans transition-colors duration-500">
-                    Xin chào, tôi là{' '}
+                    Xin chào, tôi là{" "}
                     <span
                         className={cn(
-                            'bg-gradient-to-r from-sky-500 to-purple-500 dark:from-purple-400 dark:to-pink-400 bg-clip-text text-transparent transition-colors duration-500',
-                            nameAnimation && 'animate-name-glow'
+                            "bg-gradient-to-r from-sky-500 to-purple-500 dark:from-purple-400 dark:to-pink-400 bg-clip-text text-transparent transition-colors duration-500",
+                            nameAnimation && "animate-name-glow",
                         )}
                     >
                         {typedName}
@@ -125,14 +127,18 @@ const Hero: React.FC = () => {
 
                 <div className="h-14 mb-4">
                     <p className="text-lg md:text-2xl text-gray-600 dark:text-gray-300 font-medium font-sans transition-colors duration-500">
-                        Tôi là{' '}
-                        <span className="text-sky-600 dark:text-purple-400 transition-colors duration-500">{typedText}</span>
+                        Tôi là{" "}
+                        <span className="text-sky-600 dark:text-purple-400 transition-colors duration-500">
+                            {typedText}
+                        </span>
                         <span className="inline-block w-1.5 h-6 bg-sky-500 dark:bg-purple-400 ml-1 animate-blink rounded-sm transition-colors duration-500"></span>
                     </p>
                 </div>
 
                 <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-6 max-w-2xl mx-auto animate-fade-in font-sans transition-colors duration-500">
-                    Tôi tạo ra những trải nghiệm sống động, chức năng và tập trung vào người dùng với sự chính xác và chú ý đến từng chi tiết.
+                    Tôi tạo ra những trải nghiệm sống động, chức năng và tập
+                    trung vào người dùng với sự chính xác và chú ý đến từng chi
+                    tiết.
                 </p>
 
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-8 animate-fade-in">
@@ -155,7 +161,10 @@ const Hero: React.FC = () => {
                     <div className="flex items-center justify-center">
                         <div className="px-6 py-5 bg-gradient-to-r from-blue-100 via-purple-100 to-pink-100 dark:from-purple-900/40 dark:via-gray-800 dark:to-pink-900/30 rounded-2xl shadow-lg dark:shadow-purple-900/20 backdrop-blur-lg border border-white/20 dark:border-white/10 max-w-xl w-full transition-all duration-500">
                             <p className="text-md md:text-lg text-gray-800 dark:text-gray-200 font-medium text-center transition-colors duration-500">
-                                💡 Portfolio này được xây dựng bằng <span className="font-semibold text-sky-600 dark:text-purple-400 transition-colors duration-500">React, Tailwind và một chút phép màu ✨</span>
+                                💡 Portfolio này được xây dựng bằng{" "}
+                                <span className="font-semibold text-sky-600 dark:text-purple-400 transition-colors duration-500">
+                                    React, Tailwind và một chút phép màu ✨
+                                </span>
                             </p>
                         </div>
                     </div>
