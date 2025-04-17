@@ -159,11 +159,11 @@ const LatestArticles: React.FC<LatestArticlesProps> = ({ articles }) => {
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            transition={{ delay: 0.5 }}
+                            whileHover={{ scale: 1.05 }}
                         >
                             <Link
                                 href="/blogs"
-                                className="inline-flex items-center text-apple-blue hover:text-apple-blue/80 transition-colors"
+                                className="inline-flex items-center px-6 py-3 rounded-full bg-gradient-to-r from-sky-500 to-indigo-500 dark:from-purple-500 dark:to-pink-500 text-white hover:bg-blue-700 dark:hover:bg-blue-600 transition-colors duration-300"
                             >
                                 Xem tất cả bài viết
                                 <ArrowRight className="ml-2 h-4 w-4" />

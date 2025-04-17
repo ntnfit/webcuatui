@@ -9,7 +9,9 @@
 
 @theme {
     --font-sans:
-        'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+        "Instrument Sans", ui-sans-serif, system-ui, sans-serif,
+        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+        "Noto Color Emoji";
 
     --radius-lg: var(--radius);
     --radius-md: calc(var(--radius) - 2px);
@@ -68,7 +70,6 @@
   color utility to any element that depends on these defaults.
 */
 @layer base {
-
     *,
     ::after,
     ::before,
@@ -175,8 +176,8 @@
     animation: fade-in-up 0.8s ease-out forwards;
 }
 
-@tailwind base;
-@tailwind components;
+/* @tailwind base;
+@tailwind components; */
 @tailwind utilities;
 
 /* TinyMCE Editor Content Styling */
@@ -186,21 +187,20 @@
 
 /* Custom styling for content from TinyMCE editor in both light and dark modes */
 @layer components {
-
     /* Đảm bảo nội dung HTML từ TinyMCE hiển thị đúng màu sắc trong dark mode */
     .dark .prose h1,
     .dark .prose h2,
     .dark .prose h3,
     .dark .prose h4,
-    .dark .pro se h5,
+    .dark .prose h5,
     .dark .prose h6 {
         @apply text-white;
     }
 
-    .dark . pros e p,
-    .dark .p rose span,
-    .dark .pro se ul,
-    .dark .pr ose ol,
+    .dark .prose p,
+    .dark .prose span,
+    .dark .prose ul,
+    .dark .prose ol,
     .dark .prose li {
         @apply text-gray-200;
     }
@@ -270,5 +270,6 @@
     .prose .te xt-green-500,
     .prose [style*="color: green"],
     .prose [style*="color:#00ff00"],
-    .prose [style*="color: #00ff00"] {}
+    .prose [style*="color: #00ff00"] {
+    }
 }

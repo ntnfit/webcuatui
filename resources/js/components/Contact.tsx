@@ -128,7 +128,7 @@ const Contact: React.FC = () => {
                         href={contactInfo.social.github}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="bg-apple-gray dark:bg-gray-700 p-3 rounded-full text-apple-dark-gray dark:text-gray-300 hover:bg-apple-blue dark:hover:bg-blue-600 hover:text-white transition-all duration-300"
+                        className="bg-apple-gray dark:bg-gray-700 p-3 rounded-full text-apple-dark-gray dark:text-gray-300 dark:hover:bg-blue-600 hover:bg-gray-100 hover:text-blue-600 transition-all duration-300"
                         aria-label="GitHub"
                       >
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -142,7 +142,7 @@ const Contact: React.FC = () => {
                         href={contactInfo.social.linkedin}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="bg-apple-gray dark:bg-gray-700 p-3 rounded-full text-apple-dark-gray dark:text-gray-300 hover:bg-apple-blue dark:hover:bg-blue-600 hover:text-white transition-all duration-300"
+                        className="bg-apple-gray dark:bg-gray-700 p-3 rounded-full text-apple-dark-gray dark:text-gray-300 dark:hover:bg-blue-600 hover:bg-gray-100 hover:text-blue-600 transition-all duration-300"
                         aria-label="LinkedIn"
                       >
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -158,7 +158,7 @@ const Contact: React.FC = () => {
                         href={contactInfo.social.twitter}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="bg-apple-gray dark:bg-gray-700 p-3 rounded-full text-apple-dark-gray dark:text-gray-300 hover:bg-apple-blue dark:hover:bg-blue-600 hover:text-white transition-all duration-300"
+                        className="bg-apple-gray dark:bg-gray-700 p-3 rounded-full text-apple-dark-gray dark:text-gray-300 dark:hover:bg-blue-600 hover:bg-gray-100 hover:text-blue-600 transition-all duration-300"
                         aria-label="Twitter"
                       >
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -285,7 +285,7 @@ const Contact: React.FC = () => {
                         className={cn(
                           "w-fit px-8 py-3 rounded-xl font-medium transition-all duration-300",
                           "text-white disabled:opacity-70 disabled:cursor-not-allowed",
-                          "bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-500", // 🌞 Light mode: gradient xanh dương
+                          "bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-500 cursor-pointer", // 🌞 Light mode: gradient xanh dương
                           "dark:bg-gradient-to-r dark:from-purple-600 dark:to-indigo-600 dark:hover:from-indigo-600 dark:hover:to-purple-600", // 🌚 Dark mode: gradient tím
                           "shadow-lg hover:shadow-xl",
                           "transform hover:-translate-y-0.5",

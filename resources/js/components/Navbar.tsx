@@ -145,7 +145,7 @@ const Navbar: React.FC = () => {
                 checked={isDark}
                 onCheckedChange={toggleTheme}
                 className={cn(
-                  "data-[state=checked]:bg-blue-600 dark:data-[state=checked]:bg-blue-500",
+                  "data-[state=checked]:bg-blue-600 data-[state=unchecked]:bg-amber-300",
                   "transition-all duration-300"
                 )}
               />

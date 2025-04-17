@@ -14,13 +14,13 @@ const skillGroups = [
     title: "Frontend",
     skills: "ReactJS, VueJS, TailwindCSS, UI/UX",
     Icon: Code2,
-    iconColor: "text-blue-500 dark:text-blue-400"
+    iconColor: "text-blue-600 dark:text-blue-400"
   },
   {
     title: "Backend",
     skills: "Laravel, REST API, OAuth2",
     Icon: Server,
-    iconColor: "text-purple-500 dark:text-purple-400"
+    iconColor: "text-purple-600 dark:text-purple-400"
   },
   {
     title: "Database",

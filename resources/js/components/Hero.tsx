@@ -143,8 +143,8 @@ const Hero: React.FC = () => {
                         🚀 Xem dự án
                     </a>
                     <a
-                        href="#blog"
-                        className="px-6 py-2.5 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-full font-medium transition-all duration-300 hover:bg-gray-100 dark:hover:bg-gray-800 font-sans"
+                        href="blogs"
+                        className="px-6 py-2.5 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-full font-medium transition-all duration-300 hover:bg-gray-100 dark:hover:bg-gray-800 font-sans transition-all duration-300 transform hover:scale-105 hover:shadow-xl"
                     >
                         📚 Đọc blog
                     </a>
