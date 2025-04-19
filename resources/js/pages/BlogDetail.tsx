@@ -178,9 +178,9 @@ const BlogDetail: React.FC = () => {
 
     // Add meta tags dynamically
     useEffect(() => {
-        if (blog) {
+        if (blog && blog.title) {
             const metaTitle = `${blog.title} | My Blog`;
-            const metaDescription = blog.excerpt;
+            const metaDescription = blog.excerpt || "";
             const metaImage =
                 blog.thumbnail_url ||
                 blog.featured_image ||
@@ -355,15 +355,15 @@ const BlogDetail: React.FC = () => {
         return (
             <>
                 <Head>
-                    <title>{`${blog.title} | My Blog`}</title>
-                    <meta name="description" content={blog.excerpt} />
-                    <meta property="og:title" content={blog.title} />
-                    <meta property="og:description" content={blog.excerpt} />
+                    <title>{`Error | My Blog`}</title>
+                    <meta name="description" content="An error occurred while loading the blog." />
+                    <meta property="og:title" content="Error" />
+                    <meta property="og:description" content="An error occurred while loading the blog." />
                     <meta
                         property="og:image"
                         content={
-                            blog.thumbnail_url ||
-                            blog.featured_image ||
+                            blog?.thumbnail_url ||
+                            blog?.featured_image ||
                             "/default-image.jpg"
                         }
                     />

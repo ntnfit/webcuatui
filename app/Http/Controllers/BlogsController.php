@@ -97,7 +97,7 @@ class BlogsController extends Controller
                         ->where('slug', $slug)
                         ->firstOrFail();
             // Tăng lượt xem
-            $blog->increment('views');
+            $blog->increment('view');
             
             // Lấy 5 bài viết mới nhất khác
             $latestBlogs = Blogs::where('id', '!=', $blog->id)
