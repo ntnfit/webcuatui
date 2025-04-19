@@ -57,7 +57,7 @@ const companies: Company[] = [
   {
     id: '7',
     name: 'Việt Hưng Sài Gòn',
-    logo: 'https://sc02.alicdn.com/kf/Hdc49ccc5b8c44d3dbcfea261a8365009u.jpg',
+    logo: 'https://cdn.nhansu.vn/uploads/images/0B91D74C/logo/2018-12/fc4f6b551f484115966604ba4e6adffb_logo-Viet-Hung.png',
     link: 'http://viethung.com.vn/',
     description: 'Công ty bao bì Việt Hưng Sài Gòn'
   },
@@ -262,7 +262,7 @@ const Projects: React.FC = () => {
             href="#contact"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="inline-flex items-center px-6 py-3 rounded-full bg-blue-600 dark:bg-blue-500 text-white hover:bg-blue-700 dark:hover:bg-blue-600 transition-colors duration-300"
+            className="font-semibold inline-flex items-center px-6 py-3 rounded-full bg-gradient-to-r from-sky-500 to-indigo-500 dark:from-purple-500 dark:to-pink-500 text-white hover:bg-blue-700 dark:hover:bg-blue-600 transition-colors duration-300"
           >
             <span>Liên hệ hợp tác</span>
             <svg
