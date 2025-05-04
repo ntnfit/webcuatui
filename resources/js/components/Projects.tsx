@@ -85,7 +85,7 @@ const companies: Company[] = [
   {
     id: '11',
     name: 'Nam Dung',
-    logo: 'http://www.namdung.vn/Data/Sites/1/media/default/logo.png',
+    logo: 'https://lh6.googleusercontent.com/proxy/pbw0HOscYPaji1hh6BrJjC7o_XHWLKAl-jkswJzk0gSQSKWjJjr8XNT7gkS1NGVzzCFaNSIbxKlJTvbY-95syIKODB3KwoEhAOZqwQ',
     link: 'http://www.namdung.vn',
     description: 'Nam Dung is a leading manufacturer of high-quality pharmaceutical products in Vietnam.'
   },

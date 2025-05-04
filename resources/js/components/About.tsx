@@ -2,6 +2,7 @@ import React from 'react';
 import { cn } from '@/lib/utils';
 import { useInView } from '@/utils/animations';
 import { Check } from 'lucide-react';
+import meImage from '../image/me.jpg';
 
 const About: React.FC = () => {
     const [ref, isInView] = useInView<HTMLDivElement>();
@@ -57,7 +58,7 @@ const About: React.FC = () => {
                     <div className="relative group">
                         <div className="rounded-2xl overflow-hidden shadow-lg dark:shadow-gray-800/30 transform transition-all duration-500 group-hover:scale-105 group-hover:shadow-2xl">
                             <img
-                                src="/about-me.jpg"
+                                src={meImage}
                                 alt="Harry Dev"
                                 className="object-cover w-full h-full transition-all duration-500 ease-in-out group-hover:opacity-95"
                             />
