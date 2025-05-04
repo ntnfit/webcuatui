@@ -14,7 +14,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Avatar } from "@/components/ui/avatar";
 import Navbar from "@/components/Navbar";
-
+import { Head } from "@inertiajs/react";
 interface BlogPost {
     id: number;
     title: string;
@@ -420,359 +420,359 @@ const Blogs: React.FC = () => {
     };
 
     return (
-        <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-500">
-            <Navbar />
-            <div className="pt-16">
-                <div className="max-w-7xl mx-auto px-4 py-8">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5 }}
-                        className="mb-8"
-                    >
-                        <h1 className="text-4xl font-bold text-apple-dark-gray dark:text-white mb-8 transition-colors duration-500">
-                            Blog
-                        </h1>
+        <>
+            <Head title="Blog" />
+            <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-500">
+                <Navbar />
+                <div className="pt-16">
+                    <div className="max-w-7xl mx-auto px-4 py-8">
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.5 }}
+                            className="mb-8"
+                        >
+                            <h1 className="text-4xl font-bold text-apple-dark-gray dark:text-white mb-8 transition-colors duration-500">
+                                Blog
+                            </h1>
 
-                        {/* Type Filters */}
-                        <div className="flex flex-wrap md:flex-nowrap gap-2 mb-6 overflow-x-auto pb-2">
-                            <motion.div
-                                initial="notSelected"
-                                animate={
-                                    selectedType === ""
-                                        ? "selected"
-                                        : "notSelected"
-                                }
-                                variants={filterVariants}
-                                className="px-1 py-1"
-                            >
-                                <Button
-                                    variant={
-                                        selectedType === ""
-                                            ? "default"
-                                            : "outline"
-                                    }
-                                    className={`rounded-full border px-4 py-2 cursor-pointer ${
-                                        selectedType === ""
-                                            ? "bg-blue-50 text-blue-600 border-blue-200 hover:bg-blue-100 dark:bg-blue-900/30 dark:text-blue-400 dark:border-blue-800/50 dark:hover:bg-blue-900/40"
-                                            : "bg-gray-50 text-gray-600 border-gray-200 hover:bg-gray-100 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600 dark:hover:bg-gray-600"
-                                    } transition-colors duration-300`}
-                                    onClick={() => handleTypeSelect("")}
-                                >
-                                    Tất cả
-                                </Button>
-                            </motion.div>
-                            <TypeButton type="Bài viết" />
-                            <TypeButton type="Tin tức" />
-                            <TypeButton type="Mẹo" />
-                        </div>
-
-                        {/* Search */}
-                        <div className="relative flex-1 mb-8">
-                            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500 transition-colors duration-500" />
-                            <input
-                                type="text"
-                                placeholder="Tìm kiếm bài viết..."
-                                className="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-apple-dark-gray dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-apple-blue dark:focus:ring-blue-500 transition-colors duration-500"
-                                value={searchQuery}
-                                onChange={(e) => setSearchQuery(e.target.value)}
-                            />
-                        </div>
-
-                        {/* Categories */}
-                        <div className="mb-8">
-                            <h2 className="text-xl font-semibold mb-4 text-apple-dark-gray dark:text-white transition-colors duration-500">
-                                Danh mục
-                            </h2>
-                            <div className="flex flex-wrap gap-2">
-                                {/* Nút "Tất cả" */}
+                            {/* Type Filters */}
+                            <div className="flex flex-wrap md:flex-nowrap gap-2 mb-6 overflow-x-auto pb-2">
                                 <motion.div
-                                    key="all"
                                     initial="notSelected"
                                     animate={
-                                        selectedCategories.length === 0
+                                        selectedType === ""
                                             ? "selected"
                                             : "notSelected"
                                     }
                                     variants={filterVariants}
-                                    whileHover={{ scale: 1.05 }}
                                     className="px-1 py-1"
                                 >
                                     <Button
                                         variant={
-                                            selectedCategories.length === 0
+                                            selectedType === ""
                                                 ? "default"
                                                 : "outline"
                                         }
-                                        className={`rounded-full border px-4 py-2 cursor-pointer ${
-                                            selectedCategories.length === 0
+                                        className={`rounded-full border px-4 py-2 cursor-pointer ${selectedType === ""
                                                 ? "bg-blue-50 text-blue-600 border-blue-200 hover:bg-blue-100 dark:bg-blue-900/30 dark:text-blue-400 dark:border-blue-800/50 dark:hover:bg-blue-900/40"
                                                 : "bg-gray-50 text-gray-600 border-gray-200 hover:bg-gray-100 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600 dark:hover:bg-gray-600"
-                                        } transition-colors duration-300`}
-                                        onClick={() =>
-                                            handleCategorySelect("Tất cả")
-                                        }
+                                            } transition-colors duration-300`}
+                                        onClick={() => handleTypeSelect("")}
                                     >
                                         Tất cả
                                     </Button>
                                 </motion.div>
+                                <TypeButton type="Bài viết" />
+                                <TypeButton type="Tin tức" />
+                                <TypeButton type="Mẹo" />
+                            </div>
 
-                                {/* Các nút category khác */}
-                                {allCategories
-                                    .filter((category) => category !== "Tất cả")
-                                    .map((category) => {
-                                        const colors =
-                                            getCategoryColor(category);
-                                        return (
-                                            <motion.div
-                                                key={category}
-                                                initial="notSelected"
-                                                animate={
-                                                    selectedCategories.includes(
-                                                        category,
-                                                    )
-                                                        ? "selected"
-                                                        : "notSelected"
-                                                }
-                                                variants={filterVariants}
-                                                whileHover={{ scale: 1.05 }}
-                                                className="px-1 py-1"
-                                            >
-                                                <Button
-                                                    variant={
+                            {/* Search */}
+                            <div className="relative flex-1 mb-8">
+                                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500 transition-colors duration-500" />
+                                <input
+                                    type="text"
+                                    placeholder="Tìm kiếm bài viết..."
+                                    className="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-apple-dark-gray dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-apple-blue dark:focus:ring-blue-500 transition-colors duration-500"
+                                    value={searchQuery}
+                                    onChange={(e) => setSearchQuery(e.target.value)}
+                                />
+                            </div>
+
+                            {/* Categories */}
+                            <div className="mb-8">
+                                <h2 className="text-xl font-semibold mb-4 text-apple-dark-gray dark:text-white transition-colors duration-500">
+                                    Danh mục
+                                </h2>
+                                <div className="flex flex-wrap gap-2">
+                                    {/* Nút "Tất cả" */}
+                                    <motion.div
+                                        key="all"
+                                        initial="notSelected"
+                                        animate={
+                                            selectedCategories.length === 0
+                                                ? "selected"
+                                                : "notSelected"
+                                        }
+                                        variants={filterVariants}
+                                        whileHover={{ scale: 1.05 }}
+                                        className="px-1 py-1"
+                                    >
+                                        <Button
+                                            variant={
+                                                selectedCategories.length === 0
+                                                    ? "default"
+                                                    : "outline"
+                                            }
+                                            className={`rounded-full border px-4 py-2 cursor-pointer ${selectedCategories.length === 0
+                                                    ? "bg-blue-50 text-blue-600 border-blue-200 hover:bg-blue-100 dark:bg-blue-900/30 dark:text-blue-400 dark:border-blue-800/50 dark:hover:bg-blue-900/40"
+                                                    : "bg-gray-50 text-gray-600 border-gray-200 hover:bg-gray-100 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600 dark:hover:bg-gray-600"
+                                                } transition-colors duration-300`}
+                                            onClick={() =>
+                                                handleCategorySelect("Tất cả")
+                                            }
+                                        >
+                                            Tất cả
+                                        </Button>
+                                    </motion.div>
+
+                                    {/* Các nút category khác */}
+                                    {allCategories
+                                        .filter((category) => category !== "Tất cả")
+                                        .map((category) => {
+                                            const colors =
+                                                getCategoryColor(category);
+                                            return (
+                                                <motion.div
+                                                    key={category}
+                                                    initial="notSelected"
+                                                    animate={
                                                         selectedCategories.includes(
                                                             category,
                                                         )
-                                                            ? "default"
-                                                            : "outline"
+                                                            ? "selected"
+                                                            : "notSelected"
                                                     }
-                                                    className={`rounded-full border px-4 py-2 ${colors.light} ${colors.dark} transition-colors duration-300 cursor-pointer`}
-                                                    onClick={() =>
-                                                        handleCategorySelect(
-                                                            category,
-                                                        )
-                                                    }
+                                                    variants={filterVariants}
+                                                    whileHover={{ scale: 1.05 }}
+                                                    className="px-1 py-1"
                                                 >
-                                                    {category}
-                                                </Button>
-                                            </motion.div>
-                                        );
-                                    })}
+                                                    <Button
+                                                        variant={
+                                                            selectedCategories.includes(
+                                                                category,
+                                                            )
+                                                                ? "default"
+                                                                : "outline"
+                                                        }
+                                                        className={`rounded-full border px-4 py-2 ${colors.light} ${colors.dark} transition-colors duration-300 cursor-pointer`}
+                                                        onClick={() =>
+                                                            handleCategorySelect(
+                                                                category,
+                                                            )
+                                                        }
+                                                    >
+                                                        {category}
+                                                    </Button>
+                                                </motion.div>
+                                            );
+                                        })}
+                                </div>
                             </div>
-                        </div>
 
-                        {/* Results Count */}
-                        <div className="text-gray-600 dark:text-gray-400 mb-6 transition-colors duration-500">
-                            {posts.length > 0 ? (
-                                <>
-                                    Hiển thị{" "}
-                                    {(pagination.currentPage - 1) *
-                                        pagination.perPage +
-                                        1}{" "}
-                                    đến{" "}
-                                    {Math.min(
-                                        pagination.currentPage *
+                            {/* Results Count */}
+                            <div className="text-gray-600 dark:text-gray-400 mb-6 transition-colors duration-500">
+                                {posts.length > 0 ? (
+                                    <>
+                                        Hiển thị{" "}
+                                        {(pagination.currentPage - 1) *
+                                            pagination.perPage +
+                                            1}{" "}
+                                        đến{" "}
+                                        {Math.min(
+                                            pagination.currentPage *
                                             pagination.perPage,
-                                        pagination.total,
-                                    )}{" "}
-                                    trong tổng số {pagination.total} kết quả
-                                </>
-                            ) : (
-                                <>Không tìm thấy kết quả nào phù hợp.</>
-                            )}
-                        </div>
+                                            pagination.total,
+                                        )}{" "}
+                                        trong tổng số {pagination.total} kết quả
+                                    </>
+                                ) : (
+                                    <>Không tìm thấy kết quả nào phù hợp.</>
+                                )}
+                            </div>
 
-                        {/* Blog Posts */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
-                            {posts.map((post, index) => {
-                                // Convert backend type to display type
-                                const displayType = getDisplayType(post.type);
-                                const typeColors = getTypeColor(displayType);
+                            {/* Blog Posts */}
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
+                                {posts.map((post, index) => {
+                                    // Convert backend type to display type
+                                    const displayType = getDisplayType(post.type);
+                                    const typeColors = getTypeColor(displayType);
 
-                                return (
-                                    <div
-                                        key={post.id}
-                                        className="h-full relative group"
-                                    >
-                                        {/* Hover */}
-                                        <div className="absolute inset-0 bg-gradient-to-r from-blue-300 via-purple-300 to-pink-300 dark:bg-gradient-to-r dark:from-blue-500 dark:via-purple-500 dark:to-pink-500 animate-border-flow rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-
-                                        <motion.div
-                                            variants={postVariants}
-                                            initial="hidden"
-                                            animate="visible"
-                                            custom={index}
-                                            className="h-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden transition-all duration-300 group-hover:shadow-md dark:group-hover:shadow-gray-800/50 group-hover:translate-x-[-6px] group-hover:translate-y-[-6px]"
+                                    return (
+                                        <div
+                                            key={post.id}
+                                            className="h-full relative group"
                                         >
-                                            {/* Hình ảnh với thứ tự ưu tiên: thumbnail > featured_image > placeholder */}
-                                            <Link
-                                                href={`/blogs/${post.slug}`}
-                                                className="block overflow-hidden h-48 relative"
+                                            {/* Hover */}
+                                            <div className="absolute inset-0 bg-gradient-to-r from-blue-300 via-purple-300 to-pink-300 dark:bg-gradient-to-r dark:from-blue-500 dark:via-purple-500 dark:to-pink-500 animate-border-flow rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+
+                                            <motion.div
+                                                variants={postVariants}
+                                                initial="hidden"
+                                                animate="visible"
+                                                custom={index}
+                                                className="h-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden transition-all duration-300 group-hover:shadow-md dark:group-hover:shadow-gray-800/50 group-hover:translate-x-[-6px] group-hover:translate-y-[-6px]"
                                             >
-                                                <img
-                                                    src={
-                                                        post.thumbnail_url ||
-                                                        post.featured_image ||
-                                                        "https://via.placeholder.com/800x400?text=Blog+Image"
-                                                    }
-                                                    alt={post.title}
-                                                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                                                    loading="lazy"
-                                                    onError={(e) => {
-                                                        (
-                                                            e.target as HTMLImageElement
-                                                        ).src =
-                                                            "https://via.placeholder.com/800x400?text=Blog+Image";
-                                                    }}
-                                                />
-                                            </Link>
+                                                {/* Hình ảnh với thứ tự ưu tiên: thumbnail > featured_image > placeholder */}
+                                                <Link
+                                                    href={`/blogs/${post.slug}`}
+                                                    className="block overflow-hidden h-48 relative"
+                                                >
+                                                    <img
+                                                        src={
+                                                            post.thumbnail_url ||
+                                                            post.featured_image ||
+                                                            "https://via.placeholder.com/800x400?text=Blog+Image"
+                                                        }
+                                                        alt={post.title}
+                                                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                                                        loading="lazy"
+                                                        onError={(e) => {
+                                                            (
+                                                                e.target as HTMLImageElement
+                                                            ).src =
+                                                                "https://via.placeholder.com/800x400?text=Blog+Image";
+                                                        }}
+                                                    />
+                                                </Link>
 
-                                            <div className="p-6 flex flex-col h-[calc(100%-12rem)]">
-                                                <div className="flex items-start justify-between flex-1">
-                                                    <div className="flex-1">
-                                                        {/* Type badge */}
-                                                        <div className="flex items-center gap-2 mb-2">
-                                                            <Button
-                                                                variant="outline"
-                                                                size="sm"
-                                                                className={`rounded-full border ${typeColors.light} ${typeColors.dark} transition-colors duration-300`}
-                                                            >
-                                                                {displayType ===
-                                                                    "Bài viết" &&
-                                                                    typeIcons[
+                                                <div className="p-6 flex flex-col h-[calc(100%-12rem)]">
+                                                    <div className="flex items-start justify-between flex-1">
+                                                        <div className="flex-1">
+                                                            {/* Type badge */}
+                                                            <div className="flex items-center gap-2 mb-2">
+                                                                <Button
+                                                                    variant="outline"
+                                                                    size="sm"
+                                                                    className={`rounded-full border ${typeColors.light} ${typeColors.dark} transition-colors duration-300`}
+                                                                >
+                                                                    {displayType ===
+                                                                        "Bài viết" &&
+                                                                        typeIcons[
                                                                         "Bài viết"
-                                                                    ]}
-                                                                {displayType ===
-                                                                    "Tin tức" &&
-                                                                    typeIcons[
+                                                                        ]}
+                                                                    {displayType ===
+                                                                        "Tin tức" &&
+                                                                        typeIcons[
                                                                         "Tin tức"
-                                                                    ]}
-                                                                {displayType ===
-                                                                    "Mẹo" &&
-                                                                    typeIcons[
+                                                                        ]}
+                                                                    {displayType ===
+                                                                        "Mẹo" &&
+                                                                        typeIcons[
                                                                         "Mẹo"
-                                                                    ]}
-                                                                {displayType}
-                                                            </Button>
-                                                        </div>
+                                                                        ]}
+                                                                    {displayType}
+                                                                </Button>
+                                                            </div>
 
-                                                        {/* Title (clickable) */}
-                                                        <h3 className="mb-2">
-                                                            <Link
-                                                                href={`/blogs/${post.slug}`}
-                                                                className="text-xl font-semibold text-apple-dark-gray dark:text-white line-clamp-1 group-hover:text-apple-blue dark:group-hover:text-blue-400 transition-colors"
-                                                            >
-                                                                {post.title}
-                                                            </Link>
-                                                        </h3>
+                                                            {/* Title (clickable) */}
+                                                            <h3 className="mb-2">
+                                                                <Link
+                                                                    href={`/blogs/${post.slug}`}
+                                                                    className="text-xl font-semibold text-apple-dark-gray dark:text-white line-clamp-1 group-hover:text-apple-blue dark:group-hover:text-blue-400 transition-colors"
+                                                                >
+                                                                    {post.title}
+                                                                </Link>
+                                                            </h3>
 
-                                                        {/* Excerpt */}
-                                                        <p className="text-gray-600 dark:text-gray-400 mb-4 line-clamp-3 transition-colors duration-500">
-                                                            {post.excerpt}
-                                                        </p>
+                                                            {/* Excerpt */}
+                                                            <p className="text-gray-600 dark:text-gray-400 mb-4 line-clamp-3 transition-colors duration-500">
+                                                                {post.excerpt}
+                                                            </p>
 
-                                                        {/* Category tags */}
-                                                        <div className="flex flex-wrap gap-2 mb-4">
-                                                            {post.categories.map(
-                                                                (cat, i) => {
-                                                                    const colors =
-                                                                        getTagColor(
-                                                                            cat,
-                                                                        );
-                                                                    return (
-                                                                        <motion.span
-                                                                            key={`${post.id}-category-${i}`}
-                                                                            className={`inline-block px-3 py-1 rounded-full text-xs border ${colors.light} ${colors.dark} transition-colors duration-300`}
-                                                                            whileHover={{
-                                                                                scale: 1.05,
-                                                                            }}
-                                                                            transition={{
-                                                                                duration: 0.3,
-                                                                            }}
-                                                                        >
-                                                                            {
-                                                                                cat
-                                                                            }
-                                                                        </motion.span>
-                                                                    );
-                                                                },
-                                                            )}
-                                                        </div>
-
-                                                        {/* Hiển thị tags nếu có */}
-                                                        {post.tags &&
-                                                            post.tags.length >
-                                                                0 && (
-                                                                <div className="flex flex-wrap gap-1.5 mb-4">
-                                                                    {post.tags.map(
-                                                                        (
-                                                                            tag,
-                                                                            i,
-                                                                        ) => (
-                                                                            <span
-                                                                                key={`${post.id}-tag-${i}`}
-                                                                                className="inline-block px-2 py-0.5 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-xs rounded transition-colors duration-300"
+                                                            {/* Category tags */}
+                                                            <div className="flex flex-wrap gap-2 mb-4">
+                                                                {post.categories.map(
+                                                                    (cat, i) => {
+                                                                        const colors =
+                                                                            getTagColor(
+                                                                                cat,
+                                                                            );
+                                                                        return (
+                                                                            <motion.span
+                                                                                key={`${post.id}-category-${i}`}
+                                                                                className={`inline-block px-3 py-1 rounded-full text-xs border ${colors.light} ${colors.dark} transition-colors duration-300`}
+                                                                                whileHover={{
+                                                                                    scale: 1.05,
+                                                                                }}
+                                                                                transition={{
+                                                                                    duration: 0.3,
+                                                                                }}
                                                                             >
-                                                                                #
                                                                                 {
-                                                                                    tag
+                                                                                    cat
                                                                                 }
-                                                                            </span>
-                                                                        ),
-                                                                    )}
-                                                                </div>
-                                                            )}
-                                                    </div>
-
-                                                    {/* Star count */}
-                                                    <div className="flex items-center gap-1 text-amber-500 dark:text-amber-400 transition-colors duration-500">
-                                                        <Star className="h-4 w-4 fill-current" />
-                                                        <span>
-                                                            {post.stars}
-                                                        </span>
-                                                    </div>
-                                                </div>
-
-                                                {/* Footer: avatar, author, date, button */}
-                                                <div className="flex items-center justify-between mt-auto pt-4 border-t border-gray-100 dark:border-gray-700">
-                                                    <div className="flex items-center gap-2">
-                                                        <Avatar>
-                                                            <img
-                                                                src={
-                                                                    post.author
-                                                                        .avatar
-                                                                }
-                                                                alt={
-                                                                    post.author
-                                                                        .name
-                                                                }
-                                                                onError={(
-                                                                    e,
-                                                                ) => {
-                                                                    (
-                                                                        e.target as HTMLImageElement
-                                                                    ).src =
-                                                                        "https://github.com/shadcn.png";
-                                                                }}
-                                                            />
-                                                        </Avatar>
-                                                        <div>
-                                                            <div className="text-sm font-medium text-apple-dark-gray dark:text-white transition-colors duration-500">
-                                                                {
-                                                                    post.author
-                                                                        .name
-                                                                }
+                                                                            </motion.span>
+                                                                        );
+                                                                    },
+                                                                )}
                                                             </div>
-                                                            <div className="text-xs text-gray-500 dark:text-gray-400 transition-colors duration-500">
-                                                                {post.date}
-                                                            </div>
+
+                                                            {/* Hiển thị tags nếu có */}
+                                                            {post.tags &&
+                                                                post.tags.length >
+                                                                0 && (
+                                                                    <div className="flex flex-wrap gap-1.5 mb-4">
+                                                                        {post.tags.map(
+                                                                            (
+                                                                                tag,
+                                                                                i,
+                                                                            ) => (
+                                                                                <span
+                                                                                    key={`${post.id}-tag-${i}`}
+                                                                                    className="inline-block px-2 py-0.5 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-xs rounded transition-colors duration-300"
+                                                                                >
+                                                                                    #
+                                                                                    {
+                                                                                        tag
+                                                                                    }
+                                                                                </span>
+                                                                            ),
+                                                                        )}
+                                                                    </div>
+                                                                )}
+                                                        </div>
+
+                                                        {/* Star count */}
+                                                        <div className="flex items-center gap-1 text-amber-500 dark:text-amber-400 transition-colors duration-500">
+                                                            <Star className="h-4 w-4 fill-current" />
+                                                            <span>
+                                                                {post.stars}
+                                                            </span>
                                                         </div>
                                                     </div>
 
-                                                    {/* Button "Đọc thêm" */}
-                                                    <Link
-                                                        href={`/blogs/${post.slug}`}
-                                                        className="
+                                                    {/* Footer: avatar, author, date, button */}
+                                                    <div className="flex items-center justify-between mt-auto pt-4 border-t border-gray-100 dark:border-gray-700">
+                                                        <div className="flex items-center gap-2">
+                                                            <Avatar>
+                                                                <img
+                                                                    src={
+                                                                        post.author
+                                                                            .avatar
+                                                                    }
+                                                                    alt={
+                                                                        post.author
+                                                                            .name
+                                                                    }
+                                                                    onError={(
+                                                                        e,
+                                                                    ) => {
+                                                                        (
+                                                                            e.target as HTMLImageElement
+                                                                        ).src =
+                                                                            "https://github.com/shadcn.png";
+                                                                    }}
+                                                                />
+                                                            </Avatar>
+                                                            <div>
+                                                                <div className="text-sm font-medium text-apple-dark-gray dark:text-white transition-colors duration-500">
+                                                                    {
+                                                                        post.author
+                                                                            .name
+                                                                    }
+                                                                </div>
+                                                                <div className="text-xs text-gray-500 dark:text-gray-400 transition-colors duration-500">
+                                                                    {post.date}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        {/* Button "Đọc thêm" */}
+                                                        <Link
+                                                            href={`/blogs/${post.slug}`}
+                                                            className="
                                                             inline-flex items-center gap-2
                                                             px-5 py-2
                                                             border-2 border-apple-blue dark:border-blue-400
@@ -783,80 +783,81 @@ const Blogs: React.FC = () => {
                                                             transition-all duration-300
                                                             focus:outline-none focus:ring-2 focus:ring-apple-blue/50 dark:focus:ring-blue-400/50
                                                             "
-                                                    >
-                                                        <span className="font-medium">
-                                                            Đọc thêm
-                                                        </span>
-                                                        <ArrowRight
-                                                            className="
+                                                        >
+                                                            <span className="font-medium">
+                                                                Đọc thêm
+                                                            </span>
+                                                            <ArrowRight
+                                                                className="
                                                                 h-5 w-5
                                                                 text-apple-blue dark:text-blue-400
                                                                 transition-colors duration-200
                                                                 hover:text-apple-blue/80 dark:hover:text-blue-500
                                                             "
-                                                        />
-                                                    </Link>
+                                                            />
+                                                        </Link>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </motion.div>
-                                    </div>
-                                );
-                            })}
-                        </div>
+                                            </motion.div>
+                                        </div>
+                                    );
+                                })}
+                            </div>
 
-                        {/* Pagination */}
-                        <div className="flex items-center justify-center gap-2 mt-8">
-                            <Button
-                                variant="outline"
-                                size="icon"
-                                onClick={() =>
-                                    pagination.currentPage > 1 &&
-                                    paginate(pagination.currentPage - 1)
-                                }
-                                disabled={pagination.currentPage === 1}
-                                className="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 text-apple-dark-gray dark:text-gray-200 border-gray-200 dark:border-gray-700 transition-colors duration-300 cursor-pointer"
-                            >
-                                <ChevronLeft className="h-4 w-4" />
-                            </Button>
+                            {/* Pagination */}
+                            <div className="flex items-center justify-center gap-2 mt-8">
+                                <Button
+                                    variant="outline"
+                                    size="icon"
+                                    onClick={() =>
+                                        pagination.currentPage > 1 &&
+                                        paginate(pagination.currentPage - 1)
+                                    }
+                                    disabled={pagination.currentPage === 1}
+                                    className="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 text-apple-dark-gray dark:text-gray-200 border-gray-200 dark:border-gray-700 transition-colors duration-300 cursor-pointer"
+                                >
+                                    <ChevronLeft className="h-4 w-4" />
+                                </Button>
 
-                            {Array.from({ length: pagination.lastPage }).map(
-                                (_, index) => (
-                                    <Button
-                                        key={`page-${index + 1}`}
-                                        variant={
-                                            pagination.currentPage === index + 1
-                                                ? "default"
-                                                : "outline"
-                                        }
-                                        className={`w-10 h-10 bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 text-apple-dark-gray dark:text-gray-200 border-gray-200 dark:border-gray-700 transition-colors duration-300 ${pagination.currentPage === index + 1 ? "bg-rose-500 dark:bg-rose-600 hover:bg-rose-600 dark:hover:bg-rose-700 text-white cursor-pointer" : ""}`}
-                                        onClick={() => paginate(index + 1)}
-                                    >
-                                        {index + 1}
-                                    </Button>
-                                ),
-                            )}
+                                {Array.from({ length: pagination.lastPage }).map(
+                                    (_, index) => (
+                                        <Button
+                                            key={`page-${index + 1}`}
+                                            variant={
+                                                pagination.currentPage === index + 1
+                                                    ? "default"
+                                                    : "outline"
+                                            }
+                                            className={`w-10 h-10 bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 text-apple-dark-gray dark:text-gray-200 border-gray-200 dark:border-gray-700 transition-colors duration-300 ${pagination.currentPage === index + 1 ? "bg-rose-500 dark:bg-rose-600 hover:bg-rose-600 dark:hover:bg-rose-700 text-white cursor-pointer" : ""}`}
+                                            onClick={() => paginate(index + 1)}
+                                        >
+                                            {index + 1}
+                                        </Button>
+                                    ),
+                                )}
 
-                            <Button
-                                variant="outline"
-                                size="icon"
-                                onClick={() =>
-                                    pagination.currentPage <
+                                <Button
+                                    variant="outline"
+                                    size="icon"
+                                    onClick={() =>
+                                        pagination.currentPage <
                                         pagination.lastPage &&
-                                    paginate(pagination.currentPage + 1)
-                                }
-                                disabled={
-                                    pagination.currentPage ===
-                                    pagination.lastPage
-                                }
-                                className="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 text-apple-dark-gray dark:text-gray-200 border-gray-200 dark:border-gray-700 transition-colors duration-300 cursor-pointer"
-                            >
-                                <ChevronRight className="h-4 w-4" />
-                            </Button>
-                        </div>
-                    </motion.div>
+                                        paginate(pagination.currentPage + 1)
+                                    }
+                                    disabled={
+                                        pagination.currentPage ===
+                                        pagination.lastPage
+                                    }
+                                    className="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 text-apple-dark-gray dark:text-gray-200 border-gray-200 dark:border-gray-700 transition-colors duration-300 cursor-pointer"
+                                >
+                                    <ChevronRight className="h-4 w-4" />
+                                </Button>
+                            </div>
+                        </motion.div>
+                    </div>
                 </div>
             </div>
-        </div>
+        </>
     );
 };
 
