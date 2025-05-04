@@ -8,7 +8,7 @@ import Contact from '../components/Contact';
 import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
 import { useToast } from "../hooks/use-toast";
-
+import { Head } from '@inertiajs/react';
 interface BlogPost {
     id: number;
     title: string;
@@ -67,18 +67,21 @@ const Index: React.FC<IndexPageProps> = ({ latestArticles }) => {
     }, [toast]);
 
     return (
-        <div className="relative overflow-x-hidden dark:bg-gray-900">
-            <Navbar />
-            <div className="pt-16">
-                <Hero />
-                <About />
-                <Skills />
-                <Projects />
-                <LatestArticles articles={articlesWithImage} />
-                <Contact />
-                <Footer />
+        <>
+            <Head title="ERP" />
+            <div className="relative overflow-x-hidden dark:bg-gray-900">
+                <Navbar />
+                <div className="pt-16">
+                    <Hero />
+                    <About />
+                    <Skills />
+                    <Projects />
+                    <LatestArticles articles={articlesWithImage} />
+                    <Contact />
+                    <Footer />
+                </div>
             </div>
-        </div>
+        </>
     );
 };
 
