@@ -445,6 +445,7 @@ const BlogDetail: React.FC = () => {
 
     return (
         <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-500">
+            <Head title={`${blog.title} | My Blog`} />
             <Navbar />
             <div className="pt-16">
                 <div className="max-w-7xl mx-auto px-4 py-8">
