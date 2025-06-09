@@ -180,7 +180,7 @@ const BlogDetail: React.FC = () => {
     useEffect(() => {
         if (blog && blog.title) {
             const metaTitle = `${blog.title} | My Blog`;
-            const metaDescription = blog.excerpt || "";
+            const metaDescription = blog.title || "";
             const metaImage =
                 blog.thumbnail_url ||
                 blog.featured_image ||
@@ -445,14 +445,16 @@ const BlogDetail: React.FC = () => {
 
     return (
         <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-500">
-            <Head title={`${blog.title} | My Blog`} />
-            <Navbar />
+            <Head title={`${blog.title} | My Blog`}>
+            <meta name="description" content={blog.title || ''}/>
+            </Head>
+            <Navbar/>
             <div className="pt-16">
                 <div className="max-w-7xl mx-auto px-4 py-8">
                     <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5 }}
+                        initial={{opacity: 0, y: 20}}
+                        animate={{opacity: 1, y: 0}}
+                        transition={{duration: 0.5}}
                     >
                         {/* Nút quay lại */}
                         <div className="mb-6">
@@ -460,7 +462,7 @@ const BlogDetail: React.FC = () => {
                                 href="/blogs"
                                 className="inline-flex items-center text-gray-600 dark:text-gray-400 hover:text-apple-blue dark:hover:text-blue-400 transition-colors duration-300"
                             >
-                                <ArrowLeft className="mr-2 h-4 w-4" />
+                                <ArrowLeft className="mr-2 h-4 w-4"/>
                                 Quay lại danh sách bài viết
                             </Link>
                         </div>
@@ -486,19 +488,19 @@ const BlogDetail: React.FC = () => {
                             {/* Thông tin bài viết */}
                             <div className="flex flex-wrap items-center gap-4 text-gray-600 dark:text-gray-400 mb-6">
                                 <div className="flex items-center gap-2">
-                                    <Calendar className="h-4 w-4" />
+                                    <Calendar className="h-4 w-4"/>
                                     <span>{blog.date}</span>
                                 </div>
                                 <div className="flex items-center gap-2">
-                                    <Clock className="h-4 w-4" />
+                                    <Clock className="h-4 w-4"/>
                                     <span>{blog.reading_time} phút đọc</span>
                                 </div>
                                 <div className="flex items-center gap-2">
-                                    <Eye className="h-4 w-4" />
+                                    <Eye className="h-4 w-4"/>
                                     <span>{blog.views} lượt xem</span>
                                 </div>
                                 <div className="flex items-center gap-2 text-amber-500 dark:text-amber-400">
-                                    <Star className="h-4 w-4 fill-current" />
+                                    <Star className="h-4 w-4 fill-current"/>
                                     <span>{blog.stars}</span>
                                 </div>
                             </div>
@@ -516,7 +518,8 @@ const BlogDetail: React.FC = () => {
                                     />
                                 </Avatar>
                                 <div>
-                                    <div className="font-medium text-apple-dark-gray dark:text-white transition-colors duration-500">
+                                    <div
+                                        className="font-medium text-apple-dark-gray dark:text-white transition-colors duration-500">
                                         {blog.author.name}
                                     </div>
                                     {blog.author.bio && (
@@ -531,8 +534,10 @@ const BlogDetail: React.FC = () => {
                         {/* Ảnh bìa */}
                         {(blog.featured_image || blog.thumbnail_url) && (
                             <div className="mb-8 relative overflow-hidden group">
-                                <div className="rounded-xl overflow-hidden shadow-lg border border-gray-100 dark:border-gray-800 transition-all duration-300 group-hover:shadow-xl">
-                                    <div className="relative aspect-[21/9] w-full overflow-hidden bg-gray-100 dark:bg-gray-800">
+                                <div
+                                    className="rounded-xl overflow-hidden shadow-lg border border-gray-100 dark:border-gray-800 transition-all duration-300 group-hover:shadow-xl">
+                                    <div
+                                        className="relative aspect-[21/9] w-full overflow-hidden bg-gray-100 dark:bg-gray-800">
                                         <img
                                             src={blog.thumbnail_url}
                                             alt={blog.title}
@@ -546,7 +551,8 @@ const BlogDetail: React.FC = () => {
                                             }}
                                         />
                                         {/* Gradient overlay cho dark mode */}
-                                        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 dark:opacity-40 transition-opacity duration-300"></div>
+                                        <div
+                                            className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 dark:opacity-40 transition-opacity duration-300"></div>
                                     </div>
 
                                     {/* Caption nếu cần */}
@@ -567,7 +573,8 @@ const BlogDetail: React.FC = () => {
                         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-12">
                             <div className="lg:col-span-9">
                                 {/* Nội dung chính */}
-                                <div className="prose dark:prose-dark prose-img:rounded-lg prose-headings:text-apple-dark-gray dark:prose-headings:text-white prose-a:text-apple-blue dark:prose-a:text-blue-400 prose-pre:bg-gray-100 dark:prose-pre:bg-gray-800 max-w-none">
+                                <div
+                                    className="prose dark:prose-dark prose-img:rounded-lg prose-headings:text-apple-dark-gray dark:prose-headings:text-white prose-a:text-apple-blue dark:prose-a:text-blue-400 prose-pre:bg-gray-100 dark:prose-pre:bg-gray-800 max-w-none">
                                     <div
                                         dangerouslySetInnerHTML={{
                                             __html: processedContent,
@@ -637,13 +644,14 @@ const BlogDetail: React.FC = () => {
                                         className="cursor-pointer flex items-center gap-2 bg-white hover:bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-700 dark:hover:bg-gray-700 transition-colors duration-300"
                                         onClick={handleShare}
                                     >
-                                        <Share2 className="h-4 w-4" />
+                                        <Share2 className="h-4 w-4"/>
                                         Chia sẻ bài viết
                                     </Button>
 
                                     {/* Share modal */}
                                     {showShareModal && (
-                                        <div className="fixed inset-0 flex items-center justify-center z-50 pointer-events-none">
+                                        <div
+                                            className="fixed inset-0 flex items-center justify-center z-50 pointer-events-none">
                                             <div
                                                 className="pointer-events-auto absolute max-w-md w-full"
                                                 style={{
@@ -720,12 +728,12 @@ const BlogDetail: React.FC = () => {
                                                             >
                                                                 {linkCopied ? (
                                                                     <span className="flex items-center">
-                                                                        <Check className="h-4 w-4 mr-1" />{" "}
+                                                                        <Check className="h-4 w-4 mr-1"/>{" "}
                                                                         Đã copy
                                                                     </span>
                                                                 ) : (
                                                                     <span className="flex items-center">
-                                                                        <Copy className="h-4 w-4 mr-1" />{" "}
+                                                                        <Copy className="h-4 w-4 mr-1"/>{" "}
                                                                         Copy
                                                                     </span>
                                                                 )}
@@ -747,7 +755,7 @@ const BlogDetail: React.FC = () => {
                                                                     shareToFacebook
                                                                 }
                                                             >
-                                                                <Facebook className="h-5 w-5" />
+                                                                <Facebook className="h-5 w-5"/>
                                                                 <span>
                                                                     Facebook
                                                                 </span>
@@ -759,7 +767,7 @@ const BlogDetail: React.FC = () => {
                                                                     shareToTwitter
                                                                 }
                                                             >
-                                                                <Twitter className="h-5 w-5" />
+                                                                <Twitter className="h-5 w-5"/>
                                                                 <span>
                                                                     Twitter
                                                                 </span>
@@ -771,7 +779,7 @@ const BlogDetail: React.FC = () => {
                                                                     shareToLinkedIn
                                                                 }
                                                             >
-                                                                <Linkedin className="h-5 w-5" />
+                                                                <Linkedin className="h-5 w-5"/>
                                                                 <span>
                                                                     LinkedIn
                                                                 </span>
@@ -785,14 +793,15 @@ const BlogDetail: React.FC = () => {
                                 </div>
 
                                 {/* Điều hướng bài viết (trước/sau) */}
-                                <div className="flex flex-wrap md:flex-nowrap justify-between gap-4 mt-12 pt-6 border-t border-gray-200 dark:border-gray-800">
+                                <div
+                                    className="flex flex-wrap md:flex-nowrap justify-between gap-4 mt-12 pt-6 border-t border-gray-200 dark:border-gray-800">
                                     {navigation.previous ? (
                                         <Link
                                             href={`/blogs/${navigation.previous.slug}`}
                                             className="flex-1 p-4 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:shadow-md transition-shadow duration-300"
                                         >
                                             <div className="flex items-center text-gray-600 dark:text-gray-400 mb-2">
-                                                <ChevronLeft className="h-4 w-4 mr-1" />
+                                                <ChevronLeft className="h-4 w-4 mr-1"/>
                                                 <span>Bài trước</span>
                                             </div>
                                             <h3 className="font-medium text-apple-dark-gray dark:text-white line-clamp-2">
@@ -808,9 +817,10 @@ const BlogDetail: React.FC = () => {
                                             href={`/blogs/${navigation.next.slug}`}
                                             className="flex-1 p-4 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:shadow-md transition-shadow duration-300 text-right"
                                         >
-                                            <div className="flex items-center justify-end text-gray-600 dark:text-gray-400 mb-2">
+                                            <div
+                                                className="flex items-center justify-end text-gray-600 dark:text-gray-400 mb-2">
                                                 <span>Bài sau</span>
-                                                <ChevronRight className="h-4 w-4 ml-1" />
+                                                <ChevronRight className="h-4 w-4 ml-1"/>
                                             </div>
                                             <h3 className="font-medium text-apple-dark-gray dark:text-white line-clamp-2">
                                                 {navigation.next.title}
@@ -883,7 +893,8 @@ const BlogDetail: React.FC = () => {
                                                     className="flex gap-3 p-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:shadow-md transition-shadow duration-300"
                                                 >
                                                     {post.thumbnail_url && (
-                                                        <div className="w-16 h-16 rounded-md overflow-hidden flex-shrink-0">
+                                                        <div
+                                                            className="w-16 h-16 rounded-md overflow-hidden flex-shrink-0">
                                                             <img
                                                                 src={
                                                                     post.thumbnail_url
