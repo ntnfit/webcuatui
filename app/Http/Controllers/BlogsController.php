@@ -142,7 +142,7 @@ class BlogsController extends Controller
                     'date' => $blog->created_at->format('d/m/Y'),
                     'reading_time' => $this->calculateReadingTime($blog->body),
                     'stars' => $blog->stars ?? 0,
-                    'views' => $blog->views ?? 0,
+                    'views' => $blog->view ?? 0,
                 ],
                 'latestBlogs' => $latestBlogs->map(function ($blog) {
                     return [
