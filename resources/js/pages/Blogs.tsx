@@ -421,7 +421,9 @@ const Blogs: React.FC = () => {
 
     return (
         <>
-            <Head title="Blog" />
+            <Head title="Blog">
+                <meta name="google-adsense-account" content="ca-pub-6568899988616854" />
+            </Head>
             <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-500">
                 <Navbar />
                 <div className="pt-16">
@@ -455,8 +457,8 @@ const Blogs: React.FC = () => {
                                                 : "outline"
                                         }
                                         className={`rounded-full border px-4 py-2 cursor-pointer ${selectedType === ""
-                                                ? "bg-blue-50 text-blue-600 border-blue-200 hover:bg-blue-100 dark:bg-blue-900/30 dark:text-blue-400 dark:border-blue-800/50 dark:hover:bg-blue-900/40"
-                                                : "bg-gray-50 text-gray-600 border-gray-200 hover:bg-gray-100 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600 dark:hover:bg-gray-600"
+                                            ? "bg-blue-50 text-blue-600 border-blue-200 hover:bg-blue-100 dark:bg-blue-900/30 dark:text-blue-400 dark:border-blue-800/50 dark:hover:bg-blue-900/40"
+                                            : "bg-gray-50 text-gray-600 border-gray-200 hover:bg-gray-100 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600 dark:hover:bg-gray-600"
                                             } transition-colors duration-300`}
                                         onClick={() => handleTypeSelect("")}
                                     >
@@ -506,8 +508,8 @@ const Blogs: React.FC = () => {
                                                     : "outline"
                                             }
                                             className={`rounded-full border px-4 py-2 cursor-pointer ${selectedCategories.length === 0
-                                                    ? "bg-blue-50 text-blue-600 border-blue-200 hover:bg-blue-100 dark:bg-blue-900/30 dark:text-blue-400 dark:border-blue-800/50 dark:hover:bg-blue-900/40"
-                                                    : "bg-gray-50 text-gray-600 border-gray-200 hover:bg-gray-100 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600 dark:hover:bg-gray-600"
+                                                ? "bg-blue-50 text-blue-600 border-blue-200 hover:bg-blue-100 dark:bg-blue-900/30 dark:text-blue-400 dark:border-blue-800/50 dark:hover:bg-blue-900/40"
+                                                : "bg-gray-50 text-gray-600 border-gray-200 hover:bg-gray-100 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600 dark:hover:bg-gray-600"
                                                 } transition-colors duration-300`}
                                             onClick={() =>
                                                 handleCategorySelect("Tất cả")

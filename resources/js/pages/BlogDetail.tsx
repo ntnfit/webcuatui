@@ -446,15 +446,17 @@ const BlogDetail: React.FC = () => {
     return (
         <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-500">
             <Head title={`${blog.title} | My Blog`}>
-            <meta name="description" content={blog.title || ''}/>
+                <meta name="description" content={blog.title || ''} />
+                <meta name="google-adsense-account" content="ca-pub-6568899988616854" />
+                <link rel="icon" type="image/x-icon" href="/favicon/favicon-32x32" />
             </Head>
-            <Navbar/>
+            <Navbar />
             <div className="pt-16">
                 <div className="max-w-7xl mx-auto px-4 py-8">
                     <motion.div
-                        initial={{opacity: 0, y: 20}}
-                        animate={{opacity: 1, y: 0}}
-                        transition={{duration: 0.5}}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5 }}
                     >
                         {/* Nút quay lại */}
                         <div className="mb-6">
@@ -462,7 +464,7 @@ const BlogDetail: React.FC = () => {
                                 href="/blogs"
                                 className="inline-flex items-center text-gray-600 dark:text-gray-400 hover:text-apple-blue dark:hover:text-blue-400 transition-colors duration-300"
                             >
-                                <ArrowLeft className="mr-2 h-4 w-4"/>
+                                <ArrowLeft className="mr-2 h-4 w-4" />
                                 Quay lại danh sách bài viết
                             </Link>
                         </div>
@@ -488,19 +490,19 @@ const BlogDetail: React.FC = () => {
                             {/* Thông tin bài viết */}
                             <div className="flex flex-wrap items-center gap-4 text-gray-600 dark:text-gray-400 mb-6">
                                 <div className="flex items-center gap-2">
-                                    <Calendar className="h-4 w-4"/>
+                                    <Calendar className="h-4 w-4" />
                                     <span>{blog.date}</span>
                                 </div>
                                 <div className="flex items-center gap-2">
-                                    <Clock className="h-4 w-4"/>
+                                    <Clock className="h-4 w-4" />
                                     <span>{blog.reading_time} phút đọc</span>
                                 </div>
                                 <div className="flex items-center gap-2">
-                                    <Eye className="h-4 w-4"/>
+                                    <Eye className="h-4 w-4" />
                                     <span>{blog.views} lượt xem</span>
                                 </div>
                                 <div className="flex items-center gap-2 text-amber-500 dark:text-amber-400">
-                                    <Star className="h-4 w-4 fill-current"/>
+                                    <Star className="h-4 w-4 fill-current" />
                                     <span>{blog.stars}</span>
                                 </div>
                             </div>
@@ -644,7 +646,7 @@ const BlogDetail: React.FC = () => {
                                         className="cursor-pointer flex items-center gap-2 bg-white hover:bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-700 dark:hover:bg-gray-700 transition-colors duration-300"
                                         onClick={handleShare}
                                     >
-                                        <Share2 className="h-4 w-4"/>
+                                        <Share2 className="h-4 w-4" />
                                         Chia sẻ bài viết
                                     </Button>
 
@@ -728,12 +730,12 @@ const BlogDetail: React.FC = () => {
                                                             >
                                                                 {linkCopied ? (
                                                                     <span className="flex items-center">
-                                                                        <Check className="h-4 w-4 mr-1"/>{" "}
+                                                                        <Check className="h-4 w-4 mr-1" />{" "}
                                                                         Đã copy
                                                                     </span>
                                                                 ) : (
                                                                     <span className="flex items-center">
-                                                                        <Copy className="h-4 w-4 mr-1"/>{" "}
+                                                                        <Copy className="h-4 w-4 mr-1" />{" "}
                                                                         Copy
                                                                     </span>
                                                                 )}
@@ -755,7 +757,7 @@ const BlogDetail: React.FC = () => {
                                                                     shareToFacebook
                                                                 }
                                                             >
-                                                                <Facebook className="h-5 w-5"/>
+                                                                <Facebook className="h-5 w-5" />
                                                                 <span>
                                                                     Facebook
                                                                 </span>
@@ -767,7 +769,7 @@ const BlogDetail: React.FC = () => {
                                                                     shareToTwitter
                                                                 }
                                                             >
-                                                                <Twitter className="h-5 w-5"/>
+                                                                <Twitter className="h-5 w-5" />
                                                                 <span>
                                                                     Twitter
                                                                 </span>
@@ -779,7 +781,7 @@ const BlogDetail: React.FC = () => {
                                                                     shareToLinkedIn
                                                                 }
                                                             >
-                                                                <Linkedin className="h-5 w-5"/>
+                                                                <Linkedin className="h-5 w-5" />
                                                                 <span>
                                                                     LinkedIn
                                                                 </span>
@@ -801,7 +803,7 @@ const BlogDetail: React.FC = () => {
                                             className="flex-1 p-4 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:shadow-md transition-shadow duration-300"
                                         >
                                             <div className="flex items-center text-gray-600 dark:text-gray-400 mb-2">
-                                                <ChevronLeft className="h-4 w-4 mr-1"/>
+                                                <ChevronLeft className="h-4 w-4 mr-1" />
                                                 <span>Bài trước</span>
                                             </div>
                                             <h3 className="font-medium text-apple-dark-gray dark:text-white line-clamp-2">
@@ -820,7 +822,7 @@ const BlogDetail: React.FC = () => {
                                             <div
                                                 className="flex items-center justify-end text-gray-600 dark:text-gray-400 mb-2">
                                                 <span>Bài sau</span>
-                                                <ChevronRight className="h-4 w-4 ml-1"/>
+                                                <ChevronRight className="h-4 w-4 ml-1" />
                                             </div>
                                             <h3 className="font-medium text-apple-dark-gray dark:text-white line-clamp-2">
                                                 {navigation.next.title}

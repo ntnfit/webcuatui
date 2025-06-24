@@ -1,9 +1,19 @@
 import { PropsWithChildren } from 'react';
 import { useAppearance } from '@/hooks/use-appearance';
-
+import React, { useEffect } from 'react';
 export default function MainLayout({ children }: PropsWithChildren) {
     const { appearance, updateAppearance } = useAppearance();
+    useEffect(() => {
+        const script = document.createElement('script');
+        script.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6568899988616854";
+        script.async = true;
+        script.crossOrigin = "anonymous";
+        document.head.appendChild(script);
 
+        return () => {
+            document.head.removeChild(script);
+        };
+    }, []);
     return (
         <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-500">
             {/* Theme Toggle Button */}
@@ -25,4 +35,4 @@ export default function MainLayout({ children }: PropsWithChildren) {
             {children}
         </div>
     );
-} 
+}

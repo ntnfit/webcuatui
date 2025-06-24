@@ -68,7 +68,9 @@ const Index: React.FC<IndexPageProps> = ({ latestArticles }) => {
 
     return (
         <>
-            <Head title="ERP" />
+            <Head title="ERP">
+                <meta name="google-adsense-account" content="ca-pub-6568899988616854" />
+            </Head>
             <div className="relative overflow-x-hidden dark:bg-gray-900">
                 <Navbar />
                 <div className="pt-16">
