@@ -448,6 +448,7 @@ const BlogDetail: React.FC = () => {
             <Head title={`${blog.title} | My Blog`}>
                 <meta name="description" content={blog.title || ''} />
                 <meta name="google-adsense-account" content="ca-pub-6568899988616854" />
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6568899988616854" crossOrigin="anonymous"></script>
                 <link rel="icon" type="image/x-icon" href="/favicon/favicon-32x32" />
             </Head>
             <Navbar />

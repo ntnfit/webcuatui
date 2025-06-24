@@ -70,6 +70,7 @@ const Index: React.FC<IndexPageProps> = ({ latestArticles }) => {
         <>
             <Head title="ERP">
                 <meta name="google-adsense-account" content="ca-pub-6568899988616854" />
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6568899988616854" crossOrigin="anonymous"></script>
             </Head>
             <div className="relative overflow-x-hidden dark:bg-gray-900">
                 <Navbar />

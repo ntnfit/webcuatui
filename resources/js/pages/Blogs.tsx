@@ -423,6 +423,7 @@ const Blogs: React.FC = () => {
         <>
             <Head title="Blog">
                 <meta name="google-adsense-account" content="ca-pub-6568899988616854" />
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6568899988616854" crossOrigin="anonymous"></script>
             </Head>
             <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-500">
                 <Navbar />
@@ -592,13 +593,11 @@ const Blogs: React.FC = () => {
                                     const typeColors = getTypeColor(displayType);
 
                                     return (
-                                        <div
-                                            key={post.id}
-                                            className="h-full relative group"
+                                        <Link
+                                            href={`/blogs/${post.slug}`}
+                                            className="h-full block group cursor-pointer"
+                                            style={{ textDecoration: 'none', color: 'inherit' }}
                                         >
-                                            {/* Hover */}
-                                            <div className="absolute inset-0 bg-gradient-to-r from-blue-300 via-purple-300 to-pink-300 dark:bg-gradient-to-r dark:from-blue-500 dark:via-purple-500 dark:to-pink-500 animate-border-flow rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-
                                             <motion.div
                                                 variants={postVariants}
                                                 initial="hidden"
@@ -607,28 +606,17 @@ const Blogs: React.FC = () => {
                                                 className="h-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden transition-all duration-300 group-hover:shadow-md dark:group-hover:shadow-gray-800/50 group-hover:translate-x-[-6px] group-hover:translate-y-[-6px]"
                                             >
                                                 {/* Hình ảnh với thứ tự ưu tiên: thumbnail > featured_image > placeholder */}
-                                                <Link
-                                                    href={`/blogs/${post.slug}`}
-                                                    className="block overflow-hidden h-48 relative"
-                                                >
+                                                <div className="block overflow-hidden h-48 relative">
                                                     <img
-                                                        src={
-                                                            post.thumbnail_url ||
-                                                            post.featured_image ||
-                                                            "https://via.placeholder.com/800x400?text=Blog+Image"
-                                                        }
+                                                        src={post.thumbnail_url || post.featured_image || "https://via.placeholder.com/800x400?text=Blog+Image"}
                                                         alt={post.title}
                                                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                                                         loading="lazy"
                                                         onError={(e) => {
-                                                            (
-                                                                e.target as HTMLImageElement
-                                                            ).src =
-                                                                "https://via.placeholder.com/800x400?text=Blog+Image";
+                                                            (e.target as HTMLImageElement).src = "https://via.placeholder.com/800x400?text=Blog+Image";
                                                         }}
                                                     />
-                                                </Link>
-
+                                                </div>
                                                 <div className="p-6 flex flex-col h-[calc(100%-12rem)]">
                                                     <div className="flex items-start justify-between flex-1">
                                                         <div className="flex-1">
@@ -638,170 +626,97 @@ const Blogs: React.FC = () => {
                                                                     variant="outline"
                                                                     size="sm"
                                                                     className={`rounded-full border ${typeColors.light} ${typeColors.dark} transition-colors duration-300`}
+                                                                    onClick={e => e.stopPropagation()}
                                                                 >
-                                                                    {displayType ===
-                                                                        "Bài viết" &&
-                                                                        typeIcons[
-                                                                        "Bài viết"
-                                                                        ]}
-                                                                    {displayType ===
-                                                                        "Tin tức" &&
-                                                                        typeIcons[
-                                                                        "Tin tức"
-                                                                        ]}
-                                                                    {displayType ===
-                                                                        "Mẹo" &&
-                                                                        typeIcons[
-                                                                        "Mẹo"
-                                                                        ]}
+                                                                    {displayType === "Bài viết" && typeIcons["Bài viết"]}
+                                                                    {displayType === "Tin tức" && typeIcons["Tin tức"]}
+                                                                    {displayType === "Mẹo" && typeIcons["Mẹo"]}
                                                                     {displayType}
                                                                 </Button>
                                                             </div>
-
-                                                            {/* Title (clickable) */}
-                                                            <h3 className="mb-2">
-                                                                <Link
-                                                                    href={`/blogs/${post.slug}`}
-                                                                    className="text-xl font-semibold text-apple-dark-gray dark:text-white line-clamp-1 group-hover:text-apple-blue dark:group-hover:text-blue-400 transition-colors"
-                                                                >
-                                                                    {post.title}
-                                                                </Link>
+                                                            {/* Title */}
+                                                            <h3 className="mb-2 text-xl font-semibold text-apple-dark-gray dark:text-white line-clamp-1 group-hover:text-apple-blue dark:group-hover:text-blue-400 transition-colors">
+                                                                {post.title}
                                                             </h3>
-
                                                             {/* Excerpt */}
                                                             <p className="text-gray-600 dark:text-gray-400 mb-4 line-clamp-3 transition-colors duration-500">
                                                                 {post.excerpt}
                                                             </p>
-
                                                             {/* Category tags */}
                                                             <div className="flex flex-wrap gap-2 mb-4">
-                                                                {post.categories.map(
-                                                                    (cat, i) => {
-                                                                        const colors =
-                                                                            getTagColor(
-                                                                                cat,
-                                                                            );
-                                                                        return (
-                                                                            <motion.span
-                                                                                key={`${post.id}-category-${i}`}
-                                                                                className={`inline-block px-3 py-1 rounded-full text-xs border ${colors.light} ${colors.dark} transition-colors duration-300`}
-                                                                                whileHover={{
-                                                                                    scale: 1.05,
-                                                                                }}
-                                                                                transition={{
-                                                                                    duration: 0.3,
-                                                                                }}
-                                                                            >
-                                                                                {
-                                                                                    cat
-                                                                                }
-                                                                            </motion.span>
-                                                                        );
-                                                                    },
-                                                                )}
+                                                                {post.categories.map((cat, i) => {
+                                                                    const colors = getTagColor(cat);
+                                                                    return (
+                                                                        <motion.span
+                                                                            key={`${post.id}-category-${i}`}
+                                                                            className={`inline-block px-3 py-1 rounded-full text-xs border ${colors.light} ${colors.dark} transition-colors duration-300`}
+                                                                            whileHover={{ scale: 1.05 }}
+                                                                            transition={{ duration: 0.3 }}
+                                                                            onClick={e => e.stopPropagation()}
+                                                                        >
+                                                                            {cat}
+                                                                        </motion.span>
+                                                                    );
+                                                                })}
                                                             </div>
-
-                                                            {/* Hiển thị tags nếu có */}
-                                                            {post.tags &&
-                                                                post.tags.length >
-                                                                0 && (
-                                                                    <div className="flex flex-wrap gap-1.5 mb-4">
-                                                                        {post.tags.map(
-                                                                            (
-                                                                                tag,
-                                                                                i,
-                                                                            ) => (
-                                                                                <span
-                                                                                    key={`${post.id}-tag-${i}`}
-                                                                                    className="inline-block px-2 py-0.5 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-xs rounded transition-colors duration-300"
-                                                                                >
-                                                                                    #
-                                                                                    {
-                                                                                        tag
-                                                                                    }
-                                                                                </span>
-                                                                            ),
-                                                                        )}
-                                                                    </div>
-                                                                )}
+                                                            {/* Tags */}
+                                                            {post.tags && post.tags.length > 0 && (
+                                                                <div className="flex flex-wrap gap-1.5 mb-4">
+                                                                    {post.tags.map((tag, i) => (
+                                                                        <span
+                                                                            key={`${post.id}-tag-${i}`}
+                                                                            className="inline-block px-2 py-0.5 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-xs rounded transition-colors duration-300"
+                                                                            onClick={e => e.stopPropagation()}
+                                                                        >
+                                                                            #{tag}
+                                                                        </span>
+                                                                    ))}
+                                                                </div>
+                                                            )}
                                                         </div>
-
                                                         {/* Star count */}
                                                         <div className="flex items-center gap-1 text-amber-500 dark:text-amber-400 transition-colors duration-500">
                                                             <Star className="h-4 w-4 fill-current" />
-                                                            <span>
-                                                                {post.stars}
-                                                            </span>
+                                                            <span>{post.stars}</span>
                                                         </div>
                                                     </div>
-
                                                     {/* Footer: avatar, author, date, button */}
                                                     <div className="flex items-center justify-between mt-auto pt-4 border-t border-gray-100 dark:border-gray-700">
                                                         <div className="flex items-center gap-2">
                                                             <Avatar>
                                                                 <img
-                                                                    src={
-                                                                        post.author
-                                                                            .avatar
-                                                                    }
-                                                                    alt={
-                                                                        post.author
-                                                                            .name
-                                                                    }
-                                                                    onError={(
-                                                                        e,
-                                                                    ) => {
-                                                                        (
-                                                                            e.target as HTMLImageElement
-                                                                        ).src =
-                                                                            "https://github.com/shadcn.png";
+                                                                    src={post.author.avatar}
+                                                                    alt={post.author.name}
+                                                                    onError={e => {
+                                                                        (e.target as HTMLImageElement).src = "https://github.com/shadcn.png";
                                                                     }}
                                                                 />
                                                             </Avatar>
                                                             <div>
                                                                 <div className="text-sm font-medium text-apple-dark-gray dark:text-white transition-colors duration-500">
-                                                                    {
-                                                                        post.author
-                                                                            .name
-                                                                    }
+                                                                    {post.author.name}
                                                                 </div>
                                                                 <div className="text-xs text-gray-500 dark:text-gray-400 transition-colors duration-500">
                                                                     {post.date}
                                                                 </div>
                                                             </div>
                                                         </div>
-
                                                         {/* Button "Đọc thêm" */}
-                                                        <Link
-                                                            href={`/blogs/${post.slug}`}
-                                                            className="
-                                                            inline-flex items-center gap-2
-                                                            px-5 py-2
-                                                            border-2 border-apple-blue dark:border-blue-400
-                                                            text-apple-blue dark:text-blue-400
-                                                            bg-transparent
-                                                            hover:bg-apple-blue/10 dark:hover:bg-blue-400/20
-                                                            rounded-full
-                                                            transition-all duration-300
-                                                            focus:outline-none focus:ring-2 focus:ring-apple-blue/50 dark:focus:ring-blue-400/50
-                                                            "
+                                                        <Button
+                                                            className="inline-flex items-center gap-2 px-5 py-2 border-2 border-apple-blue dark:border-blue-400 text-apple-blue dark:text-blue-400 bg-transparent hover:bg-apple-blue/10 dark:hover:bg-blue-400/20 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-apple-blue/50 dark:focus:ring-blue-400/50"
+                                                            onClick={e => {
+                                                                e.preventDefault();
+                                                                e.stopPropagation();
+                                                                window.location.href = `/blogs/${post.slug}`;
+                                                            }}
                                                         >
-                                                            <span className="font-medium">
-                                                                Đọc thêm
-                                                            </span>
-                                                            <ArrowRight
-                                                                className="
-                                                                h-5 w-5
-                                                                text-apple-blue dark:text-blue-400
-                                                                transition-colors duration-200
-                                                                hover:text-apple-blue/80 dark:hover:text-blue-500
-                                                            "
-                                                            />
-                                                        </Link>
+                                                            <span className="font-medium">Đọc thêm</span>
+                                                            <ArrowRight className="h-5 w-5 text-apple-blue dark:text-blue-400 transition-colors duration-200 hover:text-apple-blue/80 dark:hover:text-blue-500" />
+                                                        </Button>
                                                     </div>
                                                 </div>
                                             </motion.div>
-                                        </div>
+                                        </Link>
                                     );
                                 })}
                             </div>
