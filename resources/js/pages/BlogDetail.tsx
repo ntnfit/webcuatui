@@ -202,18 +202,18 @@ const BlogDetail: React.FC = () => {
                 { name: "twitter:image", content: metaImage },
             ];
 
-            metaTags.forEach(({ name, property, content }) => {
-                let metaTag = document.querySelector(
-                    `meta[${name ? "name" : "property"}="${name || property}"]`,
-                );
-                if (!metaTag) {
-                    metaTag = document.createElement("meta");
-                    if (name) metaTag.setAttribute("name", name);
-                    if (property) metaTag.setAttribute("property", property);
-                    document.head.appendChild(metaTag);
-                }
-                metaTag.setAttribute("content", content);
-            });
+            // metaTags.forEach(({ name, property, content }) => {
+            //     let metaTag = document.querySelector(
+            //         `meta[${name ? "name" : "property"}="${name || property}"]`,
+            //     );
+            //     if (!metaTag) {
+            //         metaTag = document.createElement("meta");
+            //         if (name) metaTag.setAttribute("name", name);
+            //         if (property) metaTag.setAttribute("property", property);
+            //         document.head.appendChild(metaTag);
+            //     }
+            //     metaTag.setAttribute("content", content);
+            // });
         }
     }, [blog]);
 
