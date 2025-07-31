@@ -203,18 +203,18 @@ const BlogDetail: React.FC = () => {
                 { name: "twitter:image", content: metaImage },
             ];
 
-            metaTags.forEach(({ name, property, content }) => {
-                let metaTag = document.querySelector(
-                    `meta[${name ? "name" : "property"}="${name || property}"]`,
-                );
-                if (!metaTag) {
-                    metaTag = document.createElement("meta");
-                    if (name) metaTag.setAttribute("name", name);
-                    if (property) metaTag.setAttribute("property", property);
-                    document.head.appendChild(metaTag);
-                }
-                metaTag.setAttribute("content", content);
-            });
+            // metaTags.forEach(({ name, property, content }) => {
+            //     let metaTag = document.querySelector(
+            //         `meta[${name ? "name" : "property"}="${name || property}"]`,
+            //     );
+            //     if (!metaTag) {
+            //         metaTag = document.createElement("meta");
+            //         if (name) metaTag.setAttribute("name", name);
+            //         if (property) metaTag.setAttribute("property", property);
+            //         document.head.appendChild(metaTag);
+            //     }
+            //     metaTag.setAttribute("content", content);
+            // });
         }
     }, [blog]);
 
@@ -376,7 +376,7 @@ const BlogDetail: React.FC = () => {
                                 : ""
                         }
                     />
-                    <meta name="twitter:card" content="summary_large_image" />
+
                 </Head>
 
                 <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-500">
@@ -448,6 +448,16 @@ const BlogDetail: React.FC = () => {
         <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-500">
             <Head title={`${blog.title} | My Blog`}>
                 <meta name="description" content={blog.title || ''} />
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta property="og:type" content="article" />
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:title" content={`${blog.title}`} />
+                <meta name="twitter:description" content={`${blog.thumbnail_url}` ||
+                    blog.featured_image ||
+                    "/default-image.jpg"} />
+                <meta name="twitter:image" content={`${blog.thumbnail_url}` ||
+                    blog.featured_image ||
+                    "/default-image.jpg"} />
                 <meta name="google-adsense-account" content="ca-pub-6568899988616854" />
                 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6568899988616854" crossOrigin="anonymous"></script>
                 <link rel="icon" type="image/x-icon" href="/favicon/favicon-32x32" />
