@@ -196,6 +196,7 @@ const BlogDetail: React.FC = () => {
                 { property: "og:description", content: metaDescription },
                 { property: "og:image", content: metaImage },
                 { property: "og:url", content: metaUrl },
+                { property: "og:type", content: "article" },
                 { name: "twitter:card", content: "summary_large_image" },
                 { name: "twitter:title", content: metaTitle },
                 { name: "twitter:description", content: metaDescription },
