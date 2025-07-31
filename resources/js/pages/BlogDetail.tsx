@@ -447,7 +447,13 @@ const BlogDetail: React.FC = () => {
         <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-500">
             <Head title={`${blog.title} | My Blog`}>
                 <meta name="description" content={blog.title || ''} />
-                <meta name="og:type" content="type" />
+                <meta name="og:type" content="article" />
+                <meta name="description" content={blog.title || ''} />
+                <meta property="og:title" content={blog.title || ''} />
+                <meta property="og:description" content={blog.title || ''} />
+                <meta property="og:image" content={blog.thumbnail_url || ''} />
+                <meta property="og:url" content={window.location.href} />
+                <meta property="og:type" content="article" />
                 <meta name="google-adsense-account" content="ca-pub-6568899988616854" />
                 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6568899988616854" crossOrigin="anonymous"></script>
                 <link rel="icon" type="image/x-icon" href="/favicon/favicon-32x32" />
