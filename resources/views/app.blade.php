@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description"
-        content="{{ $page['props']['blog']['title'] ?? 'Freelancer SAP ERP, SAP Business One, Integration system' }}">
+        content="{{ $page['props']['blog']['sub_title'] ??  $page['props']['blog']['title'] ?? 'Freelancer SAP ERP, SAP Business One, Integration system' }}">
     <meta property="og:image" content="{{$page['props']['blog']['thumbnail_url'] ?? 'https://toilamerp.com/images/og.png'}}">
     <meta property="og:title" content="{{ $page['props']['blog']['title'] ?? 'SAP ERP, SAP Business One, SAP ' }}">
     <meta property="og:url" content="{{ url()->current() }}" />
