@@ -190,17 +190,7 @@ const BlogDetail: React.FC = () => {
 
             document.title = metaTitle;
 
-            const metaTags = [
-                { name: "description", content: metaDescription },
-                { property: "og:title", content: metaTitle },
-                { property: "og:description", content: metaDescription },
-                { property: "og:image", content: metaImage },
-                { property: "og:url", content: metaUrl },
-                { property: "og:type", content: "article" },
-                { name: "twitter:title", content: metaTitle },
-                { name: "twitter:description", content: metaDescription },
-                { name: "twitter:image", content: metaImage },
-            ];
+
 
             // metaTags.forEach(({ name, property, content }) => {
             //     let metaTag = document.querySelector(
@@ -356,25 +346,7 @@ const BlogDetail: React.FC = () => {
             <>
                 <Head>
                     <title>{`Error | My Blog`}</title>
-                    <meta name="description" content="An error occurred while loading the blog." />
-                    <meta property="og:title" content="Error" />
-                    <meta property="og:description" content="An error occurred while loading the blog." />
-                    <meta
-                        property="og:image"
-                        content={
-                            blog?.thumbnail_url ||
-                            blog?.featured_image ||
-                            "/default-image.jpg"
-                        }
-                    />
-                    <meta
-                        property="og:url"
-                        content={
-                            typeof window !== "undefined"
-                                ? window.location.href
-                                : ""
-                        }
-                    />
+
 
                 </Head>
 
@@ -446,16 +418,15 @@ const BlogDetail: React.FC = () => {
     return (
         <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-500">
             <Head title={`${blog.title} | My Blog`}>
-                <meta name="description" content={blog.title || ''} />
+                {/* <meta name="description" content={blog.title || ''} />
                 <meta name="og:type" content="article" />
                 <meta name="description" content={blog.title || ''} />
                 <meta property="og:title" content={blog.title || ''} />
                 <meta property="og:description" content={blog.title || ''} />
                 <meta property="og:image" content={blog.thumbnail_url || ''} />
                 <meta property="og:url" content={window.location.href} />
-                <meta property="og:type" content="article" />
-                <meta name="google-adsense-account" content="ca-pub-6568899988616854" />
-                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6568899988616854" crossOrigin="anonymous"></script>
+                <meta property="og:type" content="article" /> */}
+
                 <link rel="icon" type="image/x-icon" href="/favicon/favicon-32x32" />
             </Head>
             <Navbar />

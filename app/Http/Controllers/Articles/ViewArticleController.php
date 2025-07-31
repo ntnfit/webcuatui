@@ -9,6 +9,7 @@ class ViewArticleController extends Controller
 {
     public function __invoke(blogs $blogs)
     {
+        // Set SEO data
         seo()
             ->title("{$blogs->title} by {$blogs->user->name}")
             ->description($blogs->title)
@@ -19,16 +20,22 @@ class ViewArticleController extends Controller
         Dịch vụ tư vấn SAP S4HANA, Dịch vụ tư vấn Webapp,
         Dịch vụ tư vấn ERP, Dịch vụ tư vấn Oracle Netsuite, Dịch vụ tư vấn SAP BTP, Dịch vụ tư vấn SAP ABAP,
         Gia hạn license SAP B1,Dịch vụ tư vấn SAP HANA')
-            // ->image('https://previewlinks.io/generate/templates/1055/meta?url=' . url()->current())
             ->tag('previewlinks:overline', 'Filament')
             ->tag('previewlinks:title', $blogs->title)
             ->tag('previewlinks:subtitle', "By {$blogs->user->name}")
             ->tag('previewlinks:image',  $blogs->featurePhoto )
             ->tag('previewlinks:repository', 'webcuatoi')
             ->withUrl()
-            ->url($article->canonical_url ?? request()->url())
+            ->url($blogs->canonical_url ?? request()->url())
             ->rawTag('<meta name="description" content="'. $blogs->title.'">')
             ->rawTag('fb_url', '<meta property="fb:url" content="bar" />');
+
+        // Add og_image to SEO data for frontend
+        $seoData = [
+            'title' => "{$blogs->title} by {$blogs->user->name}",
+            'description' => $blogs->title,
+            'og_image' => $blogs->featurePhoto ? url($blogs->featurePhoto) : 'https://toilamerp.com/images/og.png',
+        ];
         $types= collect([
         'article' => [
             'slug' => 'article',
@@ -60,6 +67,11 @@ class ViewArticleController extends Controller
     ]);
     $type=showBadgeType($blogs->type);
         $mostBlog= blogs::query()->orderBy('id','desc')->inRandomOrder()->limit(10)->get();
-        return view('blogdetail', ['article' => $blogs,'mostBlogs'=>$mostBlog,'type'=>  $type]);
+        return view('blogdetail', [
+            'article' => $blogs,
+            'mostBlogs' => $mostBlog,
+            'type' => $type,
+            'seo' => $seoData
+        ]);
     }
 }

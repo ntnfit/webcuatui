@@ -1,0 +1,202 @@
+/* Navbar Styles */
+
+/* Theme toggle button styles */
+.theme-toggle {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    height: 1.5rem;
+    width: 2.75rem;
+    border-radius: 9999px;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+}
+
+.theme-toggle.light {
+    background-color: #fcd34d; /* amber-300 */
+}
+
+.theme-toggle.dark {
+    background-color: #2563eb; /* blue-600 */
+}
+
+.theme-toggle-handle {
+    position: absolute;
+    display: inline-block;
+    height: 1rem;
+    width: 1rem;
+    border-radius: 50%;
+    background-color: white;
+    transition: transform 0.3s ease;
+    transform: translateX(0.25rem);
+}
+
+.theme-toggle.dark .theme-toggle-handle {
+    transform: translateX(1.5rem);
+}
+
+/* Icon animations */
+.sun-icon, .moon-icon {
+    transition: all 0.3s ease;
+}
+
+.sun-icon.active {
+    color: #f59e0b; /* amber-500 */
+    opacity: 1;
+    transform: scale(1);
+}
+
+.sun-icon.inactive {
+    color: #9ca3af; /* gray-400 */
+    opacity: 0.5;
+    transform: scale(0.9);
+}
+
+.moon-icon.active {
+    color: #60a5fa; /* blue-400 */
+    opacity: 1;
+    transform: scale(1);
+}
+
+.moon-icon.inactive {
+    color: #9ca3af; /* gray-400 */
+    opacity: 0.5;
+    transform: scale(0.9);
+}
+
+/* Mobile menu animations */
+.mobile-menu {
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.mobile-menu.hidden {
+    max-height: 0;
+    opacity: 0;
+}
+
+.mobile-menu:not(.hidden) {
+    max-height: 300px;
+    opacity: 1;
+}
+
+/* Active link styles */
+.nav-link-active {
+    color: #2563eb; /* blue-600 */
+    font-weight: 600;
+}
+
+.dark .nav-link-active {
+    color: #60a5fa; /* blue-400 */
+}
+
+/* Hover effects */
+.nav-link:hover {
+    color: #2563eb; /* blue-600 */
+    transition: color 0.3s ease;
+}
+
+.dark .nav-link:hover {
+    color: #60a5fa; /* blue-400 */
+}
+
+/* Logo gradient animation */
+.logo-gradient {
+    background: linear-gradient(135deg, #2563eb 0%, #7c3aed 50%, #ec4899 100%);
+    background-size: 200% 200%;
+    animation: gradientShift 3s ease infinite;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .desktop-menu {
+        display: none;
+    }
+    
+    .mobile-menu-toggle {
+        display: block;
+    }
+}
+
+@media (min-width: 769px) {
+    .mobile-menu-toggle {
+        display: none;
+    }
+    
+    .mobile-menu {
+        display: none;
+    }
+}
+
+/* Smooth transitions */
+* {
+    transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Focus styles for accessibility */
+button:focus,
+a:focus {
+    outline: 2px solid #2563eb;
+    outline-offset: 2px;
+}
+
+.dark button:focus,
+.dark a:focus {
+    outline-color: #60a5fa;
+}
+
+/* Loading states */
+.loading {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+/* Scroll behavior */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+.dark ::-webkit-scrollbar-track {
+    background: #1e293b;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+    background: #475569;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+    background: #64748b;
+} 

@@ -5,9 +5,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description"
-        content="{{ $page['props']['seo']['description'] ?? 'Freelancer SAP ERP, SAP Business One, Integration system' }}">
-    <meta property="og:image" content="https://toilamerp.com/images/og.png">
-    <meta property="og:title" content="{{ $page['props']['seo']['title'] ?? 'SAP ERP, SAP Business One, SAP ' }}">
+        content="{{ $page['props']['blog']['title'] ?? 'Freelancer SAP ERP, SAP Business One, Integration system' }}">
+    <meta property="og:image" content="{{$page['props']['blog']['thumbnail_url'] ?? 'https://toilamerp.com/images/og.png'}}">
+    <meta property="og:title" content="{{ $page['props']['blog']['title'] ?? 'SAP ERP, SAP Business One, SAP ' }}">
+    <meta property="og:url" content="{{ url()->current() }}" />
+    <meta property="og:type" content="article" />
+    <meta name="google-adsense-account" content="ca-pub-6568899988616854" />
     {{-- Inline script to detect system dark mode preference and apply it immediately --}}
     <script>
         (function() {
@@ -48,5 +51,7 @@
 <body class="font-sans antialiased">
     @inertia
 </body>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6568899988616854" crossOrigin="anonymous"></script>
 <script src="https://messenger.svc.chative.io/static/v1.0/channels/s085dc69b-a8f0-47d9-a88f-ed1dd85b0b4d/messenger.js?mode=livechat" defer="defer"></script>
 </html>
+
