@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description"
         content="{{ $page['props']['seo']['description'] ?? 'Freelancer SAP ERP, SAP Business One, Integration system' }}">
-    <meta property="og:image" content="https://toilamerp.com/images/og.jpg">
+    <meta property="og:image" content="https://toilamerp.com/images/og.png">
     <meta property="og:title" content="{{ $page['props']['seo']['title'] ?? 'SAP ERP, SAP Business One, SAP ' }}">
     {{-- Inline script to detect system dark mode preference and apply it immediately --}}
     <script>
