@@ -1,5 +1,5 @@
 # Front-end 
-html5,css, taiwlid
+Reactjs,TailwindCss
 # Backend
 Laravel
 # usge
