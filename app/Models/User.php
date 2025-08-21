@@ -8,7 +8,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Jeffgreco13\FilamentBreezy\Traits\TwoFactorAuthenticatable;
 use App\Traits\HasBlog;
-class User extends Authenticatable
+use Filament\Panel;
+use Filament\Models\Contracts\FilamentUser;
+class User extends Authenticatable implements FilamentUser
 {
     use HasFactory, Notifiable,HasBlog,TwoFactorAuthenticatable;
 
@@ -45,4 +47,10 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    public function canAccessPanel(Panel $panel): bool
+    {
+       // return str_ends_with($this->email, '@yourdomain.com') && $this->hasVerifiedEmail();
+        return true;
+    }
+    
 }
