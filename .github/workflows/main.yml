@@ -18,6 +18,7 @@ jobs:
         script: |
           cd /home/flashvps/toilamerp.com
           sudo git reset --hard
+          sudo git config --global --add safe.directory /home/flashvps/toilamerp.com
           sudo git pull
           sudo npm install
           sudo composer install
