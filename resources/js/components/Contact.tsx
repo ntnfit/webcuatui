@@ -5,7 +5,7 @@ import { ContactInfo, ContactFormData } from '@/types';
 import axios from 'axios';
 
 const contactInfo: ContactInfo = {
-  email: 'ntnguyen0310@gmail.com',
+  email: 'sapb1devbtp@gmail.com',
   phone: '0981710031',
   social: {
     github: 'https://github.com',
