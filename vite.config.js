@@ -6,7 +6,7 @@ import { resolve } from 'node:path';
 export default defineConfig({
     plugins: [
         laravel({
-            input: ['resources/css/app.css', 'resources/js/app.tsx'],
+            input: ['resources/css/app.css', 'resources/js/app.tsx', 'resources/js/main.js'],
             ssr: 'resources/js/ssr.tsx',
             refresh: true,
 

@@ -2,13 +2,12 @@
 
 namespace App\Forms\Components;
 
-
 use Closure;
 use Filament\Forms\Components\Field;
 
 class CKEditor extends Field
 {
-    protected string | Closure $content = '';
+    protected string|Closure $content = '';
 
     protected string $name = 'ckeditor';
 
@@ -31,14 +30,14 @@ class CKEditor extends Field
         $this->dehydrated(false);
     }
 
-    public function uploadUrl(string | Closure | null $uploadUrl): self
+    public function uploadUrl(string|Closure|null $uploadUrl): self
     {
         $this->uploadUrl = $uploadUrl;
 
         return $this;
     }
 
-    public function content(string | Closure $content): self
+    public function content(string|Closure $content): self
     {
         $this->content = $content;
 

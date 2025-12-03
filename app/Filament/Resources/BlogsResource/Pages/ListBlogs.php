@@ -3,16 +3,16 @@
 namespace App\Filament\Resources\BlogsResource\Pages;
 
 use App\Filament\Resources\BlogsResource;
-use Filament\Actions;
-use Filament\Resources\Pages\ListRecords;
 use App\Filament\Resources\BlogsResource\Widgets\BlogPostPublishedChart;
+use Filament\Actions;
 use Filament\Resources\Components\Tab;
+use Filament\Resources\Pages\ListRecords;
 
 class ListBlogs extends ListRecords
 {
     protected static string $resource = BlogsResource::class;
 
-    protected function getColumns(): int | array
+    protected function getColumns(): int|array
     {
         return 2;
     }
@@ -30,6 +30,7 @@ class ListBlogs extends ListRecords
             BlogPostPublishedChart::class,
         ];
     }
+
     public function getTabs(): array
     {
         return [
@@ -43,11 +44,11 @@ class ListBlogs extends ListRecords
                     $query->pending();
                 })
                 ->icon('heroicon-o-clock'),
-//            'scheduled' => Tab::make('Scheduled')
-//                ->modifyQueryUsing(function ($query) {
-//                    $query->scheduled();
-//                })
-//                ->icon('heroicon-o-calendar-days'),
+            //            'scheduled' => Tab::make('Scheduled')
+            //                ->modifyQueryUsing(function ($query) {
+            //                    $query->scheduled();
+            //                })
+            //                ->icon('heroicon-o-calendar-days'),
         ];
     }
 }

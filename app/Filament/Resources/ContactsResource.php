@@ -3,19 +3,14 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ContactsResource\Pages;
-use App\Filament\Resources\ContactsResource\RelationManagers;
 use App\Models\Contacts;
-use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Tables\Concerns\InteractsWithTable;
-use Filament\Tables\Contracts\HasTable;
-use Filament\Tables;
-use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Filament\Tables\Columns\TextColumn;
 use Filament\Support\Enums\MaxWidth;
+use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Concerns\InteractsWithTable;
+use Filament\Tables\Table;
 use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
 
 class ContactsResource extends Resource
@@ -23,16 +18,21 @@ class ContactsResource extends Resource
     protected static ?string $model = Contacts::class;
 
     use InteractsWithTable;
+
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+
     protected static ?string $navigationLabel = 'Contacts';
+
     public static function getNavigationBadge(): ?string
     {
         return Contacts::count();
     }
+
     public function getMaxContentWidth(): MaxWidth
     {
         return MaxWidth::Full;
     }
+
     public static function form(Form $form): Form
     {
         return $form
@@ -79,7 +79,7 @@ class ContactsResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
-                ExportBulkAction::make()
+                ExportBulkAction::make(),
             ]);
     }
 
@@ -94,7 +94,7 @@ class ContactsResource extends Resource
     {
         return [
             'index' => Pages\ListContacts::route('/'),
-            //'create' => Pages\CreateContacts::route('/create'),
+            // 'create' => Pages\CreateContacts::route('/create'),
             // 'edit' => Pages\EditContacts::route('/{record}/edit'),
         ];
     }

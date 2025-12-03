@@ -9,14 +9,14 @@ use Filament\Support\Contracts\HasLabel;
 enum PostStatus: string implements HasColor, HasIcon, HasLabel
 {
     case PENDING = 'pending';
-   // case SCHEDULED = 'scheduled';
+    // case SCHEDULED = 'scheduled';
     case PUBLISHED = 'published';
 
     public function getColor(): string
     {
         return match ($this) {
             self::PENDING => 'info',
-           // self::SCHEDULED => 'warning',
+            // self::SCHEDULED => 'warning',
             self::PUBLISHED => 'success'
         };
     }
@@ -25,7 +25,7 @@ enum PostStatus: string implements HasColor, HasIcon, HasLabel
     {
         return match ($this) {
             self::PENDING => 'Pending',
-           // self::SCHEDULED => 'Scheduled',
+            // self::SCHEDULED => 'Scheduled',
             self::PUBLISHED => 'Published'
         };
     }
@@ -34,7 +34,7 @@ enum PostStatus: string implements HasColor, HasIcon, HasLabel
     {
         return match ($this) {
             self::PENDING => 'heroicon-o-clock',
-          //  self::SCHEDULED => 'heroicon-o-calendar-days',
+            //  self::SCHEDULED => 'heroicon-o-calendar-days',
             self::PUBLISHED => 'heroicon-o-check-badge',
         };
     }

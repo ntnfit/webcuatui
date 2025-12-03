@@ -69,10 +69,10 @@ return [
             'model' => env('AUTH_MODEL', App\Models\User::class),
         ],
 
-         'customers' => [
-             'driver' => 'eloquent',
-             'model' =>  App\Models\Customer::class,
-         ],
+        'customers' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Customer::class,
+        ],
     ],
 
     /*

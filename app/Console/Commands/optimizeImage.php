@@ -6,6 +6,7 @@ use Illuminate\Console\Command;
 use Spatie\Image\Image;
 use Spatie\Image\Manipulations;
 use Throwable;
+
 class optimizeImage extends Command
 {
     /**

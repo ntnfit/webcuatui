@@ -2,12 +2,6 @@
 
 namespace App\Forms\Components;
 
-use Filament\Forms\Components\Field;
-use Closure;
-use Filament\Forms\Components\Actions\Action;
-use Filament\Forms\Components\Concerns\HasExtraInputAttributes;
-use Filament\Forms\Components\Concerns\HasPlaceholder;;
-use Filament\Support\Concerns\HasExtraAlpineAttributes;
 use App\FilamentTiptapEditor\Action\GridBuilderAction;
 use App\FilamentTiptapEditor\Action\OEmbedAction;
 use App\FilamentTiptapEditor\Action\SourceAction;
@@ -15,11 +9,18 @@ use App\FilamentTiptapEditor\Concerns\CanStoreOutput;
 use App\FilamentTiptapEditor\Concerns\HasCustomActions;
 use App\FilamentTiptapEditor\Concerns\InteractsWithMedia;
 use App\FilamentTiptapEditor\Concerns\InteractsWithMenus;
+use Closure;
+use Filament\Forms\Components\Actions\Action;
+use Filament\Forms\Components\Concerns\HasExtraInputAttributes;
+use Filament\Forms\Components\Concerns\HasPlaceholder;
+use Filament\Forms\Components\Field;
+use Filament\Support\Concerns\HasExtraAlpineAttributes;
 use Illuminate\Support\Js;
 use Illuminate\Support\Str;
 use JsonException;
 use Livewire\Component;
 use Throwable;
+
 class TiptapEditor extends Field
 {
     use CanStoreOutput;
@@ -32,7 +33,7 @@ class TiptapEditor extends Field
 
     protected array $extensions = [];
 
-    protected string | Closure | null $maxContentWidth = null;
+    protected string|Closure|null $maxContentWidth = null;
 
     protected string $profile = 'default';
 
@@ -40,9 +41,9 @@ class TiptapEditor extends Field
 
     protected ?array $tools = [];
 
-    protected array | Closure $blocks = [];
+    protected array|Closure $blocks = [];
 
-    protected array | Closure $mergeTags = [];
+    protected array|Closure $mergeTags = [];
 
     protected string $view = 'filament-tiptap-editor::tiptap-editor';
 
@@ -72,7 +73,7 @@ class TiptapEditor extends Field
         $this->tools = config('filament-tiptap-editor.profiles.default');
         $this->extensions = config('filament-tiptap-editor.extensions') ?? [];
 
-        $this->afterStateHydrated(function (tiptapEditor $component, string | array | null $state): void {
+        $this->afterStateHydrated(function (tiptapEditor $component, string|array|null $state): void {
 
             if (! $state) {
                 return;
@@ -91,7 +92,7 @@ class TiptapEditor extends Field
             $livewire->validateOnly($component->getStatePath());
         });
 
-        $this->dehydrateStateUsing(function (tiptapEditor $component, string | array | null $state): string | array | null {
+        $this->dehydrateStateUsing(function (tiptapEditor $component, string|array|null $state): string|array|null {
 
             if (! $state) {
                 return null;
@@ -116,50 +117,50 @@ class TiptapEditor extends Field
             'tiptap::setGridBuilderContent' => [
                 fn (
                     tiptapEditor $component,
-                    string       $statePath,
-                    array        $arguments
+                    string $statePath,
+                    array $arguments
                 ) => $this->getCustomListener('filament_tiptap_grid', $component, $statePath, $arguments),
             ],
             'tiptap::setSourceContent' => [
                 fn (
                     tiptapEditor $component,
-                    string       $statePath,
-                    array        $arguments
+                    string $statePath,
+                    array $arguments
                 ) => $this->getCustomListener('filament_tiptap_source', $component, $statePath, $arguments),
             ],
             'tiptap::setOEmbedContent' => [
                 fn (
                     tiptapEditor $component,
-                    string       $statePath,
-                    array        $arguments
+                    string $statePath,
+                    array $arguments
                 ) => $this->getCustomListener('filament_tiptap_oembed', $component, $statePath, $arguments),
             ],
             'tiptap::setLinkContent' => [
                 fn (
                     tiptapEditor $component,
-                    string       $statePath,
-                    array        $arguments
+                    string $statePath,
+                    array $arguments
                 ) => $this->getCustomListener('filament_tiptap_link', $component, $statePath, $arguments),
             ],
             'tiptap::setMediaContent' => [
                 fn (
                     tiptapEditor $component,
-                    string       $statePath,
-                    array        $arguments
+                    string $statePath,
+                    array $arguments
                 ) => $this->getCustomListener('filament_tiptap_media', $component, $statePath, $arguments),
             ],
             'tiptap::editMediaContent' => [
                 fn (
                     tiptapEditor $component,
-                    string       $statePath,
-                    array        $arguments
+                    string $statePath,
+                    array $arguments
                 ) => $this->getCustomListener('filament_tiptap_edit_media', $component, $statePath, $arguments),
             ],
             'tiptap::updateBlock' => [
                 fn (
                     tiptapEditor $component,
-                    string       $statePath,
-                    array        $arguments
+                    string $statePath,
+                    array $arguments
                 ) => $this->getCustomListener('updateBlock', $component, $statePath, $arguments),
             ],
         ]);
@@ -223,7 +224,7 @@ class TiptapEditor extends Field
         foreach ($content as $k => $block) {
             if ($block['type'] === 'tiptapBlock') {
                 if (is_string($block['attrs']['data'])) {
-                    $data = Str::of(json_decode('"' . $block['attrs']['data'] . '"'))
+                    $data = Str::of(json_decode('"'.$block['attrs']['data'].'"'))
                         ->after('JSON.parse(\'')
                         ->beforeLast('\')')
                         ->toString();
@@ -342,7 +343,7 @@ class TiptapEditor extends Field
             });
     }
 
-    public function maxContentWidth(string | Closure $width): static
+    public function maxContentWidth(string|Closure $width): static
     {
         $this->maxContentWidth = $width;
 
@@ -352,12 +353,12 @@ class TiptapEditor extends Field
     public function profile(string $profile): static
     {
         $this->profile = $profile;
-        $this->tools = config('filament-tiptap-editor.profiles.' . $profile);
+        $this->tools = config('filament-tiptap-editor.profiles.'.$profile);
 
         return $this;
     }
 
-    public function blocks(array | Closure $blocks): static
+    public function blocks(array|Closure $blocks): static
     {
         $this->blocks = $blocks;
 
@@ -449,7 +450,7 @@ class TiptapEditor extends Field
         return $this->shouldCollapseBlocksPanel;
     }
 
-    public function mergeTags(array | Closure $mergeTags): static
+    public function mergeTags(array|Closure $mergeTags): static
     {
         $this->mergeTags = $mergeTags;
 

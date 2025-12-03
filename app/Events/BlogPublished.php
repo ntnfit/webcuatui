@@ -4,11 +4,10 @@ namespace App\Events;
 
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+
 class BlogPublished
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
@@ -16,7 +15,8 @@ class BlogPublished
     /**
      * Create a new event instance.
      */
-    public  mixed $post;
+    public mixed $post;
+
     public function __construct($post)
     {
         $this->post = $post;
@@ -27,10 +27,10 @@ class BlogPublished
      *
      * @return array<int, \Illuminate\Broadcasting\Channel>
      */
-//    public function broadcastOn(): array
-//    {
-//        return [
-//            new PrivateChannel('channel-name'),
-//        ];
-//    }
+    //    public function broadcastOn(): array
+    //    {
+    //        return [
+    //            new PrivateChannel('channel-name'),
+    //        ];
+    //    }
 }

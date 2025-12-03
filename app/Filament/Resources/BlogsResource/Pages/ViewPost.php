@@ -2,11 +2,11 @@
 
 namespace App\Filament\Resources\BlogsResource\Pages;
 
+use App\Events\BlogPublished;
+use App\Filament\Resources\BlogsResource;
+use App\Models\blogs as Post;
 use Filament\Actions\Action;
 use Filament\Resources\Pages\ViewRecord;
-use App\Events\BlogPublished;
-use App\Models\blogs as Post;
-use App\Filament\Resources\BlogsResource;
 use Illuminate\Contracts\Support\Htmlable;
 
 class ViewPost extends ViewRecord
@@ -36,7 +36,7 @@ class ViewPost extends ViewRecord
                 ->label('Preview')
                 ->requiresConfirmation()
                 ->icon('heroicon-o-eye')->url(function (Post $record) {
-                    return route('admin.post.show', $record->slug);
+                    return route('blogs.show', $record->slug);
                 }, true)
                 ->disabled(function (Post $record) {
                     return $record->isNotPublished();

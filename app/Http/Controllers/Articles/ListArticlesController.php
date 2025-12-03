@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Articles;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\blogs;
 use App\Models\Category as ArticleCategory;
 
@@ -13,11 +12,11 @@ class ListArticlesController extends Controller
     {
 
         // clear cache
-         cache()->forget('articles');
+        cache()->forget('articles');
         seo()
             ->title('bài viết')
             ->description('chia sẻ về các bài viết công nghệ, lập trình, ERP, SAP B1, NETSUITE, Misa.')
-            ->image('https://previewlinks.io/generate/templates/1055/meta?url=' . url()->current())
+            ->image('https://previewlinks.io/generate/templates/1055/meta?url='.url()->current())
             ->keywords('SAP Business One, SAP S4HANA, Webapp, ERP,
         Oracle Netsuite, SAP B1, SAP BTP, SAP ABAP, SAP Fiori, SAP UI5, SAP HANA,
         Dịch vụ vận hành SAP B1, Quản trị hệ thống SAP B1, Dịch vụ tư vấn SAP B1,
@@ -50,13 +49,13 @@ class ListArticlesController extends Controller
                         ->get()
                         ->map(fn (blogs $blogs): array => [
                             ...$blogs->getDataArray(),
-                            'stars_count' =>  0, //$stars[$article->getKey()] ?? 0,
+                            'stars_count' => 0, // $stars[$article->getKey()] ?? 0,
                         ])
                         ->all();
                 },
             ),
             'articlesCount' => blogs::query()
-            ->where('is_published', true)
+                ->where('is_published', true)
                 ->count(),
             'authorsCount' => 100,
             'categories' => ArticleCategory::query()->orderBy('name')->get()->keyBy('slug'),

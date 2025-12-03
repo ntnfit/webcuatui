@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('full_name');
             $table->string('email')->nullable();
             $table->string('phone_number')->nullable();
-            $table->string('company_name',255)->nullable();
+            $table->string('company_name', 255)->nullable();
             $table->string('topic')->nullable();
             $table->text('message');
             $table->unsignedBigInteger('contact_reason_id')->nullable();

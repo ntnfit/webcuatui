@@ -2,7 +2,13 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\PostStatus;
 use App\Filament\Resources\BlogsResource\Pages;
+use App\Filament\Resources\BlogsResource\Pages\ManagePostSeoDetail;
+use App\Filament\Resources\BlogsResource\Pages\ViewPost;
+use App\Filament\Resources\BlogsResource\Widgets\BlogPostPublishedChart;
+use App\Models\blogs as Post;
+use App\Tables\Columns\UserPhotoName;
 use Filament\Forms\Form;
 use Filament\Infolists\Components\Fieldset;
 use Filament\Infolists\Components\Section;
@@ -13,28 +19,27 @@ use Filament\Resources\Pages\Page;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Models\blogs as Post;
 use Illuminate\Support\Str;
-use App\Tables\Columns\UserPhotoName;
-use App\Enums\PostStatus;
-use App\Filament\Resources\BlogsResource\Pages\ViewPost;
-use App\Filament\Resources\BlogsResource\Pages\ManagePostSeoDetail;
-use App\Filament\Resources\BlogsResource\Widgets\BlogPostPublishedChart;
+
 class BlogsResource extends Resource
 {
     protected static ?string $model = Post::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-document-minus';
+
     protected static $title = 'Blogs';
+
     protected static ?string $recordTitleAttribute = 'title';
-    protected static  ?string $navigationGroup = 'Blog Management';
+
+    protected static ?string $navigationGroup = 'Blog Management';
+
     protected static SubNavigationPosition $subNavigationPosition = SubNavigationPosition::Top;
+
     public static function getNavigationBadge(): ?string
     {
         return Post::count();
     }
+
     public static function form(Form $form): Form
     {
         return $form
@@ -64,17 +69,16 @@ class BlogsResource extends Resource
                     ->label('Author'),
                 Tables\Columns\ToggleColumn::make('is_published')
                     ->label('Publish')
-                    ->updateStateUsing(function (post $record,$state) {
+                    ->updateStateUsing(function (post $record, $state) {
                         $record->is_published = $state;
-                        if($state==true){
+                        if ($state == true) {
                             $record->status = PostStatus::PUBLISHED;
                             $record->published_at = now();
-                        }
-                        else{
+                        } else {
                             $record->status = PostStatus::PENDING;
                             $record->published_at = null;
                         }
-                       $record->save();
+                        $record->save();
                     }),
 
                 Tables\Columns\TextColumn::make('created_at')
@@ -105,6 +109,7 @@ class BlogsResource extends Resource
                 ]),
             ]);
     }
+
     public static function infolist(Infolist $infolist): Infolist
     {
         return $infolist->schema([
@@ -126,9 +131,9 @@ class BlogsResource extends Resource
                                 return $record->status === PostStatus::PUBLISHED;
                             }),
 
-//                            TextEntry::make('scheduled_for')->visible(function (Post $record) {
-//                                return $record->status === PostStatus::SCHEDULED;
-//                            }),
+                            //                            TextEntry::make('scheduled_for')->visible(function (Post $record) {
+                            //                                return $record->status === PostStatus::SCHEDULED;
+                            //                            }),
                         ]),
                     Fieldset::make('Description')
                         ->schema([
@@ -139,21 +144,24 @@ class BlogsResource extends Resource
                 ]),
         ]);
     }
+
     public static function getRecordSubNavigation(Page $page): array
     {
         return $page->generateNavigationItems([
             ViewPost::class,
             ManagePostSeoDetail::class,
-//            ManagePostComments::class,
+            //            ManagePostComments::class,
             Pages\EditBlogs::class,
         ]);
     }
+
     public static function getRelations(): array
     {
         return [
             //
         ];
     }
+
     public static function getWidgets(): array
     {
         return [
@@ -167,9 +175,8 @@ class BlogsResource extends Resource
             'index' => Pages\ListBlogs::route('/'),
             'create' => Pages\CreateBlogs::route('/create'),
             'edit' => Pages\EditBlogs::route('/{record}/edit'),
-            'view' =>   Pages\ViewPost::route('/{record}'),
+            'view' => Pages\ViewPost::route('/{record}'),
             'seoDetail' => Pages\ManagePostSeoDetail::route('/{record}/seo-details'),
         ];
     }
-
 }

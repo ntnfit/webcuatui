@@ -1,8 +1,9 @@
 <?php
+
 if (! function_exists('showBadgeType')) {
-    function showBadgeType(string $data) :object
+    function showBadgeType(string $data): object
     {
-        $types= collect([
+        $types = collect([
             'article' => [
                 'slug' => 'article',
                 'name' => 'Article',
@@ -31,7 +32,7 @@ if (! function_exists('showBadgeType')) {
                 'color' => 'violet',
             ],
         ]);
-        return $type=(object) $types[$data];
+
+        return $type = (object) $types[$data];
     }
 }
-?>

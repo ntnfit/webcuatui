@@ -5,8 +5,6 @@ namespace App\Listeners;
 use App\Events\CampaignEmailEvent;
 use App\Mail\CampaignEmail;
 use App\Models\Contacts;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Mail;
 
 class SendCampaignEmail

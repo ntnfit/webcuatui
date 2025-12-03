@@ -2,36 +2,35 @@
 
 namespace App\Models;
 
-
-use App\Forms\Components\CKEditor;
+use AmidEsfahani\FilamentTinyEditor\TinyEditor;
+use App\Enums\PostStatus;
+use App\Enums\TypePost;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\ToggleButtons;
-use Filament\Forms\Get;
 use Filament\Forms\Set;
-use FilamentTiptapEditor\TiptapEditor;
 use FilamentTiptapEditor\Enums\TiptapOutput;
-use App\Enums\PostStatus;
-use App\Enums\TypePost;
+use FilamentTiptapEditor\TiptapEditor;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Filament\Forms\Components\Tabs;
 use Illuminate\Support\Str;
-use AmidEsfahani\FilamentTinyEditor\TinyEditor;
-//use App\Forms\Components\NEditor;
+
+// use App\Forms\Components\NEditor;
 class blogs extends Model
 {
     use HasFactory;
-    protected  $guarded = [];
+
+    protected $guarded = [];
+
     protected $casts = [
         'id' => 'integer',
         'published_at' => 'datetime',
@@ -39,6 +38,7 @@ class blogs extends Model
         'status' => PostStatus::class,
         'user_id' => 'integer',
     ];
+
     public function categories()
     {
         return $this->belongsToMany(Category::class, 'category_post', 'post_id', 'category_id');
@@ -46,17 +46,19 @@ class blogs extends Model
 
     public function tags(): BelongsToMany
     {
-        return $this->belongsToMany(Tag::class,'post_tag','post_id','tag_id');
+        return $this->belongsToMany(Tag::class, 'post_tag', 'post_id', 'tag_id');
     }
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class,'user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
+
     public function seoDetail()
     {
-        return $this->hasOne(SeoDetail::class,'post_id');
+        return $this->hasOne(SeoDetail::class, 'post_id');
     }
+
     public function isNotPublished()
     {
         return ! $this->isStatusPublished();
@@ -67,28 +69,30 @@ class blogs extends Model
         return $query->where('status', PostStatus::PUBLISHED)->latest('published_at');
     }
 
-//    public function scopeScheduled(Builder $query)
-//    {
-//        return $query->where('status', PostStatus::SCHEDULED)->latest('scheduled_for');
-//    }
+    //    public function scopeScheduled(Builder $query)
+    //    {
+    //        return $query->where('status', PostStatus::SCHEDULED)->latest('scheduled_for');
+    //    }
 
     public function scopePending(Builder $query)
     {
         return $query->where('status', PostStatus::PENDING)->latest('created_at');
     }
+
     public function formattedPublishedDate()
     {
         return $this->published_at?->format('d M Y');
     }
-//    public function isScheduled()
-//    {
-//        return $this->status === PostStatus::SCHEDULED;
-//    }
+    //    public function isScheduled()
+    //    {
+    //        return $this->status === PostStatus::SCHEDULED;
+    //    }
 
     public function isStatusPublished()
     {
         return $this->status === PostStatus::PUBLISHED;
     }
+
     public function relatedPosts($take = 3)
     {
         return $this->whereHas('categories', function ($query) {
@@ -96,10 +100,12 @@ class blogs extends Model
                 ->whereNotIn('posts.id', [$this->id]);
         })->published()->with('user')->take($take)->get();
     }
+
     protected function getFeaturePhotoAttribute()
     {
         return asset('storage/'.$this->cover_photo_path);
     }
+
     public static function getForm()
     {
         return [
@@ -143,13 +149,13 @@ class blogs extends Model
                                     Textarea::make('sub_title')
                                         ->maxLength(255)
                                         ->columnSpanFull(),
-//                                    TiptapEditor::make('body')
-//                                        ->profile('default')
-//                                        ->disableFloatingMenus()
-//                                        ->extraInputAttributes(['style' => 'max-height: 30rem; min-height: 24rem','source_code_editor'])
-//                                        ->output(TiptapOutput::Html)
-//                                        ->required()
-//                                        ->columnSpanFull(),
+                                    //                                    TiptapEditor::make('body')
+                                    //                                        ->profile('default')
+                                    //                                        ->disableFloatingMenus()
+                                    //                                        ->extraInputAttributes(['style' => 'max-height: 30rem; min-height: 24rem','source_code_editor'])
+                                    //                                        ->output(TiptapOutput::Html)
+                                    //                                        ->required()
+                                    //                                        ->columnSpanFull(),
                                     TinyEditor::make('body')
                                         ->fileAttachmentsDisk('public')
                                         ->fileAttachmentsVisibility('public')
@@ -182,10 +188,10 @@ class blogs extends Model
                                         ->label('Body English')
                                         ->profile('default')
                                         ->disableFloatingMenus()
-                                        ->extraInputAttributes(['style' => 'max-height: 30rem; min-height: 24rem','source_code_editor'])
+                                        ->extraInputAttributes(['style' => 'max-height: 30rem; min-height: 24rem', 'source_code_editor'])
                                         ->columnSpanFull(),
-                                ])
-                            ]),
+                                ]),
+                        ]),
                     Fieldset::make('Feature Image')
                         ->schema([
                             FileUpload::make('cover_photo_path')
@@ -210,61 +216,62 @@ class blogs extends Model
                                 ->options(PostStatus::class)
                                 ->required(),
 
-//                            DateTimePicker::make('scheduled_for')
-//                                ->visible(function ($get) {
-//                                    return $get('status') === PostStatus::SCHEDULED->value;
-//                                })
-//                                ->required(function ($get) {
-//                                    return $get('status') === PostStatus::SCHEDULED->value;
-//                                })
-//                                ->minDate(now()->addMinutes(5))
-//                                ->native(false),
+                            //                            DateTimePicker::make('scheduled_for')
+                            //                                ->visible(function ($get) {
+                            //                                    return $get('status') === PostStatus::SCHEDULED->value;
+                            //                                })
+                            //                                ->required(function ($get) {
+                            //                                    return $get('status') === PostStatus::SCHEDULED->value;
+                            //                                })
+                            //                                ->minDate(now()->addMinutes(5))
+                            //                                ->native(false),
                         ]),
                     Fieldset::make('Type')
-                    ->schema([
-                        ToggleButtons::make('type')
+                        ->schema([
+                            ToggleButtons::make('type')
                                 ->live()
                                 ->inline()
                                 ->options(TypePost::class)
                                 ->default(TypePost::ARTICLE)
                                 ->required(),
-                    ]),
+                        ]),
 
                     Select::make('user_id')
-                     ->relationship('user', 'name')
+                        ->relationship('user', 'name')
                         ->nullable(false)
                         ->default(auth()->id()),
 
                 ]),
         ];
     }
+
     public function getTable()
     {
         return 'posts';
     }
 
     public function getDataArray(): array
-{
-    return [
-        'id' => $this->slug, // dùng slug làm id
-        'title' => $this->title,
-        'slug' => $this->slug,
-        'excerpt' => $this->sub_title ?? '', // dùng subtitle làm excerpt
-        'publish_date' => $this->published_at?->diffForHumans(),
-        'thumbnail_url' => asset('storage/' . $this->cover_photo_path), // đảm bảo link đầy đủ
-        'type' => $this->type,
-        'canonical_url' => $this->canonical_url,
-        'stars' => $this->stars ?? rand(20, 50), // tạm thời fake nếu chưa có field stars
+    {
+        return [
+            'id' => $this->slug, // dùng slug làm id
+            'title' => $this->title,
+            'slug' => $this->slug,
+            'excerpt' => $this->sub_title ?? '', // dùng subtitle làm excerpt
+            'publish_date' => $this->published_at?->diffForHumans(),
+            'thumbnail_url' => asset('storage/'.$this->cover_photo_path), // đảm bảo link đầy đủ
+            'type' => $this->type,
+            'canonical_url' => $this->canonical_url,
+            'stars' => $this->stars ?? rand(20, 50), // tạm thời fake nếu chưa có field stars
 
-        'author' => [
-            'name' => $this->user?->name ?? 'Ẩn danh',
-            'avatar' => $this->user?->avatar_url ?? 'https://github.com/shadcn.png',
-        ],
+            'author' => [
+                'name' => $this->user?->name ?? 'Ẩn danh',
+                'avatar' => $this->user?->avatar_url ?? 'https://github.com/shadcn.png',
+            ],
 
-        'categories' => $this->categories->pluck('slug')->toArray(),
-        'tags' => $this->tags->pluck('name')->toArray(),
+            'categories' => $this->categories->pluck('slug')->toArray(),
+            'tags' => $this->tags->pluck('name')->toArray(),
 
-        'created_at' => $this->created_at?->toDateTimeString(),
-    ];
-}
+            'created_at' => $this->created_at?->toDateTimeString(),
+        ];
+    }
 }

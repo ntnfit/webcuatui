@@ -2,9 +2,10 @@
 
 namespace App\Livewire;
 
-use Livewire\Component;
 use App\Actions\Star;
 use App\Actions\Unstar;
+use Livewire\Component;
+
 class StarRecord extends Component
 {
     public Model $record;

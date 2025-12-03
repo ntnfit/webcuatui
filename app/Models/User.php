@@ -3,16 +3,17 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Traits\HasBlog;
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Jeffgreco13\FilamentBreezy\Traits\TwoFactorAuthenticatable;
-use App\Traits\HasBlog;
-use Filament\Panel;
-use Filament\Models\Contracts\FilamentUser;
+
 class User extends Authenticatable implements FilamentUser
 {
-    use HasFactory, Notifiable,HasBlog,TwoFactorAuthenticatable;
+    use HasBlog, HasFactory,Notifiable,TwoFactorAuthenticatable;
 
     /**
      * The attributes that are mass assignable.
@@ -47,10 +48,10 @@ class User extends Authenticatable implements FilamentUser
             'password' => 'hashed',
         ];
     }
+
     public function canAccessPanel(Panel $panel): bool
     {
-       // return str_ends_with($this->email, '@yourdomain.com') && $this->hasVerifiedEmail();
+        // return str_ends_with($this->email, '@yourdomain.com') && $this->hasVerifiedEmail();
         return true;
     }
-    
 }

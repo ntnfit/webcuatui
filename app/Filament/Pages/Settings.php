@@ -2,27 +2,31 @@
 
 namespace App\Filament\Pages;
 
+use App\Models\settings as SettingsModel;
 use Filament\Forms\Components\FileUpload;
-use Filament\Notifications\Notification;
-use Filament\Pages\Page;
+use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Form;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
-use App\Models\settings as SettingsModel;
-use Filament\Forms\Components\Grid;
-use Illuminate\Support\Facades\Log;
+use Filament\Forms\Form;
+use Filament\Notifications\Notification;
+use Filament\Pages\Page;
 
 class Settings extends Page implements HasForms
 {
     use InteractsWithForms;
+
     protected static ?string $navigationIcon = 'heroicon-o-cog';
 
     protected static string $view = 'filament.pages.settings';
-    protected  SettingsModel $settings;
+
+    protected SettingsModel $settings;
+
     public ?array $data = [];
+
     protected $site_name;
+
     public function mount(): void
     {
         $this->data = SettingsModel::first()?->toArray() ?: [];
@@ -38,6 +42,7 @@ class Settings extends Page implements HasForms
         }
         $this->data['more_configs'] = $this->data['more_configs'] ?? [];
     }
+
     public function form(Form $form): Form
     {
         return $form
@@ -48,13 +53,13 @@ class Settings extends Page implements HasForms
                             ->icon('heroicon-o-tv')
                             ->schema([
                                 TextInput::make('site_name')
-                                ->label('Site Name')
-                                ->required()
-                                ->placeholder('Enter the site name'),
+                                    ->label('Site Name')
+                                    ->required()
+                                    ->placeholder('Enter the site name'),
                                 TextInput::make('site_description')
-                                ->label('Site Description')
-                                ->required()
-                                ->placeholder('Enter the site description'),
+                                    ->label('Site Description')
+                                    ->required()
+                                    ->placeholder('Enter the site description'),
                                 Grid::make()->schema([
                                     FileUpload::make('site_logo')
                                         ->label('Site Logo')
@@ -76,20 +81,21 @@ class Settings extends Page implements HasForms
                                 ])
                                     ->columns(4),
 
-
                             ]),
-                    ])
+                    ]),
             ])->statePath('data');
 
     }
+
     public function create(): void
     {
-       // dd($this->form->getState());
+        // dd($this->form->getState());
         $data = $this->form->getState();
         $data = $this->clearVariables($data);
         SettingsModel::updateOrCreate([], $data);
         $this->successNotification(__('filament-general-settings::default.settings_saved'));
     }
+
     private function successNotification(string $title): void
     {
         Notification::make()

@@ -4,9 +4,10 @@ namespace App\Providers;
 
 use App\Events\BlogPublished;
 use App\Events\CampaignEmailEvent;
-use App\Listeners\SendCampaignEmail;
 use App\Listeners\SendBlogPublishedNotification;
+use App\Listeners\SendCampaignEmail;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+
 class EventServiceProvider extends ServiceProvider
 {
     protected $listen = [

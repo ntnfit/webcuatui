@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Contacts;
 use App\Models\ContactReason;
-use App\Mail\ThankYouMail;
+use App\Models\Contacts;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
-use DB;
-use Symfony\Component\Mime\Part\HtmlPart;
 use Illuminate\Support\Facades\Validator;
 
 class ContactController extends Controller
@@ -36,10 +33,10 @@ class ContactController extends Controller
                 });
 
                 // Ghi log email gửi thành công
-                file_put_contents($logFile, "Success (BCC): " . implode(", ", $batch) . "\n", FILE_APPEND);
+                file_put_contents($logFile, 'Success (BCC): '.implode(', ', $batch)."\n", FILE_APPEND);
             } catch (\Exception $e) {
                 // Nếu gửi BCC lỗi, thử gửi từng email với TO
-                file_put_contents($logFile, "Error (BCC): " . $e->getMessage() . "\n", FILE_APPEND);
+                file_put_contents($logFile, 'Error (BCC): '.$e->getMessage()."\n", FILE_APPEND);
                 foreach ($batch as $email) {
                     try {
                         Mail::send([], [], function ($message) use ($email, $data, $databody) {
@@ -47,9 +44,9 @@ class ContactController extends Controller
                                 ->subject($data['subject'])
                                 ->html($databody);
                         });
-                        file_put_contents($logFile, "Success (TO): " . $email . "\n", FILE_APPEND);
+                        file_put_contents($logFile, 'Success (TO): '.$email."\n", FILE_APPEND);
                     } catch (\Exception $e) {
-                        file_put_contents($logFile, "Error (TO): " . $email . " - " . $e->getMessage() . "\n", FILE_APPEND);
+                        file_put_contents($logFile, 'Error (TO): '.$email.' - '.$e->getMessage()."\n", FILE_APPEND);
                     }
                 }
             }
@@ -57,6 +54,7 @@ class ContactController extends Controller
 
         return 'Emails have been sent with logging.';
     }
+
     public function store(Request $request)
     {
         // Validate dữ liệu đầu vào
@@ -73,12 +71,12 @@ class ContactController extends Controller
             return response()->json([
                 'status' => 'error',
                 'message' => 'Dữ liệu không hợp lệ',
-                'errors' => $validator->errors()
+                'errors' => $validator->errors(),
             ], 422);
         }
 
         // Nếu không có contact_reason_id, sử dụng ID mặc định hoặc tạo mới
-        if (!$request->contact_reason_id) {
+        if (! $request->contact_reason_id) {
             $contactReason = ContactReason::firstOrCreate(
                 ['name' => 'Website Contact'],
                 ['name' => 'Website Contact']
@@ -104,7 +102,7 @@ class ContactController extends Controller
         return response()->json([
             'status' => 'success',
             'message' => 'Tin nhắn đã được gửi thành công!',
-            'data' => $contact
+            'data' => $contact,
         ]);
     }
 
@@ -115,10 +113,10 @@ class ContactController extends Controller
     {
         $to = 'ntnguyen0310@gmail.com'; // Email admin
         $subject = 'Liên hệ mới từ website';
-        
+
         $data = [
             'contact' => $contact,
-            'subject' => $subject
+            'subject' => $subject,
         ];
 
         // Gửi email sử dụng class Mail của Laravel
@@ -132,7 +130,7 @@ class ContactController extends Controller
         $userSubject = 'Cảm ơn bạn đã liên hệ';
         $userData = [
             'contact' => $contact,
-            'subject' => $userSubject
+            'subject' => $userSubject,
         ];
 
         Mail::send('emails.contact-autoreply', $userData, function ($message) use ($contact, $userSubject) {

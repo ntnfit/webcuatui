@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\BlogsResource\Pages;
 
+use App\Filament\Resources\BlogsResource;
 use Filament\Forms\Components\TagsInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -9,7 +10,6 @@ use Filament\Forms\Form;
 use Filament\Resources\Pages\ManageRelatedRecords;
 use Filament\Tables;
 use Filament\Tables\Table;
-use App\Filament\Resources\BlogsResource;
 use Illuminate\Contracts\Support\Htmlable;
 
 class ManagePostSeoDetail extends ManageRelatedRecords
@@ -19,6 +19,7 @@ class ManagePostSeoDetail extends ManageRelatedRecords
     protected static string $relationship = 'seoDetail';
 
     protected static ?string $navigationIcon = 'heroicon-o-globe-alt';
+
     public function getTitle(): string|Htmlable
     {
         $recordTitle = $this->getRecordTitle();

@@ -1,9 +1,10 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use App\Models\User;
+
 return new class extends Migration
 {
     /**
@@ -12,7 +13,7 @@ return new class extends Migration
     public function up(): void
     {
         $tableName = resolve(User::class)->getTable();
-        $columnName ='profile_photo_path';
+        $columnName = 'profile_photo_path';
 
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
@@ -46,10 +47,10 @@ return new class extends Migration
 
         Schema::create('category_post', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("post_id")
+            $table->foreignId('post_id')
                 ->constrained('posts')
                 ->cascadeOnDelete();
-            $table->foreignId("category_id")
+            $table->foreignId('category_id')
                 ->constrained('categories')
                 ->cascadeOnDelete();
             $table->timestamps();
@@ -57,7 +58,7 @@ return new class extends Migration
 
         Schema::create('seo_details', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("post_id")
+            $table->foreignId('post_id')
                 ->constrained('posts')
                 ->cascadeOnDelete();
             $table->string('title');
@@ -84,23 +85,22 @@ return new class extends Migration
 
         Schema::create('post_tag', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("post_id")
+            $table->foreignId('post_id')
                 ->constrained('posts')
                 ->cascadeOnDelete();
-            $table->foreignId("tag_id")
+            $table->foreignId('tag_id')
                 ->constrained('tags')
                 ->cascadeOnDelete();
             $table->timestamps();
         });
 
         // Check if the column exists
-        if (!Schema::hasColumn($tableName, $columnName)) {
+        if (! Schema::hasColumn($tableName, $columnName)) {
             // Column doesn't exist, so add it to the table
             Schema::table($tableName, function (Blueprint $table) use ($columnName) {
                 $table->string($columnName)->nullable();
             });
         }
-
 
     }
 

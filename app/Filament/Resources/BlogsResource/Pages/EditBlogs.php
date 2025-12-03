@@ -2,10 +2,11 @@
 
 namespace App\Filament\Resources\BlogsResource\Pages;
 
+use App\Enums\PostStatus;
 use App\Filament\Resources\BlogsResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
-use App\Enums\PostStatus;
+
 class EditBlogs extends EditRecord
 {
     protected static string $resource = BlogsResource::class;
@@ -16,6 +17,7 @@ class EditBlogs extends EditRecord
             Actions\DeleteAction::make(),
         ];
     }
+
     protected function beforeSave()
     {
         if ($this->data['status'] === PostStatus::PUBLISHED->value) {

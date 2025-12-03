@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\blogs as post;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TagsInput;
 use Filament\Forms\Components\Textarea;
@@ -9,7 +10,7 @@ use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use App\Models\blogs as post;
+
 class SeoDetail extends Model
 {
     use HasFactory;
@@ -62,7 +63,7 @@ class SeoDetail extends Model
 
     public function post(): BelongsTo
     {
-        return $this->belongsTo(post::class,'post_id')->orderByDesc('id');
+        return $this->belongsTo(post::class, 'post_id')->orderByDesc('id');
     }
 
     public static function getForm()
@@ -90,7 +91,6 @@ class SeoDetail extends Model
                 ->columnSpanFull(),
         ];
     }
-
 
     public function getTable()
     {

@@ -5,6 +5,7 @@ export default {
         "./resources/**/*.jsx",
         "./resources/**/*.ts",
         "./resources/**/*.tsx",
+        "./resources/**/*.blade.php",
     ],
     darkMode: 'class',
     theme: {

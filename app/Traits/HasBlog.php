@@ -2,12 +2,11 @@
 
 namespace App\Traits;
 
-//use Firefly\FilamentBlog\Models\Comment;
+// use Firefly\FilamentBlog\Models\Comment;
 use App\Models\blogs as Post;
 
 trait HasBlog
 {
-
     public function name()
     {
         return $this->{'name'};

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\blogs;
 use Illuminate\Http\Request;
-use Inertia\Inertia;
+
 class BlogsController extends Controller
 {
     /**
@@ -14,58 +14,49 @@ class BlogsController extends Controller
     {
         $query = Blogs::with(['user', 'categories', 'tags'])
             ->published();
-    
+
         // Filter theo type
         if ($request->filled('type')) {
             $query->where('type', $request->input('type'));
         }
-    
+
         // Filter theo category (hỗ trợ nhiều category)
         if ($request->filled('category')) {
             $categories = explode(',', $request->input('category'));
-            if (!empty($categories)) {
+            if (! empty($categories)) {
                 $query->whereHas('categories', function ($q) use ($categories) {
                     $q->whereIn('slug', $categories);
                 });
             }
         }
-    
+
         // Tìm kiếm tiêu đề hoặc sub_title
         if ($request->filled('search')) {
             $search = $request->input('search');
             $query->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%")
-                  ->orWhere('sub_title', 'like', "%$search%");
+                    ->orWhere('sub_title', 'like', "%$search%");
             });
         }
-    
+
         // Phân trang
         $blogs = $query->latest()->paginate(6)->withQueryString();
-    
+
         // Định dạng lại dữ liệu bằng getDataArray()
-        $posts = $blogs->through(fn($post) => $post->getDataArray())->toArray();
-        
+        // Note: In Blade we can access model directly or array.
+        // The getDataArray() method formats dates and image URLs which is useful.
+        $posts = $blogs->through(fn ($post) => $post->getDataArray());
+
         // Lấy danh sách categories từ database
         $categories = \App\Models\Category::pluck('name')->toArray();
-        
+
         // Thêm "Tất cả" vào đầu danh sách nếu chưa có
-        if (!in_array('Tất cả', $categories)) {
+        if (! in_array('Tất cả', $categories)) {
             array_unshift($categories, 'Tất cả');
         }
-    
-        return Inertia::render('Blogs', [
-            'posts' => $posts['data'], // lấy mảng các bài viết
-            'pagination' => [
-                'currentPage' => $blogs->currentPage(),
-                'lastPage' => $blogs->lastPage(),
-                'perPage' => $blogs->perPage(),
-                'total' => $blogs->total(),
-            ],
-            'filters' => [
-                'search' => $request->input('search'),
-                'type' => $request->input('type'),
-                'category' => $request->input('category'),
-            ],
+
+        return view('blogs.index', [
+            'posts' => $posts,
             'categories' => $categories,
         ]);
     }
@@ -94,35 +85,35 @@ class BlogsController extends Controller
         try {
             // Lấy bài viết chính theo slug
             $blog = Blogs::with(['categories', 'tags', 'user'])
-                        ->where('slug', $slug)
-                        ->firstOrFail();
+                ->where('slug', $slug)
+                ->firstOrFail();
             // Tăng lượt xem
             $blog->increment('view');
-            
+
             // Lấy 5 bài viết mới nhất khác
             $latestBlogs = Blogs::where('id', '!=', $blog->id)
-                            ->latest()
-                            ->take(5)
-                            ->get();
-            
+                ->latest()
+                ->take(5)
+                ->get();
+
             // Lấy các bài viết cùng chuyên mục
-            $relatedBlogs = Blogs::whereHas('categories', function($query) use ($blog) {
-                            $query->whereIn('categories.id', $blog->categories->pluck('id'));
-                        })
-                        ->where('id', '!=', $blog->id)
-                        ->inRandomOrder()
-                        ->take(3)
-                        ->get();
-            
+            $relatedBlogs = Blogs::whereHas('categories', function ($query) use ($blog) {
+                $query->whereIn('categories.id', $blog->categories->pluck('id'));
+            })
+                ->where('id', '!=', $blog->id)
+                ->inRandomOrder()
+                ->take(3)
+                ->get();
+
             // Lấy bài viết trước và sau theo thứ tự created_at thay vì id
             $previousBlog = Blogs::where('created_at', '<', $blog->created_at)
-                               ->orderBy('created_at', 'desc')
-                               ->first();
+                ->orderBy('created_at', 'desc')
+                ->first();
             $nextBlog = Blogs::where('created_at', '>', $blog->created_at)
-                           ->orderBy('created_at', 'asc')
-                           ->first();
-            
-            return Inertia::render('BlogDetail', [
+                ->orderBy('created_at', 'asc')
+                ->first();
+
+            return view('blogs.show', [
                 'blog' => [
                     'id' => $blog->id,
                     'title' => $blog->title,
@@ -130,7 +121,7 @@ class BlogsController extends Controller
                     'body' => $this->adjustInlineStylesForDarkMode($blog->body),
                     'excerpt' => $blog->excerpt,
                     'featured_image' => $blog->featured_image,
-                    'thumbnail_url' => asset('storage/' . $blog->cover_photo_path),
+                    'thumbnail_url' => asset('storage/'.$blog->cover_photo_path),
                     'categories' => $blog->categories->pluck('name'),
                     'tags' => $blog->tags->pluck('name'),
                     'type' => $blog->type,
@@ -172,19 +163,18 @@ class BlogsController extends Controller
                     ] : null,
                     'next' => $nextBlog ? [
                         'id' => $nextBlog->id,
-                        'slug' => $nextBlog->slug, 
+                        'slug' => $nextBlog->slug,
                         'title' => $nextBlog->title,
                     ] : null,
                 ],
             ]);
         } catch (\Exception $e) {
             // Xử lý lỗi và trả về trang lỗi
-            return Inertia::render('BlogDetail', [
-                'error' => 'Không thể tìm thấy bài viết này. ' . $e->getMessage()
-            ]);
+            return view('errors.404', ['error' => 'Không thể tìm thấy bài viết này. '.$e->getMessage()]);
         }
     }
-    function adjustInlineStylesForDarkMode(string $html): string
+
+    public function adjustInlineStylesForDarkMode(string $html): string
     {
         // Chuyển màu đen sang trắng nếu có
         $html = preg_replace('/color:\\s*#000000/i', 'color: #ffffff', $html);
@@ -197,7 +187,6 @@ class BlogsController extends Controller
 
         return $html;
     }
-
 
     /**
      * Show the form for editing the specified resource.
@@ -229,7 +218,7 @@ class BlogsController extends Controller
         // Tính số từ (trung bình 200 từ/phút)
         $wordCount = str_word_count(strip_tags($content));
         $minutes = ceil($wordCount / 200);
-        
+
         return $minutes;
     }
 }
