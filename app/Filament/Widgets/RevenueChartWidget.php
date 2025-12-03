@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\AdminResource\Widgets;
+namespace App\Filament\Resources;
 
 use Filament\Widgets\ChartWidget;
 
