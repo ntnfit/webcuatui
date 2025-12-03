@@ -11,7 +11,7 @@
             <div class="relative">
                 <div class="absolute inset-0 rounded-full bg-gradient-to-r from-sky-300 to-pink-400 blur-2xl animate-glow dark:from-purple-500 dark:to-pink-500 transition-colors duration-500"></div>
                 <div class="h-28 w-28 rounded-full overflow-hidden border-4 border-white dark:border-gray-800 shadow-xl relative z-10 transition-colors duration-500">
-                    <img src="https://images.unsplash.com/photo-1501286353178-1ec871214838" alt="Profile" class="h-full w-full object-cover">
+                    <img src="/images/me.jpg" alt="Profile" class="h-full w-full object-cover">
                 </div>
             </div>
         </div>
