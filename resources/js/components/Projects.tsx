@@ -78,8 +78,8 @@ const companies: Company[] = [
   {
     id: '10',
     name: 'Nissey',
-    logo: 'http://www.nihon-s.co.jp/wp-content/uploads/elementor/thumbs/logo001-poowskldjo65xxcjfqkcvjrcq33ci0zr2933ho3v3g.png',
-    link: 'http://www.nihon-s.co.jp/group-company/nissey-vietnam/',
+    logo: 'https://www.nihon-s.co.jp/wp-content/uploads/elementor/thumbs/logo001-poowskldjo65xxcjfqkcvjrcq33ci0zr2933ho3v3g.png',
+    link: 'https://www.nihon-s.co.jp/group-company/nissey-vietnam/',
     description: 'Nissey is a leading manufacturer of high-quality pharmaceutical products in Vietnam.'
   },
   {
