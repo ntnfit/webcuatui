@@ -16,7 +16,7 @@
             </div>
         </div>
 
-        <div class="inline-block px-4 py-1 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-xs font-medium mb-4 animate-fade-in font-sans transition-colors duration-500">
+        <div class="inline-block px-4 py-1 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 text-xs font-medium mb-4 animate-fade-in font-sans transition-colors duration-500">
             ✨ Chào mừng đến với portfolio của tôi ✨
         </div>
 
