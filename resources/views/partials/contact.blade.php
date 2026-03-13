@@ -126,7 +126,7 @@
                             <div id="contact-error" class="hidden md:col-span-2 text-red-500 dark:text-red-400 bg-red-50 dark:bg-red-900/20 p-3 rounded-lg border border-red-200 dark:border-red-800"></div>
 
                             <div class="md:col-span-2">
-                                <button type="submit" id="submit-btn" class="w-fit px-8 py-3 rounded-xl font-medium transition-all duration-300 text-white bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-500 dark:bg-gradient-to-r dark:from-purple-600 dark:to-indigo-600 dark:hover:from-indigo-600 dark:hover:to-purple-600 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-blue-500/50 dark:focus:ring-purple-500/50 mx-auto block cursor-pointer">
+                                <button type="submit" id="submit-btn" class="w-fit px-8 py-3 rounded-xl font-medium transition-all duration-300 text-white bg-linear-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-500 dark:bg-linear-to-r dark:from-purple-600 dark:to-indigo-600 dark:hover:from-indigo-600 dark:hover:to-purple-600 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-blue-500/50 dark:focus:ring-purple-500/50 mx-auto block cursor-pointer">
                                     <span id="btn-text">Gửi Tin Nhắn</span>
                                     <span id="btn-loading" class="hidden flex items-center justify-center gap-2">
                                         <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">

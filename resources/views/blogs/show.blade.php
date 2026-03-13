@@ -104,13 +104,13 @@
                     <!-- Featured Image -->
                     @if(!empty($blog['thumbnail_url']) || !empty($blog['featured_image']))
                         <div class="mb-8 relative overflow-hidden group rounded-xl shadow-lg border border-gray-100 dark:border-gray-800">
-                            <div class="relative aspect-[21/9] w-full overflow-hidden bg-gray-100 dark:bg-gray-800">
+                            <div class="relative aspect-21/9 w-full overflow-hidden bg-gray-100 dark:bg-gray-800">
                                 <img src="{{ $blog['thumbnail_url'] ?? $blog['featured_image'] }}" 
                                     alt="{{ $blog['title'] }}" 
                                     class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-105"
                                     loading="lazy"
                                     onerror="this.onerror=null;this.src='https://via.placeholder.com/1200x600?text=Blog+Image';">
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 dark:opacity-40 transition-opacity duration-300"></div>
+                                <div class="absolute inset-0 bg-linear-to-t from-black/20 to-transparent opacity-0 dark:opacity-40 transition-opacity duration-300"></div>
                             </div>
                         </div>
                     @endif

@@ -6,7 +6,7 @@
 
             <div style="{{ \Illuminate\Support\Arr::toCssStyles([\Filament\Support\get_color_css_variables('danger',shades: [300, 400, 500, 600])]) }}" class="p-4 rounded bg-custom-500">
                 <div class="flex">
-                    <div class="flex-shrink-0">
+                    <div class="shrink-0">
                         @svg('heroicon-s-shield-exclamation', 'w-5 h-5 text-danger-600')
                     </div>
                     <div class="ml-3">

@@ -1,7 +1,7 @@
 <a x-bind:href="'/' + article.slug"
     class="rounded-2xl bg-white p-3 shadow-lg shadow-hurricane/5 transition duration-300 will-change-transform hover:-translate-y-1 hover:shadow-xl hover:shadow-hurricane/10">
     <div x-bind:style="'background-image: url(' + article.thumbnail_url + ')'"
-        class="aspect-[16/9] w-full rounded-xl bg-cover bg-center bg-no-repeat ring-1 ring-dawn-pink"></div>
+        class="aspect-video w-full rounded-xl bg-cover bg-center bg-no-repeat ring-1 ring-dawn-pink"></div>
     <div class="px-1.5 pb-1 pt-2.5">
         <div class="flex flex-wrap items-center justify-between gap-5">
             <div class="flex select-none items-center justify-center gap-2 rounded-full py-2.5 pl-4 pr-5 text-xs"

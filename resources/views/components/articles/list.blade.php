@@ -126,7 +126,7 @@
     <div class="flex flex-col gap-3 pt-5 min-[900px]:flex-row min-[900px]:items-center">
         {{-- Type Toggle --}}
         {{--        <div --}}
-        {{--            class="relative z-10 flex h-11 select-none items-center justify-start gap-5 rounded-full bg-white px-[.55rem] text-sm font-medium shadow-lg shadow-black/[0.01]"> --}}
+        {{--            class="relative z-10 flex h-11 select-none items-center justify-start gap-5 rounded-full bg-white px-[.55rem] text-sm font-medium shadow-lg shadow-black/1"> --}}
         {{--            <div x-on:click="selectedType = 'all'" class="relative z-20 w-16 text-center transition duration-300" --}}
         {{--                 :class="{ --}}
         {{--                    'cursor-pointer text-evening/70 hover:text-evening': selectedType !== 'all', --}}
@@ -173,10 +173,10 @@
 
         {{--            <div class="absolute left-[.35rem] top-[.35rem] -z-10 h-[2.1rem] rounded-full transition duration-300 ease-out will-change-transform" --}}
         {{--                 :class="{ --}}
-        {{--                    'bg-fair-pink w-[4.5rem]': selectedType === 'all', --}}
-        {{--                    'translate-x-[4.5rem] w-[6.5rem]': selectedType === 'article', --}}
-        {{--                    'translate-x-[10.7rem] w-[6rem]': selectedType === 'news', --}}
-        {{--                    'translate-x-[17rem] w-[6rem]': selectedType === 'trick', --}}
+        {{--                    'bg-fair-pink w-18': selectedType === 'all', --}}
+        {{--                    'translate-x-18 w-26': selectedType === 'article', --}}
+        {{--                    'translate-x-[10.7rem] w-24': selectedType === 'news', --}}
+        {{--                    'translate-x-68 w-24': selectedType === 'trick', --}}
         {{--                    {{ $typeConditionalColorClasses }}, --}}
         {{--                }"> --}}
         {{--            </div> --}}
@@ -186,7 +186,7 @@
             class="flex w-full flex-1 flex-wrap items-center gap-3 min-[900px]:w-auto min-[900px]:flex-nowrap min-[900px]:justify-end">
             {{-- Version Switch --}}
             {{-- <div
-                class="relative z-10 inline-flex select-none items-center gap-2.5 rounded-full bg-white p-[.55rem] font-medium shadow-lg shadow-black/[0.01]">
+                class="relative z-10 inline-flex select-none items-center gap-2.5 rounded-full bg-white p-[.55rem] font-medium shadow-lg shadow-black/1">
                 <div x-on:click="selectedVersion = '1'" class="relative z-20 w-14 text-center transition duration-300"
                     :class="{
                         'cursor-pointer opacity-50 hover:opacity-100': selectedVersion !== '1',
@@ -221,7 +221,7 @@
             class="flex w-full flex-wrap items-center gap-3 min-[900px]:w-auto min-[900px]:flex-nowrap min-[900px]:justify-end">
             {{-- Search Bar --}}
             <div
-                class="group/search-bar relative w-full overflow-hidden rounded-full bg-white shadow-lg shadow-black/[0.01] border border-[#0000003e] transition duration-200 focus-within:shadow-xl focus-within:shadow-black/[0.02] sm:max-w-xs">
+                class="group/search-bar relative w-full overflow-hidden rounded-full bg-white shadow-lg shadow-black/1 border border-[#0000003e] transition duration-200 focus-within:shadow-xl focus-within:shadow-black/2 sm:max-w-xs">
                 {{-- Magnify Icon --}}
                 <div
                     class="absolute left-1.5 top-1.5 grid h-8 w-8 place-items-center rounded-full bg-fair-pink text-salmon">
@@ -298,7 +298,7 @@
                 </div>
             </div>
 
-            <div class="relative min-h-[16rem]">
+            <div class="relative min-h-64">
                 {{-- Articles --}}
                 <div x-ref="article_cards_wrapper" x-init="() => {
                     autoAnimate($refs.article_cards_wrapper)

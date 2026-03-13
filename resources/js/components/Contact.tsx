@@ -285,8 +285,8 @@ const Contact: React.FC = () => {
                         className={cn(
                           "w-fit px-8 py-3 rounded-xl font-medium transition-all duration-300",
                           "text-white disabled:opacity-70 disabled:cursor-not-allowed",
-                          "bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-500 cursor-pointer", // 🌞 Light mode: gradient xanh dương
-                          "dark:bg-gradient-to-r dark:from-purple-600 dark:to-indigo-600 dark:hover:from-indigo-600 dark:hover:to-purple-600", // 🌚 Dark mode: gradient tím
+                          "bg-linear-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-500 cursor-pointer", // 🌞 Light mode: gradient xanh dương
+                          "dark:bg-linear-to-r dark:from-purple-600 dark:to-indigo-600 dark:hover:from-indigo-600 dark:hover:to-purple-600", // 🌚 Dark mode: gradient tím
                           "shadow-lg hover:shadow-xl",
                           "transform hover:-translate-y-0.5",
                           "focus:outline-none focus:ring-2 focus:ring-blue-500/50 dark:focus:ring-purple-500/50",

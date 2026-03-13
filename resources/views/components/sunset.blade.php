@@ -1,4 +1,4 @@
-<div x-cloak x-data="{}" class="mx-auto w-full max-w-screen-lg pt-60">
+<div x-cloak x-data="{}" class="mx-auto w-full max-w-(--breakpoint-lg) pt-60">
     <div x-data="{}" x-ref="sunset_section" x-init="() => {
         if (reducedMotion) return
         gsap.timeline({
@@ -167,7 +167,7 @@
         <div class="mx-auto grid w-full max-w-4xl">
             {{-- Sun --}}
             <div class="relative top-10 z-10 self-center justify-self-center [grid-area:1/-1]">
-                <div x-ref="sun" class="h-40 w-40 rounded-full bg-gradient-to-t from-[#FFBF85]/40 to-[#FF9385]"></div>
+                <div x-ref="sun" class="h-40 w-40 rounded-full bg-linear-to-t from-[#FFBF85]/40 to-[#FF9385]"></div>
             </div>
 
             {{-- Sun Blur --}}
@@ -179,31 +179,31 @@
             <div x-ref="cloud1"
                 class="relative -top-10 left-10 self-start justify-self-start [grid-area:1/-1] sm:-top-3 sm:left-5">
                 <img src="{{ Vite::asset('resources/svg/home/cloud1.svg') }}" alt="Cloud"
-                    class="w-[10rem] sm:w-[14rem]" />
+                    class="w-40 sm:w-56" />
             </div>
 
             {{-- Cloud 2 --}}
             <div x-ref="cloud2"
                 class="relative -right-20 -top-10 self-start justify-self-center [grid-area:1/-1] sm:-right-40 sm:-top-3">
                 <img src="{{ Vite::asset('resources/svg/home/cloud2.svg') }}" alt="Cloud"
-                    class="w-[8rem] sm:w-[12rem]" />
+                    class="w-32 sm:w-48" />
             </div>
 
             {{-- Cloud 3 --}}
             <div x-ref="cloud3"
                 class="relative -top-10 right-20 hidden self-center justify-self-end [grid-area:1/-1] sm:block">
-                <img src="{{ Vite::asset('resources/svg/home/cloud3.svg') }}" alt="Cloud" class="w-[8rem]" />
+                <img src="{{ Vite::asset('resources/svg/home/cloud3.svg') }}" alt="Cloud" class="w-32" />
             </div>
 
             {{-- Left Birds --}}
             <div x-ref="left_birds"
                 class="relative right-32 z-20 hidden self-start justify-self-center [grid-area:1/-1] sm:block">
                 <div class="flex items-center gap-10">
-                    <img src="{{ Vite::asset('resources/svg/home/bird.svg') }}" alt="Bird" class="w-[2rem]" />
-                    <img src="{{ Vite::asset('resources/svg/home/bird.svg') }}" alt="Bird" class="w-[2rem]" />
+                    <img src="{{ Vite::asset('resources/svg/home/bird.svg') }}" alt="Bird" class="w-8" />
+                    <img src="{{ Vite::asset('resources/svg/home/bird.svg') }}" alt="Bird" class="w-8" />
                 </div>
                 <div class="flex justify-center pt-5">
-                    <img src="{{ Vite::asset('resources/svg/home/bird.svg') }}" alt="Bird" class="w-[3rem]" />
+                    <img src="{{ Vite::asset('resources/svg/home/bird.svg') }}" alt="Bird" class="w-12" />
                 </div>
             </div>
 
@@ -211,10 +211,10 @@
             <div x-ref="right_birds"
                 class="relative z-20 w-32 self-start justify-self-center [grid-area:1/-1] sm:-right-44 sm:top-20">
                 <div class="flex justify-center">
-                    <img src="{{ Vite::asset('resources/svg/home/bird.svg') }}" alt="Bird" class="w-[3rem]" />
+                    <img src="{{ Vite::asset('resources/svg/home/bird.svg') }}" alt="Bird" class="w-12" />
                 </div>
                 <div class="flex justify-start pt-5">
-                    <img src="{{ Vite::asset('resources/svg/home/bird.svg') }}" alt="Bird" class="w-[2rem]" />
+                    <img src="{{ Vite::asset('resources/svg/home/bird.svg') }}" alt="Bird" class="w-8" />
                 </div>
             </div>
 
@@ -223,21 +223,21 @@
                 class="relative -left-[25vw] top-12 z-20 self-center justify-self-center [grid-area:1/-1] sm:-left-60 sm:top-6">
                 <div class="flex items-end">
                     <img src="{{ Vite::asset('resources/svg/home/giraffe.svg') }}" alt="Giraffes"
-                        class="w-[2rem] -scale-x-100 opacity-80" />
-                    <img src="{{ Vite::asset('resources/svg/home/giraffe.svg') }}" alt="Giraffes" class="w-[2.5rem]" />
+                        class="w-8 -scale-x-100 opacity-80" />
+                    <img src="{{ Vite::asset('resources/svg/home/giraffe.svg') }}" alt="Giraffes" class="w-10" />
                     <img src="{{ Vite::asset('resources/svg/home/giraffe.svg') }}" alt="Giraffes"
-                        class="w-[1.5rem] opacity-60" />
+                        class="w-6 opacity-60" />
                 </div>
             </div>
 
             {{-- Left Mountain --}}
             <div x-ref="left_mountain" class="hidden self-end justify-self-start [grid-area:1/-1] sm:block">
-                <img src="{{ Vite::asset('resources/svg/home/mountain1.svg') }}" alt="Mountain" class="w-[30rem]" />
+                <img src="{{ Vite::asset('resources/svg/home/mountain1.svg') }}" alt="Mountain" class="w-120" />
             </div>
 
             {{-- Right Mountain --}}
             <div x-ref="right_mountain" class="self-end justify-self-end [grid-area:1/-1]">
-                <img src="{{ Vite::asset('resources/svg/home/mountain2.svg') }}" alt="Mountain" class="w-[30rem]" />
+                <img src="{{ Vite::asset('resources/svg/home/mountain2.svg') }}" alt="Mountain" class="w-120" />
             </div>
         </div>
 
@@ -273,7 +273,7 @@
                 </div>
 
                 <div
-                    class="absolute inset-0 -z-10 h-full w-full bg-gradient-to-br from-[#FFEDE3] to-[#FFEBCC] transition duration-300 group-hover/getstarted:opacity-70 motion-reduce:transition-none">
+                    class="absolute inset-0 -z-10 h-full w-full bg-linear-to-br from-[#FFEDE3] to-[#FFEBCC] transition duration-300 group-hover/getstarted:opacity-70 motion-reduce:transition-none">
                 </div>
             </a>
         </div>

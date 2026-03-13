@@ -6,7 +6,7 @@
 
     {{-- Tree --}}
     <svg xmlns="http://www.w3.org/2000/svg" width="27" height="39" viewBox="0 0 27 39" fill="none"
-        class="absolute -top-4 right-[-2rem] transition duration-300 will-change-transform motion-reduce:transition-none md:-top-2.5 md:group-hover/filament:-translate-x-3">
+        class="absolute -top-4 -right-8 transition duration-300 will-change-transform motion-reduce:transition-none md:-top-2.5 md:group-hover/filament:-translate-x-3">
         <path fill-rule="evenodd" clip-rule="evenodd"
             d="M6.81153 22.7845C5.47552 24.7786 4.2 26.443 3.26794 27.1555C3.39918 27.186 3.53602 27.226 3.67824 27.2772C5.03352 27.7663 5.09133 29.1589 6.02949 28.9879C6.96838 28.8169 7.76067 27.6177 9.49136 28.6698C11.2223 29.7221 10.5942 30.4556 12.0436 29.8687C13.493 29.2814 14.6268 27.6382 17.4764 28.9633C18.1953 29.2977 18.94 28.892 19.3903 28.8172C20.5934 28.6171 20.8976 27.8002 22.0516 27.3265C22.6912 27.064 23.3696 26.9464 24.0148 26.9633C22.8393 25.9105 21.2437 24.3581 19.6286 22.4084C19.1791 22.3944 18.8434 22.3605 18.7632 22.3723C17.4982 22.5576 16.3775 23.1472 15.5138 23.0897C13.4274 22.9499 14.1787 22.4835 12.0658 22.3325C11.9836 22.3266 10.2683 23.1182 8.54442 23.0745C7.94264 23.0592 7.3394 22.9357 6.81177 22.7847L6.81153 22.7845Z"
             fill="#60AF46" />

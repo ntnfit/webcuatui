@@ -1,5 +1,5 @@
 <div x-cloak x-data="{}"
-    class="mx-auto w-full max-w-screen-lg overflow-x-clip px-5 pt-20 min-[550px]:px-10 sm:overflow-x-visible">
+    class="mx-auto w-full max-w-(--breakpoint-lg) overflow-x-clip px-5 pt-20 min-[550px]:px-10 sm:overflow-x-visible">
     <div class="relative flex items-start justify-center min-[550px]:justify-start lg:gap-40 xl:justify-between">
         {{-- Left Side --}}
         <div class="min-[500px]:pl-10 sm:shrink-0 sm:pl-14 xl:pl-0">
@@ -82,7 +82,7 @@
                 }">
                 {{-- Title --}}
                 <div x-ref="accelerated"
-                    class="bg-gradient-to-r from-[#FFB46F] to-[#B9C0B9] bg-clip-text text-transparent dark:text-white">
+                    class="bg-linear-to-r from-[#FFB46F] to-[#B9C0B9] bg-clip-text text-transparent dark:text-white">
                     Web của tớ
                 </div>
 
@@ -95,15 +95,15 @@
                 <div class="absolute -left-12 top-1/2 -translate-y-1/2 space-y-1">
                     <div class="translate-x-5">
                         <div x-ref="line1"
-                            class="h-0.5 w-7 rounded-full bg-gradient-to-r from-transparent to-[#FFC089]dark:text-white " ></div>
+                            class="h-0.5 w-7 rounded-full bg-linear-to-r from-transparent to-[#FFC089]dark:text-white " ></div>
                     </div>
                     <div>
                         <div x-ref="line2"
-                            class="h-0.5 w-10 rounded-full bg-gradient-to-r from-transparent to-[#FFC089] dark:text-white"></div>
+                            class="h-0.5 w-10 rounded-full bg-linear-to-r from-transparent to-[#FFC089] dark:text-white"></div>
                     </div>
                     <div class="-translate-x-4">
                         <div x-ref="line3"
-                            class="h-0.5 w-12 rounded-full bg-gradient-to-r from-transparent to-[#FFC089] dark:text-white"></div>
+                            class="h-0.5 w-12 rounded-full bg-linear-to-r from-transparent to-[#FFC089] dark:text-white"></div>
                     </div>
                 </div>
 
@@ -415,7 +415,7 @@
                                 },
                             )
                     }" class="relative">
-                <div class="flex flex-wrap w-45 min-[550px]:w-52 md:w-72 lg:w-[30rem]">
+                <div class="flex flex-wrap w-45 min-[550px]:w-52 md:w-72 lg:w-120">
                     <div class="relative mb-0 lg:mb-20">
                         <img x-ref="mainImage" src="{{asset('assets/imgs/hero-1/people.png')}}" alt="harry" />
                         <div class="absolute right-0 top-1/2 translate-y-1/2">

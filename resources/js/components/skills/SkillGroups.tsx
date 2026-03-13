@@ -50,11 +50,11 @@ const SkillGroups: React.FC<SkillGroupsProps> = ({ isInView }) => {
                     initial={{ opacity: 0, x: -50 }}
                     animate={isInView ? { opacity: 1, x: 0 } : {}}
                     transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
-                    className="group relative p-[1px] rounded-2xl overflow-hidden bg-white/5 dark:bg-gray-900/5 transition-colors duration-500"
+                    className="group relative p-px rounded-2xl overflow-hidden bg-white/5 dark:bg-gray-900/5 transition-colors duration-500"
                 >
                     {/* Animated gradient border */}
                     <div className="absolute inset-0">
-                        <div className="absolute inset-0 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 animate-border-flow" />
+                        <div className="absolute inset-0 bg-linear-to-r from-blue-500 via-purple-500 to-pink-500 animate-border-flow" />
                     </div>
 
                     {/* Content container */}
@@ -73,8 +73,8 @@ const SkillGroups: React.FC<SkillGroupsProps> = ({ isInView }) => {
                                 className={cn(
                                     "text-xl font-semibold transition-colors duration-300",
                                     "text-gray-900 dark:text-gray-200",
-                                    "group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:via-purple-600 group-hover:to-pink-600",
-                                    "dark:group-hover:text-transparent dark:group-hover:bg-clip-text dark:group-hover:bg-gradient-to-r dark:group-hover:from-blue-500 dark:group-hover:via-purple-500 dark:group-hover:to-pink-500",
+                                    "group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-linear-to-r group-hover:from-blue-600 group-hover:via-purple-600 group-hover:to-pink-600",
+                                    "dark:group-hover:text-transparent dark:group-hover:bg-clip-text dark:group-hover:bg-linear-to-r dark:group-hover:from-blue-500 dark:group-hover:via-purple-500 dark:group-hover:to-pink-500",
                                 )}
                             >
                                 {group.title}

@@ -518,7 +518,7 @@ const BlogDetail: React.FC = () => {
                                 <div
                                     className="rounded-xl overflow-hidden shadow-lg border border-gray-100 dark:border-gray-800 transition-all duration-300 group-hover:shadow-xl">
                                     <div
-                                        className="relative aspect-[21/9] w-full overflow-hidden bg-gray-100 dark:bg-gray-800">
+                                        className="relative aspect-21/9 w-full overflow-hidden bg-gray-100 dark:bg-gray-800">
                                         <img
                                             src={blog.thumbnail_url}
                                             alt={blog.title}
@@ -533,7 +533,7 @@ const BlogDetail: React.FC = () => {
                                         />
                                         {/* Gradient overlay cho dark mode */}
                                         <div
-                                            className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 dark:opacity-40 transition-opacity duration-300"></div>
+                                            className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent opacity-0 dark:opacity-40 transition-opacity duration-300"></div>
                                     </div>
 
                                     {/* Caption nếu cần */}
@@ -605,7 +605,7 @@ const BlogDetail: React.FC = () => {
                                                 {blog.tags.map((tag, i) => (
                                                     <span
                                                         key={`tag-${i}`}
-                                                        className="inline-flex items-center px-3 py-1.5 rounded-full text-sm bg-gradient-to-r from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-800 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600 hover:shadow-sm transition-all duration-300 hover:scale-105"
+                                                        className="inline-flex items-center px-3 py-1.5 rounded-full text-sm bg-linear-to-r from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-800 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600 hover:shadow-sm transition-all duration-300 hover:scale-105"
                                                     >
                                                         <span className="text-blue-500 dark:text-blue-400 mr-1">
                                                             #
@@ -875,7 +875,7 @@ const BlogDetail: React.FC = () => {
                                                 >
                                                     {post.thumbnail_url && (
                                                         <div
-                                                            className="w-16 h-16 rounded-md overflow-hidden flex-shrink-0">
+                                                            className="w-16 h-16 rounded-md overflow-hidden shrink-0">
                                                             <img
                                                                 src={
                                                                     post.thumbnail_url

@@ -15,7 +15,7 @@ const Skills: React.FC = () => {
       ref={ref}
       className="py-24 px-6 bg-[#1A1F2C] dark:bg-gray-900 text-white relative overflow-hidden transition-colors duration-500"
     >
-      <div className="absolute inset-0 bg-gradient-to-br from-[#1A1F2C] via-[#252A3A] to-[#1A1F2C] dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 z-0 transition-colors duration-500"></div>
+      <div className="absolute inset-0 bg-linear-to-br from-[#1A1F2C] via-[#252A3A] to-[#1A1F2C] dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 z-0 transition-colors duration-500"></div>
 
       <div className="max-w-7xl mx-auto relative z-10">
         <SkillsHeader />

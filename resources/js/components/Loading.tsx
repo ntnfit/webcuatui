@@ -12,9 +12,9 @@ const Loading = () => {
             <div className="relative">
                 {/* Gradient circles */}
                 <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="absolute w-32 h-32 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-full animate-ping opacity-20" />
-                    <div className="absolute w-24 h-24 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-full animate-ping opacity-40 delay-75" />
-                    <div className="absolute w-16 h-16 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-full animate-ping opacity-60 delay-150" />
+                    <div className="absolute w-32 h-32 bg-linear-to-r from-blue-500 via-purple-500 to-pink-500 rounded-full animate-ping opacity-20" />
+                    <div className="absolute w-24 h-24 bg-linear-to-r from-blue-500 via-purple-500 to-pink-500 rounded-full animate-ping opacity-40 delay-75" />
+                    <div className="absolute w-16 h-16 bg-linear-to-r from-blue-500 via-purple-500 to-pink-500 rounded-full animate-ping opacity-60 delay-150" />
                 </div>
 
                 {/* Loading text */}
@@ -29,7 +29,7 @@ const Loading = () => {
                             🐯
                         </div>
                         <div className="text-4xl font-bold">
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 animate-gradient">
+                            <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-500 via-purple-500 to-pink-500 animate-gradient">
                                 Đang tải chờ xíu
                             </span>
                         </div>
@@ -45,7 +45,7 @@ const Loading = () => {
                                 repeat: Infinity,
                                 ease: 'linear'
                             }}
-                            className="h-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500"
+                            className="h-full bg-linear-to-r from-blue-500 via-purple-500 to-pink-500"
                         />
                     </div>
                 </motion.div>

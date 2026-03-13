@@ -1,7 +1,7 @@
 <div x-cloak x-data="{
     downloadCounterTarget: 0,
     githubStarsCounterTarget: 0,
-}" class="mx-auto w-full max-w-screen-lg overflow-x-clip px-5 pt-20">
+}" class="mx-auto w-full max-w-(--breakpoint-lg) overflow-x-clip px-5 pt-20">
     <div x-data="{
         downloadCounter: { val: reducedMotion ? downloadCounterTarget : 1 },
         githubStarsCounter: {
@@ -188,19 +188,19 @@
         <div x-ref="speedometer" class="relative min-[630px]:grid">
             {{-- Outer Circle --}}
             <div x-ref="outer_circle"
-                class="hidden h-[50rem] w-[50rem] self-center justify-self-center rounded-full ring-1 ring-[#F1E3E3]/40 [grid-area:1/-1] min-[800px]:block">
+                class="hidden h-200 w-200 self-center justify-self-center rounded-full ring-1 ring-[#F1E3E3]/40 [grid-area:1/-1] min-[800px]:block">
             </div>
             {{-- Middle Circle --}}
             <div x-ref="middle_circle"
-                class="hidden h-[40rem] w-[40rem] self-center justify-self-center rounded-full ring-1 ring-[#F1E3E3]/60 [grid-area:1/-1] min-[700px]:block">
+                class="hidden h-160 w-160 self-center justify-self-center rounded-full ring-1 ring-[#F1E3E3]/60 [grid-area:1/-1] min-[700px]:block">
             </div>
             {{-- Inner Circle --}}
             <div x-ref="inner_circle"
-                class="hidden h-[30rem] w-[30rem] self-center justify-self-center rounded-full ring-1 ring-[#F1E3E3]/80 [grid-area:1/-1] min-[700px]:block">
+                class="hidden h-120 w-120 self-center justify-self-center rounded-full ring-1 ring-[#F1E3E3]/80 [grid-area:1/-1] min-[700px]:block">
             </div>
             {{-- Speedometer Circle --}}
             <div x-ref="speedometer_circle"
-                class="absolute right-1/2 top-32 hidden h-[18rem] w-[18rem] translate-x-1/3 self-center justify-self-center rounded-full bg-gradient-to-bl from-[#FFF1E9] to-[#FBF0EF]/0 min-[630px]:block min-[700px]:relative min-[700px]:right-0 min-[700px]:top-0 min-[700px]:translate-x-0 min-[700px]:[grid-area:1/-1]">
+                class="absolute right-1/2 top-32 hidden h-72 w-[18rem] translate-x-1/3 self-center justify-self-center rounded-full bg-linear-to-bl from-[#FFF1E9] to-[#FBF0EF]/0 min-[630px]:block min-[700px]:relative min-[700px]:right-0 min-[700px]:top-0 min-[700px]:translate-x-0 min-[700px]:[grid-area:1/-1]">
                 {{-- Tailwind --}}
                 <div class="tall-link-wrapper group/tall-link absolute -right-36 -top-16 z-20">
                     <a href="https://tailwindcss.com" target="_blank"
@@ -229,7 +229,7 @@
                     </a>
                 </div>
                 {{-- Alpine --}}
-                <div class="tall-link-wrapper group/tall-link absolute -right-[11.5rem] top-7 z-20">
+                <div class="tall-link-wrapper group/tall-link absolute -right-46 top-7 z-20">
                     <a href="https://alpinejs.dev" target="_blank"
                         class="flex items-center gap-3 transition duration-300 group-hover/tall-link:translate-x-1 motion-reduce:transition-none motion-reduce:group-hover/tall-link:transform-none">
                         {{-- Logo --}}
@@ -250,7 +250,7 @@
                     </a>
                 </div>
                 {{-- Laravel --}}
-                <div class="tall-link-wrapper group/tall-link absolute -right-48 top-[8.5rem] z-20">
+                <div class="tall-link-wrapper group/tall-link absolute -right-48 top-34 z-20">
                     <a href="https://laravel.com" target="_blank"
                         class="flex items-center gap-3 transition duration-300 group-hover/tall-link:translate-x-1 motion-reduce:transition-none motion-reduce:group-hover/tall-link:transform-none">
                         {{-- Logo --}}
@@ -269,7 +269,7 @@
                     </a>
                 </div>
                 {{-- Livewire --}}
-                <div class="tall-link-wrapper group/tall-link absolute -right-[10rem] top-64 z-20">
+                <div class="tall-link-wrapper group/tall-link absolute -right-40 top-64 z-20">
                     <a href="https://livewire.laravel.com" target="_blank"
                         class="flex items-center gap-3 transition duration-300 group-hover/tall-link:translate-x-1 motion-reduce:transition-none motion-reduce:group-hover/tall-link:transform-none">
                         {{-- Logo --}}
@@ -309,14 +309,14 @@
                     </a>
                 </div>
                 {{-- Orange Arc --}}
-                <svg x-ref="orange_arc" width="64" class="absolute right-[0rem] top-[1.2rem] z-20 -rotate-[3deg]"
+                <svg x-ref="orange_arc" width="64" class="absolute right-0 top-[1.2rem] z-20 -rotate-3"
                     height="204" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
                         d="M38.922 201.284A162.725 162.725 0 0 0 55.179 77.807C49.648 57.166 40.5 40.5 27.096 24.5 20.5 17.5 10 7.5 2.5 2.5"
                         stroke="#FF7323" stroke-width="5" stroke-linecap="round" />
                 </svg>
                 {{-- Fade Arc --}}
-                <svg x-ref="fade_arc" width="28" class="absolute -top-[3.2rem] right-[7.2rem] -rotate-[92deg]"
+                <svg x-ref="fade_arc" width="28" class="absolute -top-[3.2rem] right-[7.2rem] -rotate-92"
                     height="129" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M19.179 2.807A162.722 162.722 0 0 1 2.923 126.284" stroke="url(#a)" stroke-width="5"
                         stroke-linecap="round" />
@@ -532,7 +532,7 @@
             <div
                 class="relative flex w-full flex-wrap items-center justify-center gap-x-10 gap-y-7 self-start justify-self-start pt-14 min-[600px]:pt-60 min-[700px]:pt-0 md:top-20 md:w-auto md:flex-col md:[grid-area:1/-1]">
                 {{-- Downloads --}}
-                <div x-ref="downloads" class="min-w-[12rem] space-y-3 rounded-2xl bg-seashell-peach p-5">
+                <div x-ref="downloads" class="min-w-48 space-y-3 rounded-2xl bg-seashell-peach p-5">
                     <div x-text="downloadCounter.val.toLocaleString('en-US') + '+'"
                         class="text-center font-roboto-mono text-2xl font-medium"></div>
                     <div class="flex items-center justify-center gap-3 text-butter">
@@ -543,13 +543,13 @@
                                 <path stroke-linejoin="round" d="M12 22v-6m0 6l2-2m-2 2l-2-2" />
                             </g>
                         </svg>
-                        <div class="min-w-[5.5rem] text-sm font-medium">
+                        <div class="min-w-22 text-sm font-medium">
                             Downloads
                         </div>
                     </div>
                 </div>
                 {{-- Github Stars --}}
-                <div x-ref="github_stars" class="min-w-[12rem] space-y-3 rounded-2xl bg-seashell-peach p-5">
+                <div x-ref="github_stars" class="min-w-48 space-y-3 rounded-2xl bg-seashell-peach p-5">
                     <div x-text="githubStarsCounter.val.toLocaleString('en-US') + '+'"
                         class="text-center font-roboto-mono text-2xl font-medium"></div>
                     <div class="flex items-center justify-center gap-3 text-butter">
@@ -557,7 +557,7 @@
                             <path fill="none" stroke="currentColor" stroke-width="1.5"
                                 d="M9.153 5.408C10.42 3.136 11.053 2 12 2c.947 0 1.58 1.136 2.847 3.408l.328.588c.36.646.54.969.82 1.182c.28.213.63.292 1.33.45l.636.144c2.46.557 3.689.835 3.982 1.776c.292.94-.546 1.921-2.223 3.882l-.434.507c-.476.557-.715.836-.822 1.18c-.107.345-.071.717.001 1.46l.066.677c.253 2.617.38 3.925-.386 4.506c-.766.582-1.918.051-4.22-1.009l-.597-.274c-.654-.302-.981-.452-1.328-.452c-.347 0-.674.15-1.329.452l-.595.274c-2.303 1.06-3.455 1.59-4.22 1.01c-.767-.582-.64-1.89-.387-4.507l.066-.676c.072-.744.108-1.116 0-1.46c-.106-.345-.345-.624-.821-1.18l-.434-.508c-1.677-1.96-2.515-2.941-2.223-3.882c.293-.941 1.523-1.22 3.983-1.776l.636-.144c.699-.158 1.048-.237 1.329-.45c.28-.213.46-.536.82-1.182l.328-.588Z" />
                         </svg>
-                        <div class="min-w-[5.5rem] text-sm font-medium">
+                        <div class="min-w-22 text-sm font-medium">
                             Github Stars
                         </div>
                     </div>

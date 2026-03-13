@@ -1,7 +1,7 @@
 <section id="home" class="min-h-screen flex flex-col items-center justify-center px-6 py-20 relative overflow-hidden bg-white dark:bg-gray-900 transition-colors duration-500">
     <!-- Fancy background -->
     <div class="absolute inset-0 -z-10">
-        <div class="absolute inset-0 bg-gradient-to-b from-white via-blue-50 to-transparent opacity-90 dark:from-gray-900 dark:via-gray-800 dark:to-transparent transition-colors duration-500"></div>
+        <div class="absolute inset-0 bg-linear-to-b from-white via-blue-50 to-transparent opacity-90 dark:from-gray-900 dark:via-gray-800 dark:to-transparent transition-colors duration-500"></div>
         <div class="absolute inset-0 bg-[url('/pattern.svg')] opacity-10 dark:opacity-5 transition-opacity duration-500"></div>
     </div>
 
@@ -9,7 +9,7 @@
         <!-- Avatar glow -->
         <div class="mb-6 flex justify-center">
             <div class="relative">
-                <div class="absolute inset-0 rounded-full bg-gradient-to-r from-sky-300 to-pink-400 blur-2xl animate-glow dark:from-purple-500 dark:to-pink-500 transition-colors duration-500"></div>
+                <div class="absolute inset-0 rounded-full bg-linear-to-r from-sky-300 to-pink-400 blur-2xl animate-glow dark:from-purple-500 dark:to-pink-500 transition-colors duration-500"></div>
                 <div class="h-28 w-28 rounded-full overflow-hidden border-4 border-white dark:border-gray-800 shadow-xl relative z-10 transition-colors duration-500">
                     <img src="/images/me.jpg" alt="Profile" class="h-full w-full object-cover">
                 </div>
@@ -22,7 +22,7 @@
 
         <h1 class="text-4xl md:text-6xl font-bold tracking-tight text-gray-800 dark:text-white mb-4 leading-tight font-sans transition-colors duration-500">
             Xin chào, tôi là 
-            <span class="bg-gradient-to-r from-sky-500 to-purple-500 dark:from-purple-400 dark:to-pink-400 bg-clip-text text-transparent transition-colors duration-500" id="typed-name">
+            <span class="bg-linear-to-r from-sky-500 to-purple-500 dark:from-purple-400 dark:to-pink-400 bg-clip-text text-transparent transition-colors duration-500" id="typed-name">
                 Harry Dev
             </span>
         </h1>
@@ -40,7 +40,7 @@
         </p>
 
         <div class="flex flex-col sm:flex-row items-center justify-center gap-3 mb-8 animate-fade-in">
-            <a href="#projects" class="px-6 py-2.5 bg-gradient-to-r from-sky-500 to-indigo-500 dark:from-purple-500 dark:to-pink-500 text-white rounded-full font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 font-sans">
+            <a href="#projects" class="px-6 py-2.5 bg-linear-to-r from-sky-500 to-indigo-500 dark:from-purple-500 dark:to-pink-500 text-white rounded-full font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 font-sans">
                 🚀 Xem dự án
             </a>
             <a href="/blogs" class="px-6 py-2.5 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-full font-medium transition-all duration-300 hover:bg-gray-100 dark:hover:bg-gray-800 font-sans transition-all duration-300 transform hover:scale-105 hover:shadow-xl">
@@ -51,7 +51,7 @@
         <!-- Callout -->
         <div class="relative z-10 mb-6 animate-fade-in">
             <div class="flex items-center justify-center">
-                <div class="px-6 py-5 bg-gradient-to-r from-blue-100 via-purple-100 to-pink-100 dark:from-purple-900/40 dark:via-gray-800 dark:to-pink-900/30 rounded-2xl shadow-lg dark:shadow-purple-900/20 backdrop-blur-lg border border-white/20 dark:border-white/10 max-w-xl w-full transition-all duration-500">
+                <div class="px-6 py-5 bg-linear-to-r from-blue-100 via-purple-100 to-pink-100 dark:from-purple-900/40 dark:via-gray-800 dark:to-pink-900/30 rounded-2xl shadow-lg dark:shadow-purple-900/20 backdrop-blur-lg border border-white/20 dark:border-white/10 max-w-xl w-full transition-all duration-500">
                     <p class="text-md md:text-lg text-gray-800 dark:text-gray-200 font-medium text-center transition-colors duration-500">
                         💡 Portfolio này được xây dựng bằng 
                         <span class="font-semibold text-sky-600 dark:text-purple-400 transition-colors duration-500">
@@ -69,7 +69,7 @@
                     Khám phá thêm
                 </span>
                 <div class="relative">
-                    <div class="absolute inset-0 rounded-full bg-gradient-to-r from-sky-300 to-pink-400 blur-xl opacity-0 group-hover:opacity-100 transition-all duration-300 dark:from-purple-500 dark:to-pink-500"></div>
+                    <div class="absolute inset-0 rounded-full bg-linear-to-r from-sky-300 to-pink-400 blur-xl opacity-0 group-hover:opacity-100 transition-all duration-300 dark:from-purple-500 dark:to-pink-500"></div>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="relative z-10 transform group-hover:scale-110 transition-all duration-300">
                         <path d="M12 5V19M12 19L19 12M12 19L5 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>

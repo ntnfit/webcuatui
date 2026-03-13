@@ -1,4 +1,4 @@
-<footer x-cloak x-data="{}" class="mx-auto w-full max-w-screen-lg space-y-24 px-5 pt-24">
+<footer x-cloak x-data="{}" class="mx-auto w-full max-w-(--breakpoint-lg) space-y-24 px-5 pt-24">
 
 
     <div x-data="{}" x-ref="footer" x-init="() => {

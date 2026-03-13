@@ -16,8 +16,8 @@
         <!-- Grid logo -->
         <div class="relative animate-fade-in">
             <!-- Gradient overlays -->
-            <div class="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-gray-50 dark:from-gray-900 to-transparent z-10 pointer-events-none"></div>
-            <div class="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-gray-50 dark:from-gray-900 to-transparent z-10 pointer-events-none"></div>
+            <div class="absolute left-0 top-0 bottom-0 w-20 bg-linear-to-r from-gray-50 dark:from-gray-900 to-transparent z-10 pointer-events-none"></div>
+            <div class="absolute right-0 top-0 bottom-0 w-20 bg-linear-to-l from-gray-50 dark:from-gray-900 to-transparent z-10 pointer-events-none"></div>
 
             <!-- Logo grid -->
             <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 md:gap-12 items-center overflow-hidden">
@@ -46,7 +46,7 @@
 
         <!-- View more button -->
         <div class="text-center mt-16 animate-fade-in-up">
-            <a href="#contact" class="font-semibold inline-flex items-center px-6 py-3 rounded-full bg-gradient-to-r from-sky-500 to-indigo-500 dark:from-purple-500 dark:to-pink-500 text-white hover:bg-blue-700 dark:hover:bg-blue-600 transition-all duration-300 transform hover:scale-105">
+            <a href="#contact" class="font-semibold inline-flex items-center px-6 py-3 rounded-full bg-linear-to-r from-sky-500 to-indigo-500 dark:from-purple-500 dark:to-pink-500 text-white hover:bg-blue-700 dark:hover:bg-blue-600 transition-all duration-300 transform hover:scale-105">
                 <span>Liên hệ hợp tác</span>
                 <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>

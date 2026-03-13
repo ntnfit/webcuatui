@@ -80,7 +80,7 @@ const Hero: React.FC = () => {
         >
             {/* Fancy background */}
             <div className="absolute inset-0 -z-10">
-                <div className="absolute inset-0 bg-gradient-to-b from-white via-blue-50 to-transparent opacity-90 dark:from-gray-900 dark:via-gray-800 dark:to-transparent transition-colors duration-500" />
+                <div className="absolute inset-0 bg-linear-to-b from-white via-blue-50 to-transparent opacity-90 dark:from-gray-900 dark:via-gray-800 dark:to-transparent transition-colors duration-500" />
                 <div className="absolute inset-0 bg-[url('/pattern.svg')] opacity-10 dark:opacity-5 transition-opacity duration-500" />
             </div>
 
@@ -95,7 +95,7 @@ const Hero: React.FC = () => {
                 {/* Avatar glow */}
                 <div className="mb-6 flex justify-center">
                     <div className="relative">
-                        <div className="absolute inset-0 rounded-full bg-gradient-to-r from-sky-300 to-pink-400 blur-2xl animate-glow dark:from-purple-500 dark:to-pink-500 transition-colors duration-500" />
+                        <div className="absolute inset-0 rounded-full bg-linear-to-r from-sky-300 to-pink-400 blur-2xl animate-glow dark:from-purple-500 dark:to-pink-500 transition-colors duration-500" />
                         <Avatar className="h-28 w-28 border-4 border-white dark:border-gray-800 shadow-xl relative z-10 transition-colors duration-500">
                             <AvatarImage
                                 src="https://images.unsplash.com/photo-1501286353178-1ec871214838"
@@ -114,7 +114,7 @@ const Hero: React.FC = () => {
                     Xin chào, tôi là{" "}
                     <span
                         className={cn(
-                            "bg-gradient-to-r from-sky-500 to-purple-500 dark:from-purple-400 dark:to-pink-400 bg-clip-text text-transparent transition-colors duration-500",
+                            "bg-linear-to-r from-sky-500 to-purple-500 dark:from-purple-400 dark:to-pink-400 bg-clip-text text-transparent transition-colors duration-500",
                             nameAnimation && "animate-name-glow",
                         )}
                     >
@@ -144,7 +144,7 @@ const Hero: React.FC = () => {
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-8 animate-fade-in">
                     <a
                         href="#projects"
-                        className="px-6 py-2.5 bg-gradient-to-r from-sky-500 to-indigo-500 dark:from-purple-500 dark:to-pink-500 text-white rounded-full font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 font-sans"
+                        className="px-6 py-2.5 bg-linear-to-r from-sky-500 to-indigo-500 dark:from-purple-500 dark:to-pink-500 text-white rounded-full font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 font-sans"
                     >
                         🚀 Xem dự án
                     </a>
@@ -159,7 +159,7 @@ const Hero: React.FC = () => {
                 {/* 🌟 Callout giữa nội dung và scroll-down */}
                 <div className="relative z-10 mb-6 animate-fade-in">
                     <div className="flex items-center justify-center">
-                        <div className="px-6 py-5 bg-gradient-to-r from-blue-100 via-purple-100 to-pink-100 dark:from-purple-900/40 dark:via-gray-800 dark:to-pink-900/30 rounded-2xl shadow-lg dark:shadow-purple-900/20 backdrop-blur-lg border border-white/20 dark:border-white/10 max-w-xl w-full transition-all duration-500">
+                        <div className="px-6 py-5 bg-linear-to-r from-blue-100 via-purple-100 to-pink-100 dark:from-purple-900/40 dark:via-gray-800 dark:to-pink-900/30 rounded-2xl shadow-lg dark:shadow-purple-900/20 backdrop-blur-lg border border-white/20 dark:border-white/10 max-w-xl w-full transition-all duration-500">
                             <p className="text-md md:text-lg text-gray-800 dark:text-gray-200 font-medium text-center transition-colors duration-500">
                                 💡 Portfolio này được xây dựng bằng{" "}
                                 <span className="font-semibold text-sky-600 dark:text-purple-400 transition-colors duration-500">
@@ -181,7 +181,7 @@ const Hero: React.FC = () => {
                             Khám phá thêm
                         </span>
                         <div className="relative">
-                            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-sky-300 to-pink-400 blur-xl opacity-0 group-hover:opacity-100 transition-all duration-300 dark:from-purple-500 dark:to-pink-500" />
+                            <div className="absolute inset-0 rounded-full bg-linear-to-r from-sky-300 to-pink-400 blur-xl opacity-0 group-hover:opacity-100 transition-all duration-300 dark:from-purple-500 dark:to-pink-500" />
                             <svg
                                 width="24"
                                 height="24"

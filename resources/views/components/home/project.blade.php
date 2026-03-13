@@ -1,6 +1,6 @@
 <link href="https://cdn.jsdelivr.net/npm/pagedone@1.2.2/src/css/pagedone.css " rel="stylesheet"/>
 <div x-cloak  x-data="projectSlider()"
-     class="mx-auto w-full max-w-screen-lg px-5 space-y-20 pt-20">
+     class="mx-auto w-full max-w-(--breakpoint-lg) px-5 space-y-20 pt-20">
     <div x-ref="header" class="text-center ">
         <div x-ref="header_introducing" class="font-medium text-dolphin dark:text-gray-100">
             Giới thiệu
@@ -115,7 +115,7 @@
                     </div>
                 </div>
             </div>
-            <div class="swiper-pagination !bottom-2 !top-auto !w-80 right-0 mx-auto bg-gray-100"></div>
+            <div class="swiper-pagination bottom-2! top-auto! w-80! right-0 mx-auto bg-gray-100"></div>
         </div>
     </div>
 </div>

@@ -214,8 +214,8 @@ const Projects: React.FC = () => {
         {/* Grid logo */}
         <div className="relative">
           {/* Gradient overlays */}
-          <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-gray-50 dark:from-gray-900 to-transparent z-10" />
-          <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-gray-50 dark:from-gray-900 to-transparent z-10" />
+          <div className="absolute left-0 top-0 bottom-0 w-20 bg-linear-to-r from-gray-50 dark:from-gray-900 to-transparent z-10" />
+          <div className="absolute right-0 top-0 bottom-0 w-20 bg-linear-to-l from-gray-50 dark:from-gray-900 to-transparent z-10" />
 
           {/* Logo grid */}
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 md:gap-12 items-center overflow-hidden">
@@ -262,7 +262,7 @@ const Projects: React.FC = () => {
             href="#contact"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="font-semibold inline-flex items-center px-6 py-3 rounded-full bg-gradient-to-r from-sky-500 to-indigo-500 dark:from-purple-500 dark:to-pink-500 text-white hover:bg-blue-700 dark:hover:bg-blue-600 transition-colors duration-300"
+            className="font-semibold inline-flex items-center px-6 py-3 rounded-full bg-linear-to-r from-sky-500 to-indigo-500 dark:from-purple-500 dark:to-pink-500 text-white hover:bg-blue-700 dark:hover:bg-blue-600 transition-colors duration-300"
           >
             <span>Liên hệ hợp tác</span>
             <svg

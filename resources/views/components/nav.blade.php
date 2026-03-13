@@ -38,7 +38,7 @@
     class="relative mx-auto flex max-w-8xl items-center justify-between overflow-x-clip px-8 py-10 sm:overflow-x-visible">
     {{-- Background Blob --}}
 {{--    <img src="{{ Vite::asset('resources/svg/background-blob.svg') }}" alt="Blob"--}}
-{{--        class="absolute -top-[10rem,clamp(50vw),40rem] right-0 z-[-100] lg:-right-[10rem]" />--}}
+{{--        class="absolute -top-[10rem,clamp(50vw),40rem] right-0 z-[-100] lg:-right-40" />--}}
 
     {{-- Mobile Menu Button --}}
     <button x-data="{}" aria-controls="main-menu" aria-haspopup="true"
@@ -151,10 +151,10 @@
     },
     updateThemeWithoutTransitions(theme) {
         this.updateTheme(theme)
-        document.documentElement.classList.add('[&_*]:!transition-none')
+        document.documentElement.classList.add('**:transition-none!')
         window.setTimeout(() => {
             document.documentElement.classList.remove(
-                '[&_*]:!transition-none',
+                '**:transition-none!',
             )
         }, 0)
     },

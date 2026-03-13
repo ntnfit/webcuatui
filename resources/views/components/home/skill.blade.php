@@ -1,4 +1,4 @@
-<div x-data="{}" class="mx-auto w-full max-w-screen-lg px-10 pt-40 lg:px-5">
+<div x-data="{}" class="mx-auto w-full max-w-(--breakpoint-lg) px-10 pt-40 lg:px-5">
     <div class="min-h-screen p-8" x-data="{
     categories: [
         {

@@ -21,7 +21,7 @@
                         'Thiết kế API và tích hợp hệ thống SAP B1 / OData / SDK',
                     ] as $item)
                         <li class="flex items-start">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 mt-1 text-sky-500 dark:text-blue-400 mr-3 flex-shrink-0 transition-colors duration-500"><path d="M20 6 9 17l-5-5"/></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 mt-1 text-sky-500 dark:text-blue-400 mr-3 shrink-0 transition-colors duration-500"><path d="M20 6 9 17l-5-5"/></svg>
                             <span class="text-gray-700 dark:text-gray-300 font-sans transition-colors duration-500">{{ $item }}</span>
                         </li>
                     @endforeach
@@ -33,7 +33,7 @@
                 <div class="rounded-2xl overflow-hidden shadow-lg dark:shadow-gray-800/30 transform transition-all duration-500 group-hover:scale-105 group-hover:shadow-2xl">
                     <img src="/images/me.jpg" alt="Harry Dev" class="object-cover w-full h-full transition-all duration-500 ease-in-out group-hover:opacity-95">
                 </div>
-                <div class="absolute -inset-1 rounded-2xl bg-gradient-to-tr from-blue-300 via-pink-200 to-purple-300 dark:from-blue-900/30 dark:via-pink-900/20 dark:to-purple-900/30 opacity-20 blur-2xl z-[-1] transition-colors duration-500"></div>
+                <div class="absolute -inset-1 rounded-2xl bg-linear-to-tr from-blue-300 via-pink-200 to-purple-300 dark:from-blue-900/30 dark:via-pink-900/20 dark:to-purple-900/30 opacity-20 blur-2xl z-[-1] transition-colors duration-500"></div>
             </div>
         </div>
     </div>

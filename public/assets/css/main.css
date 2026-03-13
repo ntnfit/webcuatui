@@ -1,4 +1,5 @@
 @charset "UTF-8";
+
 /*===========
    Theme Name: AliThemes - Bootstrap Dev Starter
    Author : alithemes
@@ -14387,4 +14388,3 @@ strong {
 [data-bs-theme=dark] .mobile-header-wrapper-style .mobile-header-wrapper-inner .mobile-header-content-area .mobile-menu-wrap nav .mobile-menu li.has-children .menu-expand i {
   background: url(../imgs/template/icons/arrow-right-big-dark.svg) no-repeat center;
 }
-/*# sourceMappingURL=main.css.map */

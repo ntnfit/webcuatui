@@ -143,7 +143,7 @@
             itemsList.innerHTML = cartData.map(item => `
                 <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-4 border border-gray-200 dark:border-gray-700">
                     <div class="flex gap-4">
-                        <div class="w-24 h-24 rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-700 flex-shrink-0">
+                        <div class="w-24 h-24 rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-700 shrink-0">
                             ${item.image ? 
                                 `<img src="/storage/${item.image}" alt="${item.name}" class="w-full h-full object-cover">` :
                                 `<div class="w-full h-full flex items-center justify-center">

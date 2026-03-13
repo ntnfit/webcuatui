@@ -47,7 +47,7 @@ const About: React.FC = () => {
                                 'Thiết kế API và tích hợp hệ thống SAP B1 / OData / SDK',
                             ].map((item, index) => (
                                 <li key={index} className="flex items-start">
-                                    <Check className="h-5 w-5 mt-1 text-sky-500 dark:text-blue-400 mr-3 flex-shrink-0 transition-colors duration-500" />
+                                    <Check className="h-5 w-5 mt-1 text-sky-500 dark:text-blue-400 mr-3 shrink-0 transition-colors duration-500" />
                                     <span className="text-gray-700 dark:text-gray-300 font-sans transition-colors duration-500">{item}</span>
                                 </li>
                             ))}
@@ -63,7 +63,7 @@ const About: React.FC = () => {
                                 className="object-cover w-full h-full transition-all duration-500 ease-in-out group-hover:opacity-95"
                             />
                         </div>
-                        <div className="absolute -inset-1 rounded-2xl bg-gradient-to-tr from-blue-300 via-pink-200 to-purple-300 dark:from-blue-900/30 dark:via-pink-900/20 dark:to-purple-900/30 opacity-20 blur-2xl z-[-1] transition-colors duration-500" />
+                        <div className="absolute -inset-1 rounded-2xl bg-linear-to-tr from-blue-300 via-pink-200 to-purple-300 dark:from-blue-900/30 dark:via-pink-900/20 dark:to-purple-900/30 opacity-20 blur-2xl z-[-1] transition-colors duration-500" />
                     </div>
                 </div>
             </div>

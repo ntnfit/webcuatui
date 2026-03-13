@@ -149,7 +149,7 @@
             const itemsList = document.getElementById('order-items');
             itemsList.innerHTML = cartData.map(item => `
                 <div class="flex gap-3">
-                    <div class="w-16 h-16 rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-700 flex-shrink-0">
+                    <div class="w-16 h-16 rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-700 shrink-0">
                         ${item.image ? 
                             `<img src="/storage/${item.image}" alt="${item.name}" class="w-full h-full object-cover">` :
                             `<div class="w-full h-full flex items-center justify-center">
@@ -191,7 +191,7 @@
             
             toast.innerHTML = `
                 <div class="flex items-center p-4">
-                    <div class="flex-shrink-0">
+                    <div class="shrink-0">
                         <div class="${bgColor} rounded-full p-2">
                             <svg class="h-5 w-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 ${icon}
@@ -201,7 +201,7 @@
                     <div class="ml-3 flex-1">
                         <p class="text-sm font-medium text-gray-900 dark:text-white">${message}</p>
                     </div>
-                    <div class="ml-4 flex-shrink-0">
+                    <div class="ml-4 shrink-0">
                         <button onclick="this.parentElement.parentElement.parentElement.remove()" class="inline-flex text-gray-400 hover:text-gray-500 dark:hover:text-gray-300 focus:outline-none transition-colors">
                             <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>

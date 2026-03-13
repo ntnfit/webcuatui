@@ -62,10 +62,10 @@ const LatestArticles: React.FC<LatestArticlesProps> = ({ articles }) => {
 
             <div className="max-w-7xl mx-auto">
                 {/* Animated border container */}
-                <div className="relative p-[1px] rounded-2xl overflow-hidden bg-white dark:bg-gray-900">
+                <div className="relative p-px rounded-2xl overflow-hidden bg-white dark:bg-gray-900">
                     {/* Animated gradient border */}
                     <div className="absolute inset-0">
-                        <div className="absolute inset-0 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 animate-border-flow" />
+                        <div className="absolute inset-0 bg-linear-to-r from-blue-500 via-purple-500 to-pink-500 animate-border-flow" />
                     </div>
 
                     {/* Content container with background */}
@@ -96,7 +96,7 @@ const LatestArticles: React.FC<LatestArticlesProps> = ({ articles }) => {
                                     className="relative group"
                                 >
                                     {/* Hover */}
-                                    <div className="absolute inset-0 bg-gradient-to-r from-blue-300 via-purple-300 to-pink-300 dark:bg-gradient-to-r dark:from-blue-500 dark:via-purple-500 dark:to-pink-500 animate-border-flow rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                                    <div className="absolute inset-0 bg-linear-to-r from-blue-300 via-purple-300 to-pink-300 dark:bg-linear-to-r dark:from-blue-500 dark:via-purple-500 dark:to-pink-500 animate-border-flow rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 
                                     <motion.div
                                         variants={itemVariants}
@@ -106,7 +106,7 @@ const LatestArticles: React.FC<LatestArticlesProps> = ({ articles }) => {
                                             href={`/blogs/${article.id}`}
                                             className="block relative h-48 overflow-hidden"
                                         >
-                                            <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                                            <div className="absolute inset-0 bg-linear-to-b from-transparent to-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                                             <img
                                                 src={
                                                     article.image ||
@@ -182,7 +182,7 @@ const LatestArticles: React.FC<LatestArticlesProps> = ({ articles }) => {
                         >
                             <Link
                                 href="/blogs"
-                                className="inline-flex items-center px-6 py-3 rounded-full bg-gradient-to-r from-sky-500 to-indigo-500 dark:from-purple-500 dark:to-pink-500 text-white hover:bg-blue-700 dark:hover:bg-blue-600 transition-colors duration-300 font-semibold"
+                                className="inline-flex items-center px-6 py-3 rounded-full bg-linear-to-r from-sky-500 to-indigo-500 dark:from-purple-500 dark:to-pink-500 text-white hover:bg-blue-700 dark:hover:bg-blue-600 transition-colors duration-300 font-semibold"
                             >
                                 Xem tất cả bài viết
                                 <ArrowRight className="ml-2 h-4 w-4" />

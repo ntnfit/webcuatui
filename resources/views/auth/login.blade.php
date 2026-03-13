@@ -1,7 +1,7 @@
 <x-layouts.appclient>
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
-    <div class="mx-auto w-full max-w-screen-lg px-10 pt-40 lg:px-5 rounded-lg">
+    <div class="mx-auto w-full max-w-(--breakpoint-lg) px-10 pt-40 lg:px-5 rounded-lg">
         <h2 class="text-center text-gray-700 font-bold text-xl mb-6">Đăng nhập</h2>
         <div class="grid grid-cols-2 gap-4">
             <a href="{{ route('social.redirect', ['provider' => 'google']) }}"

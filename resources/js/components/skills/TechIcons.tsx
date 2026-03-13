@@ -141,8 +141,8 @@ const TechIcons: React.FC<TechIconsProps> = ({ containerRef, isInView }) => {
       </motion.div>
 
       {/* Gradient overlays for smooth edges */}
-      <div className="absolute left-0 top-0 h-full w-16 bg-gradient-to-r from-[#1A1F2C] to-transparent z-10"></div>
-      <div className="absolute right-0 top-0 h-full w-16 bg-gradient-to-l from-[#1A1F2C] to-transparent z-10"></div>
+      <div className="absolute left-0 top-0 h-full w-16 bg-linear-to-r from-[#1A1F2C] to-transparent z-10"></div>
+      <div className="absolute right-0 top-0 h-full w-16 bg-linear-to-l from-[#1A1F2C] to-transparent z-10"></div>
     </div>
   );
 };

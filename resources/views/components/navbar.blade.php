@@ -2,7 +2,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-16">
             <!-- Logo -->
-            <a href="{{ route('home') }}" class="flex-shrink-0">
+            <a href="{{ route('home') }}" class="shrink-0">
                 <span class="text-2xl font-bold logo-gradient transform hover:scale-105 transition-all duration-300">
                     HarryDev
                 </span>

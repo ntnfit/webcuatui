@@ -1,5 +1,5 @@
 <section id="skills" class="py-24 px-6 bg-[#1A1F2C] dark:bg-gray-900 text-white relative overflow-hidden transition-colors duration-500">
-    <div class="absolute inset-0 bg-gradient-to-br from-[#1A1F2C] via-[#252A3A] to-[#1A1F2C] dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 z-0 transition-colors duration-500"></div>
+    <div class="absolute inset-0 bg-linear-to-br from-[#1A1F2C] via-[#252A3A] to-[#1A1F2C] dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 z-0 transition-colors duration-500"></div>
 
     <div class="max-w-7xl mx-auto relative z-10">
         <!-- Skills Header -->
@@ -47,10 +47,10 @@
                         'color' => 'text-pink-500 dark:text-pink-400'
                     ]
                 ] as $group)
-                    <div class="group relative p-[1px] rounded-2xl overflow-hidden bg-white/5 dark:bg-gray-900/5 transition-colors duration-500 animate-fade-in-left">
+                    <div class="group relative p-px rounded-2xl overflow-hidden bg-white/5 dark:bg-gray-900/5 transition-colors duration-500 animate-fade-in-left">
                         <!-- Animated gradient border -->
                         <div class="absolute inset-0">
-                            <div class="absolute inset-0 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                            <div class="absolute inset-0 bg-linear-to-r from-blue-500 via-purple-500 to-pink-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                         </div>
 
                         <!-- Content container -->
@@ -68,7 +68,7 @@
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
                                     @endif
                                 </div>
-                                <h3 class="text-xl font-semibold transition-colors duration-300 text-gray-900 dark:text-gray-200 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:via-purple-600 group-hover:to-pink-600 dark:group-hover:text-transparent dark:group-hover:bg-clip-text dark:group-hover:bg-gradient-to-r dark:group-hover:from-blue-500 dark:group-hover:via-purple-500 dark:group-hover:to-pink-500">
+                                <h3 class="text-xl font-semibold transition-colors duration-300 text-gray-900 dark:text-gray-200 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-linear-to-r group-hover:from-blue-600 group-hover:via-purple-600 group-hover:to-pink-600 dark:group-hover:text-transparent dark:group-hover:bg-clip-text dark:group-hover:bg-linear-to-r dark:group-hover:from-blue-500 dark:group-hover:via-purple-500 dark:group-hover:to-pink-500">
                                     {{ $group['title'] }}
                                 </h3>
                             </div>
@@ -118,8 +118,8 @@
                 </div>
 
                 <!-- Gradient overlays for smooth edges -->
-                <div class="absolute left-0 top-0 h-full w-16 bg-gradient-to-r from-[#1A1F2C] to-transparent z-10 pointer-events-none"></div>
-                <div class="absolute right-0 top-0 h-full w-16 bg-gradient-to-l from-[#1A1F2C] to-transparent z-10 pointer-events-none"></div>
+                <div class="absolute left-0 top-0 h-full w-16 bg-linear-to-r from-[#1A1F2C] to-transparent z-10 pointer-events-none"></div>
+                <div class="absolute right-0 top-0 h-full w-16 bg-linear-to-l from-[#1A1F2C] to-transparent z-10 pointer-events-none"></div>
             </div>
         </div>
     </div>

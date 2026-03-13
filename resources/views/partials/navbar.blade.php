@@ -2,8 +2,8 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-16">
             <!-- Logo -->
-            <a href="/" class="flex-shrink-0">
-                <span class="text-2xl font-bold bg-gradient-to-r from-blue-600 via-purple-500 to-pink-500 text-transparent bg-clip-text transform hover:scale-105 transition-all duration-300">
+            <a href="/" class="shrink-0">
+                <span class="text-2xl font-bold bg-linear-to-r from-blue-600 via-purple-500 to-pink-500 text-transparent bg-clip-text transform hover:scale-105 transition-all duration-300">
                     HarryDev
                 </span>
             </a>
