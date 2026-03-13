@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Filament\Resources\BlogsResource\Pages;
+namespace App\Filament\Resources\Blogs\Pages;
 
 use App\Enums\PostStatus;
-use App\Filament\Resources\BlogsResource;
+use App\Filament\Resources\Blogs\BlogsResource;
 use Filament\Resources\Pages\CreateRecord;
 
 class CreateBlogs extends CreateRecord

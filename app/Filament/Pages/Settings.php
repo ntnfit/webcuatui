@@ -2,14 +2,15 @@
 
 namespace App\Filament\Pages;
 
+use Filament\Schemas\Schema;
+use Filament\Schemas\Components\Tabs;
+use Filament\Schemas\Components\Tabs\Tab;
+use Filament\Schemas\Components\Grid;
 use App\Models\settings as SettingsModel;
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Grid;
-use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
-use Filament\Forms\Form;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
 
@@ -17,9 +18,9 @@ class Settings extends Page implements HasForms
 {
     use InteractsWithForms;
 
-    protected static ?string $navigationIcon = 'heroicon-o-cog';
+    protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-cog';
 
-    protected static string $view = 'filament.pages.settings';
+    protected string $view = 'filament.pages.settings';
 
     protected SettingsModel $settings;
 
@@ -43,13 +44,13 @@ class Settings extends Page implements HasForms
         $this->data['more_configs'] = $this->data['more_configs'] ?? [];
     }
 
-    public function form(Form $form): Form
+    public function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
+        return $schema
+            ->components([
                 Tabs::make('Tabs')
                     ->tabs([
-                        Tabs\Tab::make('Application')
+                        Tab::make('Application')
                             ->icon('heroicon-o-tv')
                             ->schema([
                                 TextInput::make('site_name')

@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
+use Filament\Schemas\Components\Utilities\Set;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Set;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;

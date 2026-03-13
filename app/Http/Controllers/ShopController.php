@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
+use App\Models\OrderDetail;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -129,7 +131,7 @@ class ShopController extends Controller
         }
 
         // Create order
-        $order = \App\Models\Order::create([
+        $order = Order::create([
             'customer_name' => $validated['customer_name'],
             'customer_email' => $validated['customer_email'],
             'customer_phone' => $validated['customer_phone'],
@@ -144,7 +146,7 @@ class ShopController extends Controller
             $product = $products->firstWhere('id', $item['id']);
             if ($product) {
                 $price = $product->sale_price ?? $product->price;
-                \App\Models\OrderDetail::create([
+                OrderDetail::create([
                     'order_id' => $order->id,
                     'product_id' => $product->id,
                     'quantity' => $item['quantity'],

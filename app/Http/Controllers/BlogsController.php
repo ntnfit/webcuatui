@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
+use Exception;
 use App\Models\blogs;
 use Illuminate\Http\Request;
 
@@ -48,7 +50,7 @@ class BlogsController extends Controller
         $posts = $blogs->through(fn ($post) => $post->getDataArray());
 
         // Lấy danh sách categories từ database
-        $categories = \App\Models\Category::pluck('name')->toArray();
+        $categories = Category::pluck('name')->toArray();
 
         // Thêm "Tất cả" vào đầu danh sách nếu chưa có
         if (! in_array('Tất cả', $categories)) {
@@ -168,7 +170,7 @@ class BlogsController extends Controller
                     ] : null,
                 ],
             ]);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             // Xử lý lỗi và trả về trang lỗi
             return view('errors.404', ['error' => 'Không thể tìm thấy bài viết này. '.$e->getMessage()]);
         }

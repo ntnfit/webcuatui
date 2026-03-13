@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Filament\Resources\OrderResource\Pages;
+namespace App\Filament\Resources\Orders\Pages;
 
-use App\Filament\Resources\OrderResource;
+use Filament\Actions\EditAction;
+use App\Filament\Resources\Orders\OrderResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ViewRecord;
 
@@ -13,7 +14,7 @@ class ViewOrder extends ViewRecord
     protected function getHeaderActions(): array
     {
         return [
-            Actions\EditAction::make(),
+            EditAction::make(),
         ];
     }
 }

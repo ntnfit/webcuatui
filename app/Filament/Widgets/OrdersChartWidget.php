@@ -2,15 +2,16 @@
 
 namespace App\Filament\Widgets;
 
+use App\Models\Order;
 use Filament\Widgets\ChartWidget;
 
 class OrdersChartWidget extends ChartWidget
 {
-    protected static ?string $heading = 'Orders per month';
+    protected ?string $heading = 'Orders per month';
 
     protected function getData(): array
     {
-        $data = \App\Models\Order::selectRaw('COUNT(*) as count, MONTH(created_at) as month')
+        $data = Order::selectRaw('COUNT(*) as count, MONTH(created_at) as month')
             ->whereYear('created_at', date('Y'))
             ->groupBy('month')
             ->orderBy('month')

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Hash;
 use App\Models\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,7 +23,7 @@ class SocialController extends Controller
             $user = Customer::create([
                 'name' => $socialUser->name,
                 'email' => $socialUser->email,
-                'password' => \Hash::make(rand(100000, 999999)),
+                'password' => Hash::make(rand(100000, 999999)),
                 'google_id' => $socialUser->id,
             ]);
         }

@@ -2,6 +2,7 @@
 
 namespace App\Filament\Widgets;
 
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget as BaseWidget;
@@ -20,10 +21,10 @@ class LatestOrdersWidget extends BaseWidget
                 Order::query()->latest()->limit(5)
             )
             ->columns([
-                Tables\Columns\TextColumn::make('id')->label('Order ID'),
-                Tables\Columns\TextColumn::make('customer_name')->label('Customer'),
-                Tables\Columns\TextColumn::make('total_amount')->money('VND'),
-                Tables\Columns\TextColumn::make('status')
+                TextColumn::make('id')->label('Order ID'),
+                TextColumn::make('customer_name')->label('Customer'),
+                TextColumn::make('total_amount')->money('VND'),
+                TextColumn::make('status')
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {
                         'pending' => 'gray',
@@ -32,7 +33,7 @@ class LatestOrdersWidget extends BaseWidget
                         'cancelled' => 'danger',
                         default => 'gray',
                     }),
-                Tables\Columns\TextColumn::make('created_at')->dateTime(),
+                TextColumn::make('created_at')->dateTime(),
             ]);
     }
 }

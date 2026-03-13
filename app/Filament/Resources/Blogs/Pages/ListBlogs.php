@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Filament\Resources\BlogsResource\Pages;
+namespace App\Filament\Resources\Blogs\Pages;
 
-use App\Filament\Resources\BlogsResource;
-use App\Filament\Resources\BlogsResource\Widgets\BlogPostPublishedChart;
+use Filament\Actions\CreateAction;
+use Filament\Schemas\Components\Tabs\Tab;
+use App\Filament\Resources\Blogs\BlogsResource;
+use App\Filament\Resources\Blogs\Widgets\BlogPostPublishedChart;
 use Filament\Actions;
-use Filament\Resources\Components\Tab;
 use Filament\Resources\Pages\ListRecords;
 
 class ListBlogs extends ListRecords
@@ -20,7 +21,7 @@ class ListBlogs extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            CreateAction::make(),
         ];
     }
 

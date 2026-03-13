@@ -1,12 +1,28 @@
 <?php
 
-namespace App\Filament\Resources;
+namespace App\Filament\Resources\Orders;
 
+use Filament\Schemas\Schema;
+use Filament\Schemas\Components\Section;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\Select;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\BadgeColumn;
+use Filament\Tables\Filters\SelectFilter;
+use Filament\Actions\ViewAction;
+use Filament\Actions\EditAction;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
+use App\Filament\Resources\Orders\RelationManagers\OrderDetailsRelationManager;
+use App\Filament\Resources\Orders\Pages\ListOrders;
+use App\Filament\Resources\Orders\Pages\CreateOrder;
+use App\Filament\Resources\Orders\Pages\ViewOrder;
+use App\Filament\Resources\Orders\Pages\EditOrder;
 use App\Filament\Resources\OrderResource\Pages;
 use App\Filament\Resources\OrderResource\RelationManagers;
 use App\Models\Order;
 use Filament\Forms;
-use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -17,34 +33,34 @@ class OrderResource extends Resource
 {
     protected static ?string $model = Order::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-rectangle-stack';
 
-    protected static ?string $navigationGroup = 'E-commerce Management';
+    protected static string | \UnitEnum | null $navigationGroup = 'E-commerce Management';
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
-                Forms\Components\Section::make('Customer Information')
+        return $schema
+            ->components([
+                Section::make('Customer Information')
                     ->schema([
-                        Forms\Components\TextInput::make('customer_name')
+                        TextInput::make('customer_name')
                             ->required()
                             ->maxLength(255)
                             ->label('Full Name'),
                         
-                        Forms\Components\TextInput::make('customer_email')
+                        TextInput::make('customer_email')
                             ->email()
                             ->required()
                             ->maxLength(255)
                             ->label('Email'),
                         
-                        Forms\Components\TextInput::make('customer_phone')
+                        TextInput::make('customer_phone')
                             ->tel()
                             ->required()
                             ->maxLength(255)
                             ->label('Phone Number'),
                         
-                        Forms\Components\Textarea::make('shipping_address')
+                        Textarea::make('shipping_address')
                             ->required()
                             ->rows(3)
                             ->columnSpanFull()
@@ -52,15 +68,15 @@ class OrderResource extends Resource
                     ])
                     ->columns(2),
                 
-                Forms\Components\Section::make('Order Details')
+                Section::make('Order Details')
                     ->schema([
-                        Forms\Components\TextInput::make('total_amount')
+                        TextInput::make('total_amount')
                             ->required()
                             ->numeric()
                             ->prefix('₫')
                             ->label('Total Amount'),
                         
-                        Forms\Components\Select::make('status')
+                        Select::make('status')
                             ->required()
                             ->options([
                                 'new' => 'New',
@@ -72,7 +88,7 @@ class OrderResource extends Resource
                             ->default('new')
                             ->label('Order Status'),
                         
-                        Forms\Components\Select::make('payment_method')
+                        Select::make('payment_method')
                             ->required()
                             ->options([
                                 'cod' => 'Cash on Delivery',
@@ -82,7 +98,7 @@ class OrderResource extends Resource
                             ->default('cod')
                             ->label('Payment Method'),
                         
-                        Forms\Components\TextInput::make('user_id')
+                        TextInput::make('user_id')
                             ->numeric()
                             ->label('User ID (Optional)'),
                     ])
@@ -94,31 +110,31 @@ class OrderResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('id')
+                TextColumn::make('id')
                     ->label('Order #')
                     ->sortable()
                     ->searchable(),
                 
-                Tables\Columns\TextColumn::make('customer_name')
+                TextColumn::make('customer_name')
                     ->searchable()
                     ->label('Customer'),
                 
-                Tables\Columns\TextColumn::make('customer_email')
+                TextColumn::make('customer_email')
                     ->searchable()
                     ->toggleable()
                     ->label('Email'),
                 
-                Tables\Columns\TextColumn::make('customer_phone')
+                TextColumn::make('customer_phone')
                     ->searchable()
                     ->toggleable()
                     ->label('Phone'),
                 
-                Tables\Columns\TextColumn::make('total_amount')
+                TextColumn::make('total_amount')
                     ->formatStateUsing(fn ($state) => number_format($state, 0, ',', '.') . '₫')
                     ->sortable()
                     ->label('Total'),
                 
-                Tables\Columns\BadgeColumn::make('status')
+                BadgeColumn::make('status')
                     ->colors([
                         'secondary' => 'new',
                         'warning' => 'pending',
@@ -128,7 +144,7 @@ class OrderResource extends Resource
                     ])
                     ->label('Status'),
                 
-                Tables\Columns\TextColumn::make('payment_method')
+                TextColumn::make('payment_method')
                     ->formatStateUsing(fn ($state) => match($state) {
                         'cod' => 'COD',
                         'bank_transfer' => 'Bank Transfer',
@@ -138,13 +154,13 @@ class OrderResource extends Resource
                     ->toggleable()
                     ->label('Payment'),
                 
-                Tables\Columns\TextColumn::make('created_at')
+                TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
                     ->label('Order Date'),
             ])
             ->filters([
-                Tables\Filters\SelectFilter::make('status')
+                SelectFilter::make('status')
                     ->options([
                         'new' => 'New',
                         'pending' => 'Pending',
@@ -153,13 +169,13 @@ class OrderResource extends Resource
                         'cancelled' => 'Cancelled',
                     ]),
             ])
-            ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
+            ->recordActions([
+                ViewAction::make(),
+                EditAction::make(),
             ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+            ->toolbarActions([
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
                 ]),
             ])
             ->defaultSort('created_at', 'desc');
@@ -168,17 +184,17 @@ class OrderResource extends Resource
     public static function getRelations(): array
     {
         return [
-            RelationManagers\OrderDetailsRelationManager::class,
+            OrderDetailsRelationManager::class,
         ];
     }
 
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListOrders::route('/'),
-            'create' => Pages\CreateOrder::route('/create'),
-            'view' => Pages\ViewOrder::route('/{record}'),
-            'edit' => Pages\EditOrder::route('/{record}/edit'),
+            'index' => ListOrders::route('/'),
+            'create' => CreateOrder::route('/create'),
+            'view' => ViewOrder::route('/{record}'),
+            'edit' => EditOrder::route('/{record}/edit'),
         ];
     }
 }

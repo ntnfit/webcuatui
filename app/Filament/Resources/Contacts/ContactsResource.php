@@ -1,25 +1,30 @@
 <?php
 
-namespace App\Filament\Resources;
+namespace App\Filament\Resources\Contacts;
 
+use Filament\Actions\Concerns\InteractsWithActions;
+use Filament\Support\Enums\Width;
+use Filament\Schemas\Schema;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
+use App\Filament\Resources\Contacts\Pages\ListContacts;
 use App\Filament\Resources\ContactsResource\Pages;
 use App\Models\Contacts;
-use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Support\Enums\MaxWidth;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Table;
 use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
 
-class ContactsResource extends Resource
+class ContactsResource extends Resource 
 {
+    use InteractsWithActions;
     protected static ?string $model = Contacts::class;
 
     use InteractsWithTable;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-rectangle-stack';
 
     protected static ?string $navigationLabel = 'Contacts';
 
@@ -28,15 +33,15 @@ class ContactsResource extends Resource
         return Contacts::count();
     }
 
-    public function getMaxContentWidth(): MaxWidth
+    public function getMaxContentWidth(): Width
     {
-        return MaxWidth::Full;
+        return Width::Full;
     }
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
+        return $schema
+            ->components([
                 //
             ]);
     }
@@ -72,12 +77,12 @@ class ContactsResource extends Resource
             ->filters([
                 //
             ])
-            ->actions([
+            ->recordActions([
                 // Tables\Actions\EditAction::make(),
             ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+            ->toolbarActions([
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
                 ]),
                 ExportBulkAction::make(),
             ]);
@@ -93,7 +98,7 @@ class ContactsResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListContacts::route('/'),
+            'index' => ListContacts::route('/'),
             // 'create' => Pages\CreateContacts::route('/create'),
             // 'edit' => Pages\EditContacts::route('/{record}/edit'),
         ];

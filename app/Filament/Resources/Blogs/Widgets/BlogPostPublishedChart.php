@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Filament\Resources\BlogsResource\Widgets;
+namespace App\Filament\Resources\Blogs\Widgets;
 
 use App\Models\blogs as Post;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 
 class BlogPostPublishedChart extends BaseWidget
 {
-    protected static ?string $pollingInterval = '10s';
+    protected ?string $pollingInterval = '10s';
 
     public function getColumns(): int
     {

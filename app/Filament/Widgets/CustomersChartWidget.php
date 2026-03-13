@@ -2,15 +2,16 @@
 
 namespace App\Filament\Widgets;
 
+use App\Models\Customer;
 use Filament\Widgets\ChartWidget;
 
 class CustomersChartWidget extends ChartWidget
 {
-    protected static ?string $heading = 'Total customers';
+    protected ?string $heading = 'Total customers';
 
     protected function getData(): array
     {
-        $data = \App\Models\Customer::selectRaw('COUNT(*) as count, MONTH(created_at) as month')
+        $data = Customer::selectRaw('COUNT(*) as count, MONTH(created_at) as month')
             ->whereYear('created_at', date('Y'))
             ->groupBy('month')
             ->orderBy('month')

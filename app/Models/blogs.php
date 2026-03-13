@@ -2,21 +2,20 @@
 
 namespace App\Models;
 
+use Filament\Schemas\Components\Section;
+use Filament\Schemas\Components\Fieldset;
+use Filament\Schemas\Components\Tabs;
+use Filament\Schemas\Components\Tabs\Tab;
+use Filament\Schemas\Components\Utilities\Set;
 use AmidEsfahani\FilamentTinyEditor\TinyEditor;
 use App\Enums\PostStatus;
 use App\Enums\TypePost;
 use Filament\Forms\Components\DateTimePicker;
-use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\ToggleButtons;
-use Filament\Forms\Set;
-use FilamentTiptapEditor\Enums\TiptapOutput;
-use FilamentTiptapEditor\TiptapEditor;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -131,7 +130,7 @@ class blogs extends Model
 
                     Tabs::make('Tabs')
                         ->tabs([
-                            Tabs\Tab::make('Vietnamese')
+                            Tab::make('Vietnamese')
                                 ->schema([
                                     TextInput::make('title')
                                         ->live(true)
@@ -165,7 +164,7 @@ class blogs extends Model
                                         ->columnSpan('full')
                                         ->required(),
                                 ]),
-                            Tabs\Tab::make('Enghlish')
+                            Tab::make('Enghlish')
                                 ->schema([
                                     TextInput::make('title_en')
                                         ->label('Title English')

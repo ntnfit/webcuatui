@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Filament\Resources\BlogsResource\Pages;
+namespace App\Filament\Resources\Blogs\Pages;
 
+use Filament\Actions\DeleteAction;
 use App\Enums\PostStatus;
-use App\Filament\Resources\BlogsResource;
+use App\Filament\Resources\Blogs\BlogsResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 
@@ -14,7 +15,7 @@ class EditBlogs extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-            Actions\DeleteAction::make(),
+            DeleteAction::make(),
         ];
     }
 

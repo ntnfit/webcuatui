@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Filament\Resources\CouponResource\Pages;
+namespace App\Filament\Resources\Coupons\Pages;
 
-use App\Filament\Resources\CouponResource;
+use Filament\Actions\CreateAction;
+use App\Filament\Resources\Coupons\CouponResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 
@@ -13,7 +14,7 @@ class ListCoupons extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            CreateAction::make(),
         ];
     }
 }

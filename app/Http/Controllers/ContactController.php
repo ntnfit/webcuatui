@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use DB;
+use Exception;
 use App\Models\ContactReason;
 use App\Models\Contacts;
 use Illuminate\Http\Request;
@@ -13,7 +15,7 @@ class ContactController extends Controller
     public function sendemail()
     {
 
-        $emails = \DB::table('contacts')->pluck('email')->toArray();
+        $emails = DB::table('contacts')->pluck('email')->toArray();
         $batches = array_chunk($emails, 90);
         $logFile = storage_path('logs/email_log.txt'); // Đường dẫn file log
 
@@ -34,7 +36,7 @@ class ContactController extends Controller
 
                 // Ghi log email gửi thành công
                 file_put_contents($logFile, 'Success (BCC): '.implode(', ', $batch)."\n", FILE_APPEND);
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 // Nếu gửi BCC lỗi, thử gửi từng email với TO
                 file_put_contents($logFile, 'Error (BCC): '.$e->getMessage()."\n", FILE_APPEND);
                 foreach ($batch as $email) {
@@ -45,7 +47,7 @@ class ContactController extends Controller
                                 ->html($databody);
                         });
                         file_put_contents($logFile, 'Success (TO): '.$email."\n", FILE_APPEND);
-                    } catch (\Exception $e) {
+                    } catch (Exception $e) {
                         file_put_contents($logFile, 'Error (TO): '.$email.' - '.$e->getMessage()."\n", FILE_APPEND);
                     }
                 }

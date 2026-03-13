@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Filament\Resources\ContactsResource\Pages;
+namespace App\Filament\Resources\Contacts\Pages;
 
 use App\Events\CampaignEmailEvent;
-use App\Filament\Resources\ContactsResource;
+use App\Filament\Resources\Contacts\ContactsResource;
 use Filament\Actions;
 use Filament\Actions\Action;
 use Filament\Resources\Pages\ListRecords;

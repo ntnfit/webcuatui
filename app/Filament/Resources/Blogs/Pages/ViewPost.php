@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Filament\Resources\BlogsResource\Pages;
+namespace App\Filament\Resources\Blogs\Pages;
 
 use App\Events\BlogPublished;
-use App\Filament\Resources\BlogsResource;
+use App\Filament\Resources\Blogs\BlogsResource;
 use App\Models\blogs as Post;
 use Filament\Actions\Action;
 use Filament\Resources\Pages\ViewRecord;

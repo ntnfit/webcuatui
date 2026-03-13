@@ -2,6 +2,7 @@
 
 namespace App\Forms\Components;
 
+use Filament\Actions\Action;
 use App\FilamentTiptapEditor\Action\GridBuilderAction;
 use App\FilamentTiptapEditor\Action\OEmbedAction;
 use App\FilamentTiptapEditor\Action\SourceAction;
@@ -10,7 +11,6 @@ use App\FilamentTiptapEditor\Concerns\HasCustomActions;
 use App\FilamentTiptapEditor\Concerns\InteractsWithMedia;
 use App\FilamentTiptapEditor\Concerns\InteractsWithMenus;
 use Closure;
-use Filament\Forms\Components\Actions\Action;
 use Filament\Forms\Components\Concerns\HasExtraInputAttributes;
 use Filament\Forms\Components\Concerns\HasPlaceholder;
 use Filament\Forms\Components\Field;
@@ -247,7 +247,7 @@ class TiptapEditor extends Field
     public function getInsertBlockAction(): Action
     {
         return Action::make('insertBlock')
-            ->form(function (tiptapEditor $component, Component $livewire, array $arguments): ?array {
+            ->schema(function (tiptapEditor $component, Component $livewire, array $arguments): ?array {
                 $block = $component->getBlock($arguments['type']);
 
                 if (empty($block->getFormSchema())) {
@@ -323,7 +323,7 @@ class TiptapEditor extends Field
             ->slideOver(function (tiptapEditor $component, Component $livewire, array $arguments): string {
                 return isset($arguments['type']) && $component->getBlock($arguments['type'])->isSlideOver();
             })
-            ->form(function (tiptapEditor $component, Component $livewire, array $arguments): array {
+            ->schema(function (tiptapEditor $component, Component $livewire, array $arguments): array {
                 return $component
                     ->getBlock($arguments['type'])
                     ->getFormSchema();

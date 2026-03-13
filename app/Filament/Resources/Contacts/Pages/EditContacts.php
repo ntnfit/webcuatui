@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Filament\Resources\ContactsResource\Pages;
+namespace App\Filament\Resources\Contacts\Pages;
 
-use App\Filament\Resources\ContactsResource;
+use Filament\Actions\DeleteAction;
+use App\Filament\Resources\Contacts\ContactsResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 
@@ -13,7 +14,7 @@ class EditContacts extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-            Actions\DeleteAction::make(),
+            DeleteAction::make(),
         ];
     }
 }
