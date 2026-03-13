@@ -184,7 +184,7 @@ class blogs extends Model
                                         ->label('Sub Title English')
                                         ->maxLength(255)
                                         ->columnSpanFull(),
-                                    TiptapEditor::make('body_en')
+                                    RichEditor::make('body_en')
                                         ->label('Body English')
                                         ->profile('default')
                                         ->disableFloatingMenus()
