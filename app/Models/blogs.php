@@ -186,7 +186,6 @@ class blogs extends Model
                                         ->columnSpanFull(),
                                     RichEditor::make('body_en')
                                         ->label('Body English')
-                                        ->profile('default')
                                         ->disableFloatingMenus()
                                         ->extraInputAttributes(['style' => 'max-height: 30rem; min-height: 24rem', 'source_code_editor'])
                                         ->columnSpanFull(),
