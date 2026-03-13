@@ -161,7 +161,7 @@ class blogs extends Model
                                         ->fileAttachmentsVisibility('public')
                                         ->fileAttachmentsDirectory('uploads')
                                        
-                                        ->ltr() // Set RTL or use ->direction('auto|rtl|ltr')
+                                      //  ->ltr() // Set RTL or use ->direction('auto|rtl|ltr')
                                         ->columnSpan('full')
                                         ->required(),
                                 ]),
