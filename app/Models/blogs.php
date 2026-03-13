@@ -110,6 +110,7 @@ class blogs extends Model
     {
         return [
             Section::make('Blog Details')
+            ->columnSpanFull()
                 ->schema([
                     Fieldset::make('Titles')
                         ->schema([
