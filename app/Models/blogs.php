@@ -7,7 +7,8 @@ use Filament\Schemas\Components\Fieldset;
 use Filament\Schemas\Components\Tabs;
 use Filament\Schemas\Components\Tabs\Tab;
 use Filament\Schemas\Components\Utilities\Set;
-use AmidEsfahani\FilamentTinyEditor\TinyEditor;
+//use AmidEsfahani\FilamentTinyEditor\TinyEditor;
+use Filament\Forms\Components\RichEditor;
 use App\Enums\PostStatus;
 use App\Enums\TypePost;
 use Filament\Forms\Components\DateTimePicker;
@@ -155,7 +156,7 @@ class blogs extends Model
                                     //                                        ->output(TiptapOutput::Html)
                                     //                                        ->required()
                                     //                                        ->columnSpanFull(),
-                                    TinyEditor::make('body')
+                                    RichEditor::make('body')
                                         ->fileAttachmentsDisk('public')
                                         ->fileAttachmentsVisibility('public')
                                         ->fileAttachmentsDirectory('uploads')
