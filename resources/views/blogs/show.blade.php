@@ -284,63 +284,80 @@
             </aside>
         </div>
     </div>
-</div>
 
-{{-- Share modal --}}
-<div x-show="shareOpen"
-     x-transition:enter="transition ease-out duration-200"
-     x-transition:enter-start="opacity-0"
-     x-transition:enter-end="opacity-100"
-     x-transition:leave="transition ease-in duration-150"
-     x-transition:leave-start="opacity-100"
-     x-transition:leave-end="opacity-0"
-     class="fixed inset-0 z-50 flex items-center justify-center p-4"
-     @keydown.escape.window="shareOpen = false"
-     style="display:none">
-    <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" @click="shareOpen = false"></div>
-    <div class="relative w-full max-w-md bg-gh-surface border border-gh rounded-lg shadow-2xl p-6"
+    {{-- Share modal — inside x-data scope --}}
+    <div x-show="shareOpen"
          x-transition:enter="transition ease-out duration-200"
-         x-transition:enter-start="opacity-0 scale-95"
-         x-transition:enter-end="opacity-100 scale-100">
+         x-transition:enter-start="opacity-0"
+         x-transition:enter-end="opacity-100"
+         x-transition:leave="transition ease-in duration-150"
+         x-transition:leave-start="opacity-100"
+         x-transition:leave-end="opacity-0"
+         class="fixed inset-0 z-50 flex items-center justify-center p-4"
+         @keydown.escape.window="shareOpen = false"
+         style="display:none">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" @click="shareOpen = false"></div>
+        <div class="relative w-full max-w-sm bg-gh-surface border border-gh rounded-lg shadow-2xl overflow-hidden"
+             x-transition:enter="transition ease-out duration-200"
+             x-transition:enter-start="opacity-0 scale-95"
+             x-transition:enter-end="opacity-100 scale-100">
 
-        <div class="flex items-center justify-between mb-5">
-            <span class="text-sm font-mono text-gh flex items-center gap-2">
-                <svg class="h-4 w-4 text-gh-green" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
-                share post
-            </span>
-            <button @click="shareOpen = false" class="text-gh-subtle hover:text-gh transition-colors cursor-pointer">
-                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
-            </button>
-        </div>
+            {{-- Window chrome --}}
+            <div class="flex items-center gap-1.5 px-4 py-3 border-b border-gh bg-gh-raised select-none">
+                <span class="w-2.5 h-2.5 rounded-full bg-[#f85149]"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-[#d29922]"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-[#3fb950]"></span>
+                <span class="ml-2 text-[10px] font-mono text-gh-subtle flex-1">share_post.sh</span>
+                <button @click="shareOpen = false" class="text-gh-subtle hover:text-gh transition-colors cursor-pointer" aria-label="Close">
+                    <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+                </button>
+            </div>
 
-        <div class="flex gap-2 mb-5">
-            <input type="text" readonly value="{{ request()->url() }}"
-                class="flex-1 text-xs px-3 py-2 rounded border border-gh bg-gh-base text-gh-muted font-mono focus:outline-none">
-            <button @click="copyUrl()" class="px-3 py-2 rounded border font-mono text-xs transition-colors cursor-pointer"
-                :class="copied ? 'bg-[#1a3a1a] border-[#3fb950] text-gh-green' : 'bg-gh-raised border-gh text-gh hover:border-[#58a6ff]'">
-                <span x-text="copied ? '✓ copied' : 'copy'"></span>
-            </button>
-        </div>
+            <div class="p-5 space-y-4">
+                {{-- Copy URL row --}}
+                <div>
+                    <div class="text-[10px] font-mono text-gh-subtle mb-2">// copy link</div>
+                    <div class="flex gap-2">
+                        <input type="text" readonly value="{{ request()->url() }}"
+                            class="flex-1 text-[11px] px-3 py-2 rounded border border-gh bg-gh-base text-gh-muted font-mono focus:outline-none truncate">
+                        <button @click="copyUrl()"
+                            class="px-3 py-2 rounded border font-mono text-[11px] transition-colors cursor-pointer shrink-0"
+                            :class="copied
+                                ? 'bg-gh-b-green border-gh-b-green text-gh-green'
+                                : 'bg-gh-raised border-gh text-gh hover:border-gh-blue hover:text-gh-blue'">
+                            <span x-text="copied ? '✓ copied' : 'copy'"></span>
+                        </button>
+                    </div>
+                </div>
 
-        <div class="grid grid-cols-3 gap-2">
-            <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(request()->url()) }}"
-                target="_blank" rel="noopener noreferrer"
-                class="flex items-center justify-center gap-1.5 px-3 py-2 rounded border border-gh text-xs font-mono text-gh-muted hover:border-[#58a6ff] hover:text-gh-blue transition-colors">
-                <svg class="h-3.5 w-3.5 text-[#1877f2]" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-                Facebook
-            </a>
-            <a href="https://twitter.com/intent/tweet?url={{ urlencode(request()->url()) }}&text={{ urlencode($blog['title']) }}"
-                target="_blank" rel="noopener noreferrer"
-                class="flex items-center justify-center gap-1.5 px-3 py-2 rounded border border-gh text-xs font-mono text-gh-muted hover:border-[#58a6ff] hover:text-gh-blue transition-colors">
-                <svg class="h-3.5 w-3.5 text-[#1da1f2]" fill="currentColor" viewBox="0 0 24 24"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.84 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg>
-                Twitter
-            </a>
-            <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ urlencode(request()->url()) }}&title={{ urlencode($blog['title']) }}"
-                target="_blank" rel="noopener noreferrer"
-                class="flex items-center justify-center gap-1.5 px-3 py-2 rounded border border-gh text-xs font-mono text-gh-muted hover:border-[#58a6ff] hover:text-gh-blue transition-colors">
-                <svg class="h-3.5 w-3.5 text-[#0a66c2]" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-                LinkedIn
-            </a>
+                {{-- Social buttons --}}
+                <div>
+                    <div class="text-[10px] font-mono text-gh-subtle mb-2">// share on</div>
+                    <div class="flex flex-col gap-2">
+                        <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(request()->url()) }}"
+                            target="_blank" rel="noopener noreferrer"
+                            class="flex items-center gap-3 px-4 py-2.5 rounded border border-gh bg-gh-base hover:bg-gh-raised hover:border-[#1877f2] text-gh-muted hover:text-gh transition-colors group">
+                            <svg class="h-4 w-4 text-[#1877f2] shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                            <span class="text-xs font-mono">Facebook</span>
+                            <svg class="h-3 w-3 ml-auto opacity-0 group-hover:opacity-100 transition-opacity" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>
+                        </a>
+                        <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ urlencode(request()->url()) }}&title={{ urlencode($blog['title']) }}"
+                            target="_blank" rel="noopener noreferrer"
+                            class="flex items-center gap-3 px-4 py-2.5 rounded border border-gh bg-gh-base hover:bg-gh-raised hover:border-[#0a66c2] text-gh-muted hover:text-gh transition-colors group">
+                            <svg class="h-4 w-4 text-[#0a66c2] shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                            <span class="text-xs font-mono">LinkedIn</span>
+                            <svg class="h-3 w-3 ml-auto opacity-0 group-hover:opacity-100 transition-opacity" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>
+                        </a>
+                        <a href="https://twitter.com/intent/tweet?url={{ urlencode(request()->url()) }}&text={{ urlencode($blog['title']) }}"
+                            target="_blank" rel="noopener noreferrer"
+                            class="flex items-center gap-3 px-4 py-2.5 rounded border border-gh bg-gh-base hover:bg-gh-raised hover:border-[#1da1f2] text-gh-muted hover:text-gh transition-colors group">
+                            <svg class="h-4 w-4 text-[#1da1f2] shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.84 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg>
+                            <span class="text-xs font-mono">Twitter / X</span>
+                            <svg class="h-3 w-3 ml-auto opacity-0 group-hover:opacity-100 transition-opacity" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
