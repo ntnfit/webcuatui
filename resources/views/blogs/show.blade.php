@@ -131,22 +131,23 @@
         <div class="grid grid-cols-1 lg:grid-cols-[1fr_240px] gap-10">
 
             {{-- Article body --}}
-            <article>
+            <article class="min-w-0">
                 <div id="blog-content"
-                    class="prose prose-invert
+                    class="prose dark:prose-invert
                            prose-headings:font-mono prose-headings:text-gh prose-headings:scroll-mt-24
                            prose-h2:border-b prose-h2:border-gh-subtle prose-h2:pb-2
                            prose-p:text-gh prose-p:leading-7
                            prose-a:text-gh-blue prose-a:no-underline hover:prose-a:underline
                            prose-strong:text-gh
                            prose-code:text-gh-orange prose-code:bg-gh-surface prose-code:border prose-code:border-gh prose-code:rounded prose-code:px-1.5 prose-code:py-0.5 prose-code:text-sm prose-code:font-mono prose-code:before:content-none prose-code:after:content-none
-                           prose-pre:bg-gh-surface prose-pre:border prose-pre:border-gh prose-pre:rounded-md prose-pre:relative
+                           prose-pre:bg-gh-surface prose-pre:border prose-pre:border-gh prose-pre:rounded-md prose-pre:relative prose-pre:overflow-x-auto
                            prose-blockquote:border-l-[#3fb950] prose-blockquote:text-gh-muted prose-blockquote:bg-gh-surface prose-blockquote:py-1 prose-blockquote:px-4 prose-blockquote:rounded-r
                            prose-li:text-gh prose-li:marker:text-gh-green
                            prose-hr:border-gh-subtle
-                           prose-img:rounded-md prose-img:border prose-img:border-gh-subtle
+                           prose-img:rounded-md prose-img:border prose-img:border-gh-subtle prose-img:max-w-full
+                           prose-table:block prose-table:overflow-x-auto
                            prose-th:bg-gh-surface prose-th:text-gh prose-td:border-gh
-                           max-w-none">
+                           max-w-none overflow-hidden">
                     {!! $blog['body'] !!}
                 </div>
 

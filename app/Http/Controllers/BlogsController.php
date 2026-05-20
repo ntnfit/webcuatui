@@ -178,14 +178,10 @@ class BlogsController extends Controller
 
     public function adjustInlineStylesForDarkMode(string $html): string
     {
-        // Chuyển màu đen sang trắng nếu có
-        $html = preg_replace('/color:\\s*#000000/i', 'color: #ffffff', $html);
-
-        // Tuỳ chọn: chuyển một số màu khác để rõ hơn trong dark mode
-        $html = preg_replace('/color:\\s*#222222/i', 'color: #dddddd', $html);
-
-        // Tuỳ chọn: xử lý background nếu cần
-        $html = preg_replace('/background-color:\\s*#ffffff/i', 'background-color: #1e1e1e', $html);
+        // Strip inline color/background styles from TinyMCE content so CSS
+        // variables (--gh-text, --gh-bg) handle dark/light switching instead.
+        $html = preg_replace('/\s*color\s*:\s*#(?:000000|222222|333333|111111)\s*;?/i', '', $html);
+        $html = preg_replace('/\s*background-color\s*:\s*#(?:ffffff|fefefe|f9f9f9)\s*;?/i', '', $html);
 
         return $html;
     }
