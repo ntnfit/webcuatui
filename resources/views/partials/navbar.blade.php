@@ -1,202 +1,183 @@
-<nav class="fixed top-0 left-0 right-0 z-50 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 transition-colors duration-500">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex items-center justify-between h-16">
-            <!-- Logo -->
-            <a href="/" class="shrink-0">
-                <span class="text-2xl font-bold bg-linear-to-r from-blue-600 via-purple-500 to-pink-500 text-transparent bg-clip-text transform hover:scale-105 transition-all duration-300">
-                    HarryDev
-                </span>
+<nav x-data="{ open: false }"
+     class="fixed top-0 left-0 right-0 z-50 bg-white/95 dark:bg-[#0d1117]/95 backdrop-blur-sm border-b border-gray-200 dark:border-[#21262d] transition-colors duration-200">
+
+    {{-- Scroll progress bar --}}
+    <div id="nav-progress"
+         class="absolute bottom-0 left-0 h-px bg-[#58a6ff] transition-[width] duration-100 ease-out"
+         style="width:0%"></div>
+
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+        <div class="flex items-center justify-between h-14">
+
+            {{-- Brand --}}
+            <a href="/" class="flex items-center gap-1 font-mono shrink-0 group">
+                <span class="text-[#3fb950] text-sm group-hover:brightness-125 transition-all">~/</span>
+                <span class="text-sm font-semibold text-gray-900 dark:text-[#e6edf3] transition-colors">HarryDev</span>
+                <span class="hidden sm:inline text-[10px] text-gray-400 dark:text-[#656d76] ml-1 transition-colors">v2.0</span>
             </a>
 
-            <!-- Desktop Menu -->
-            <div class="hidden md:flex items-center space-x-8">
-                @foreach([
-                    ['id' => 'home', 'label' => 'Trang chủ', 'href' => '/#home'],
-                    ['id' => 'about', 'label' => 'Về tôi', 'href' => '/#about'],
-                    ['id' => 'projects', 'label' => 'Dự án', 'href' => '/#projects'],
-                    ['id' => 'contact', 'label' => 'Liên hệ', 'href' => '/#contact'],
-                    ['id' => 'blogs', 'label' => 'Blog', 'href' => '/blogs'],
-                    ['id' => 'shop', 'label' => 'Shop', 'href' => '/shop'],
-                ] as $item)
-                    @if($item['id'] === 'blogs')
-                        <a href="{{ $item['href'] }}" class="nav-link text-sm font-medium transition-colors duration-300 {{ request()->is('blogs*') ? 'text-blue-600 dark:text-blue-400 font-semibold' : 'text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400' }}">
-                            {{ $item['label'] }}
-                        </a>
-                    @elseif($item['id'] === 'shop')
-                        <a href="{{ $item['href'] }}" class="nav-link text-sm font-medium transition-colors duration-300 {{ request()->is('shop*') || request()->is('cart') ? 'text-blue-600 dark:text-blue-400 font-semibold' : 'text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400' }}">
-                            {{ $item['label'] }}
-                        </a>
-                    @else
-                        <a href="{{ $item['href'] }}" data-section="{{ $item['id'] }}" class="nav-link scroll-link text-sm font-medium transition-colors duration-300 {{ !request()->is('blogs*') && !request()->is('shop*') && !request()->is('cart') && $loop->first ? 'text-blue-600 dark:text-blue-400 font-semibold' : 'text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400' }}">
-                            {{ $item['label'] }}
-                        </a>
-                    @endif
-                @endforeach
+            {{-- Desktop nav links --}}
+            @php
+            $navItems = [
+                ['href' => '/#home',    'label' => 'home',    'section' => 'home'],
+                ['href' => '/#about',   'label' => 'about',   'section' => 'about'],
+                ['href' => '/#skills',  'label' => 'skills',  'section' => 'skills'],
+                ['href' => '/blogs',    'label' => 'blog',    'section' => null],
+                ['href' => '/#contact', 'label' => 'contact', 'section' => 'contact'],
+            ];
+            @endphp
 
-                <!-- Theme Toggle (Reusing the one from layout, but maybe we can just hide the one in layout and put one here if needed, or just keep the one in layout) -->
-                <!-- The layout one is fixed top-right, which might overlap with navbar if navbar is fixed top. 
-                     The React Navbar had the toggle INSIDE it. 
-                     The React MainLayout ALSO had a toggle button fixed top-right. 
-                     Let's check MainLayout.tsx again. 
-                     MainLayout.tsx had a fixed toggle button. Navbar.tsx ALSO had a toggle button.
-                     This seems redundant but I will replicate the Navbar one and maybe hide the layout one if it's duplicate.
-                     Actually MainLayout.tsx's toggle is `fixed top-4 right-4`. Navbar is `fixed top-0`. 
-                     They might overlap or be close. 
-                     Let's add the toggle here as well.
-                -->
-                <div class="flex items-center space-x-2">
-                     <!-- Cart Icon -->
-                     <a href="{{ route('cart') }}" aria-label="View cart" class="relative p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors {{ request()->is('cart') ? 'text-blue-600 dark:text-blue-400' : 'text-gray-600 dark:text-gray-300' }}">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
-                        </svg>
-                        <span id="cart-badge" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center hidden">0</span>
-                     </a>
-                     <!-- Theme Toggle -->
-                     <button id="navbar-theme-toggle" aria-label="Toggle theme" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 hidden dark:block text-amber-500" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd" />
-                        </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 block dark:hidden text-blue-400" viewBox="0 0 20 20" fill="currentColor">
-                            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
-                        </svg>
-                     </button>
-                </div>
+            <div class="hidden md:flex items-center gap-0.5">
+                @foreach($navItems as $item)
+                    <a href="{{ $item['href'] }}"
+                       @if($item['section']) data-section="{{ $item['section'] }}" @endif
+                       class="nav-link px-3 py-1.5 text-[11px] font-mono rounded-md transition-colors
+                              {{ ($item['section'] === null && request()->is('blogs*'))
+                                  ? 'text-[#58a6ff] bg-[#121d2f] dark:bg-[#121d2f]'
+                                  : 'text-gray-500 dark:text-[#8b949e] hover:text-gray-900 dark:hover:text-[#e6edf3] hover:bg-gray-100 dark:hover:bg-[#161b22]' }}">
+                        <span class="text-gray-300 dark:text-[#656d76]">./</span>{{ $item['label'] }}
+                    </a>
+                @endforeach
             </div>
 
-            <!-- Mobile Menu Button -->
-            <div class="md:hidden flex items-center">
-                <button id="mobile-menu-btn" aria-label="Toggle mobile menu" class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300 p-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 menu-icon"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 close-icon hidden"><path d="M18 6 6 18"/><path d="m6 6 18 18"/></svg>
+            {{-- Actions --}}
+            <div class="flex items-center gap-1">
+
+                {{-- Theme toggle --}}
+                <button id="theme-toggle"
+                        aria-label="Toggle theme"
+                        class="p-2 rounded-md text-gray-500 dark:text-[#656d76] hover:text-gray-900 dark:hover:text-[#e6edf3] hover:bg-gray-100 dark:hover:bg-[#161b22] transition-colors">
+                    {{-- Moon: shown in light mode --}}
+                    <svg class="h-4 w-4 block dark:hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                    </svg>
+                    {{-- Sun: shown in dark mode --}}
+                    <svg class="h-4 w-4 hidden dark:block" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="4"/>
+                        <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+                    </svg>
                 </button>
+
+                {{-- Cart --}}
+                <a href="{{ route('cart') }}" aria-label="Cart"
+                   class="relative p-2 rounded-md transition-colors
+                          {{ request()->is('cart') ? 'text-[#58a6ff]' : 'text-gray-500 dark:text-[#656d76] hover:text-gray-900 dark:hover:text-[#e6edf3] hover:bg-gray-100 dark:hover:bg-[#161b22]' }}">
+                    <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+                        <line x1="3" x2="21" y1="6" y2="6"/>
+                        <path d="M16 10a4 4 0 0 1-8 0"/>
+                    </svg>
+                    <span id="cart-badge"
+                          class="absolute -top-0.5 -right-0.5 bg-[#f85149] text-white text-[9px] font-mono font-bold rounded-full h-4 w-4 flex items-center justify-center hidden">
+                        0
+                    </span>
+                </a>
+
+                {{-- Mobile burger --}}
+                <button @click="open = !open"
+                        aria-label="Menu"
+                        class="md:hidden ml-1 p-2 rounded-md text-gray-500 dark:text-[#656d76] hover:text-gray-900 dark:hover:text-[#e6edf3] hover:bg-gray-100 dark:hover:bg-[#161b22] transition-colors">
+                    <svg x-show="!open" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="18" y2="18"/>
+                    </svg>
+                    <svg x-show="open" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 6 6 18"/><path d="m6 6 12 12"/>
+                    </svg>
+                </button>
+
             </div>
         </div>
     </div>
 
-    <!-- Mobile Menu -->
-    <div id="mobile-menu" class="md:hidden bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 transition-all duration-500 overflow-hidden h-0 opacity-0">
-        <div class="px-4 py-2 space-y-1">
-            @foreach([
-                ['id' => 'home', 'label' => 'Trang chủ', 'href' => '/#home'],
-                ['id' => 'about', 'label' => 'Về tôi', 'href' => '/#about'],
-                ['id' => 'projects', 'label' => 'Dự án', 'href' => '/#projects'],
-                ['id' => 'contact', 'label' => 'Liên hệ', 'href' => '/#contact'],
-                ['id' => 'blogs', 'label' => 'Blog', 'href' => '/blogs'],
-                ['id' => 'shop', 'label' => 'Shop', 'href' => '/shop'],
-            ] as $item)
-                 <a href="{{ $item['href'] }}" class="mobile-nav-link block px-3 py-2 rounded-md text-base font-medium transition-colors duration-300 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-gray-800">
-                    {{ $item['label'] }}
+    {{-- Mobile dropdown --}}
+    <div x-show="open"
+         x-transition:enter="transition ease-out duration-150"
+         x-transition:enter-start="opacity-0 -translate-y-1"
+         x-transition:enter-end="opacity-100 translate-y-0"
+         x-transition:leave="transition ease-in duration-100"
+         x-transition:leave-start="opacity-100 translate-y-0"
+         x-transition:leave-end="opacity-0 -translate-y-1"
+         class="md:hidden border-t border-gray-200 dark:border-[#21262d] bg-white dark:bg-[#0d1117]">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex flex-col gap-0.5">
+            @foreach($navItems as $item)
+                <a href="{{ $item['href'] }}"
+                   @click="open = false"
+                   class="flex items-center gap-1 px-3 py-2.5 text-xs font-mono rounded-md
+                          text-gray-500 dark:text-[#8b949e] hover:text-gray-900 dark:hover:text-[#e6edf3]
+                          hover:bg-gray-100 dark:hover:bg-[#161b22] transition-colors">
+                    <span class="text-gray-300 dark:text-[#656d76]">./</span>{{ $item['label'] }}
                 </a>
             @endforeach
         </div>
     </div>
+
 </nav>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Mobile Menu Toggle
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const menuIcon = mobileMenuBtn.querySelector('.menu-icon');
-        const closeIcon = mobileMenuBtn.querySelector('.close-icon');
-        let isMenuOpen = false;
+document.addEventListener('DOMContentLoaded', function () {
 
-        mobileMenuBtn.addEventListener('click', () => {
-            isMenuOpen = !isMenuOpen;
-            if (isMenuOpen) {
-                mobileMenu.classList.remove('h-0', 'opacity-0');
-                mobileMenu.classList.add('h-auto', 'opacity-100');
-                menuIcon.classList.add('hidden');
-                closeIcon.classList.remove('hidden');
-            } else {
-                mobileMenu.classList.add('h-0', 'opacity-0');
-                mobileMenu.classList.remove('h-auto', 'opacity-100');
-                menuIcon.classList.remove('hidden');
-                closeIcon.classList.add('hidden');
-            }
+    // Theme toggle
+    const themeBtn = document.getElementById('theme-toggle');
+    if (themeBtn) {
+        themeBtn.addEventListener('click', () => {
+            const isDark = document.documentElement.classList.toggle('dark');
+            localStorage.setItem('appearance', isDark ? 'dark' : 'light');
         });
+    }
 
-        // Navbar Theme Toggle
-        const navbarThemeToggle = document.getElementById('navbar-theme-toggle');
-        if(navbarThemeToggle) {
-            navbarThemeToggle.addEventListener('click', () => {
-                document.documentElement.classList.toggle('dark');
-                localStorage.setItem('appearance', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
-            });
-        }
+    // Scroll progress bar
+    const progress = document.getElementById('nav-progress');
+    function updateProgress() {
+        const scrolled = window.scrollY;
+        const total = document.documentElement.scrollHeight - window.innerHeight;
+        progress.style.width = total > 0 ? (scrolled / total * 100) + '%' : '0%';
+    }
+    window.addEventListener('scroll', updateProgress, { passive: true });
 
-        // Scroll Spy & Smooth Scroll
-        const sections = ['home', 'about', 'projects', 'contact'];
-        const navLinks = document.querySelectorAll('.scroll-link');
-        
-        function onScroll() {
-            const scrollPosition = window.scrollY + 100;
-            
-            sections.forEach(section => {
-                const el = document.getElementById(section);
-                if (el) {
-                    const { offsetTop, offsetHeight } = el;
-                    if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
-                        navLinks.forEach(link => {
-                            if (link.dataset.section === section) {
-                                link.classList.add('text-blue-600', 'dark:text-blue-400', 'font-semibold');
-                                link.classList.remove('text-gray-600', 'dark:text-gray-300');
-                            } else {
-                                link.classList.remove('text-blue-600', 'dark:text-blue-400', 'font-semibold');
-                                link.classList.add('text-gray-600', 'dark:text-gray-300');
-                            }
-                        });
-                    }
-                }
-            });
-        }
+    // Scroll spy — highlight active section link
+    const sections = ['home', 'about', 'skills', 'contact'];
+    const navLinks = document.querySelectorAll('.nav-link[data-section]');
 
-        window.addEventListener('scroll', onScroll);
+    function onScroll() {
+        const y = window.scrollY + 80;
+        let active = null;
+        sections.forEach(id => {
+            const el = document.getElementById(id);
+            if (el && y >= el.offsetTop) active = id;
+        });
+        navLinks.forEach(link => {
+            const isActive = link.dataset.section === active;
+            link.classList.toggle('text-[#58a6ff]', isActive);
+            link.classList.toggle('dark:text-[#58a6ff]', isActive);
+            link.classList.toggle('text-gray-500', !isActive);
+            link.classList.toggle('dark:text-[#8b949e]', !isActive);
+        });
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
 
-        // Update cart badge
-        function updateCartBadge() {
-            const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-            const badge = document.getElementById('cart-badge');
-            
-            if (totalItems > 0) {
-                badge.textContent = totalItems;
-                badge.classList.remove('hidden');
-            } else {
-                badge.classList.add('hidden');
-            }
-        }
-
-        // Update badge on page load
-        updateCartBadge();
-
-        // Update badge when storage changes (from other tabs/windows)
-        window.addEventListener('storage', updateCartBadge);
-
-        // Smooth Scroll for Anchor Links
-        document.querySelectorAll('a[href^="/#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                const targetId = this.getAttribute('href').substring(2); // remove /#
-                const targetElement = document.getElementById(targetId);
-                
-                if (targetElement) {
-                    e.preventDefault();
-                    const headerOffset = 80;
-                    const elementPosition = targetElement.getBoundingClientRect().top;
-                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-        
-                    window.scrollTo({
-                        top: offsetPosition,
-                        behavior: "smooth"
-                    });
-                    
-                    // Close mobile menu if open
-                    if (isMenuOpen) {
-                        mobileMenuBtn.click();
-                    }
-                }
-            });
+    // Smooth scroll for hash links
+    document.querySelectorAll('a[href^="/#"]').forEach(a => {
+        a.addEventListener('click', function (e) {
+            const id = this.getAttribute('href').slice(2);
+            const target = document.getElementById(id);
+            if (!target) return;
+            e.preventDefault();
+            window.scrollTo({ top: target.offsetTop - 64, behavior: 'smooth' });
         });
     });
+
+    // Cart badge
+    function updateCart() {
+        const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+        const total = cart.reduce((s, i) => s + (i.quantity || 0), 0);
+        const badge = document.getElementById('cart-badge');
+        if (badge) {
+            badge.textContent = total;
+            badge.classList.toggle('hidden', total === 0);
+        }
+    }
+    updateCart();
+    window.addEventListener('storage', updateCart);
+
+});
 </script>
