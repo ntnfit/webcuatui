@@ -18,15 +18,15 @@
 @section('jsonld')
 <script type="application/ld+json">
 {
-  "@context": "https://schema.org",
-  "@type": "Article",
+  "@@context": "https://schema.org",
+  "@@type": "Article",
   "headline": {{ Illuminate\Support\Js::from($blog['title']) }},
   "description": {{ Illuminate\Support\Js::from(\Illuminate\Support\Str::limit(strip_tags($blog['excerpt'] ?? ''), 155)) }},
   "image": "{{ $blog['thumbnail_url'] }}",
   "datePublished": "{{ $blog['created_at_iso'] ?? '' }}",
-  "author": { "@type": "Person", "name": {{ Illuminate\Support\Js::from($blog['author']['name']) }} },
-  "publisher": { "@type": "Person", "name": "HarryDev" },
-  "mainEntityOfPage": { "@type": "WebPage", "@id": "{{ $blog['canonical_url'] ?? request()->url() }}" }
+  "author": { "@@type": "Person", "name": {{ Illuminate\Support\Js::from($blog['author']['name']) }} },
+  "publisher": { "@@type": "Person", "name": "HarryDev" },
+  "mainEntityOfPage": { "@@type": "WebPage", "@@id": "{{ $blog['canonical_url'] ?? request()->url() }}" }
 }
 </script>
 @endsection
