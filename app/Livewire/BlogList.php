@@ -6,12 +6,9 @@ use App\Models\blogs as Blogs;
 use App\Models\Category;
 use Livewire\Attributes\Url;
 use Livewire\Component;
-use Livewire\WithPagination;
 
 class BlogList extends Component
 {
-    use WithPagination;
-
     #[Url(as: 'search', history: true)]
     public string $search = '';
 
@@ -21,15 +18,18 @@ class BlogList extends Component
     #[Url(as: 'category', history: true)]
     public string $category = '';
 
+    #[Url(as: 'page', history: true)]
+    public int $page = 1;
+
     public function updatedSearch(): void
     {
-        $this->resetPage();
+        $this->page = 1;
     }
 
     public function setType(string $value): void
     {
         $this->type = $this->type === $value ? '' : $value;
-        $this->resetPage();
+        $this->page = 1;
     }
 
     public function toggleCategory(string $slug): void
@@ -44,7 +44,7 @@ class BlogList extends Component
         }
 
         $this->category = implode(',', $cats);
-        $this->resetPage();
+        $this->page = 1;
     }
 
     public function clearFilters(): void
@@ -52,7 +52,22 @@ class BlogList extends Component
         $this->type     = '';
         $this->category = '';
         $this->search   = '';
-        $this->resetPage();
+        $this->page     = 1;
+    }
+
+    public function gotoPage(int $page): void
+    {
+        $this->page = max(1, $page);
+    }
+
+    public function nextPage(): void
+    {
+        $this->page++;
+    }
+
+    public function previousPage(): void
+    {
+        $this->page = max(1, $this->page - 1);
     }
 
     public function render()
@@ -76,7 +91,8 @@ class BlogList extends Component
                 ->orWhere('sub_title', 'like', "%{$s}%"));
         }
 
-        $posts = $query->latest()->paginate(9)->through(fn ($p) => $p->getDataArray());
+        $posts = $query->latest()->paginate(9, ['*'], 'page', $this->page)
+            ->through(fn ($p) => $p->getDataArray());
 
         $categories = Category::pluck('name')->toArray();
         if (! in_array('Tất cả', $categories)) {

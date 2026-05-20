@@ -144,29 +144,36 @@
 
     {{-- Pagination --}}
     @if($posts->hasPages())
+        @php
+            $currentPage = $posts->currentPage();
+            $lastPage    = $posts->lastPage();
+            $from = max(1, $currentPage - 2);
+            $to   = min($lastPage, $currentPage + 2);
+            $pgParams = array_filter(['search' => $search, 'type' => $type, 'category' => $category]);
+            $pgUrl = fn($p) => route('blogs.index', array_merge($pgParams, $p > 1 ? ['page' => $p] : []));
+        @endphp
         <div class="flex items-center justify-center gap-1 font-mono text-xs">
-            {{-- Prev --}}
-            @if($posts->onFirstPage())
+
+            @if($currentPage <= 1)
                 <span class="px-3 py-1.5 text-gh-subtle border border-gh-subtle rounded cursor-not-allowed">&lt; prev</span>
             @else
-                <button wire:click="previousPage" class="px-3 py-1.5 text-gh-muted border border-gh rounded hover:border-[#58a6ff] hover:text-gh-blue transition-colors cursor-pointer">&lt; prev</button>
+                <a href="{{ $pgUrl($currentPage - 1) }}" class="px-3 py-1.5 text-gh-muted border border-gh rounded hover:border-[#58a6ff] hover:text-gh-blue transition-colors">&lt; prev</a>
             @endif
 
-            {{-- Page numbers --}}
-            @foreach($posts->getUrlRange(max(1, $posts->currentPage()-2), min($posts->lastPage(), $posts->currentPage()+2)) as $page => $url)
-                @if($page == $posts->currentPage())
-                    <span class="px-3 py-1.5 bg-[#1a3a1a] border border-[#3fb950] text-gh-green rounded">{{ $page }}</span>
+            @for($p = $from; $p <= $to; $p++)
+                @if($p == $currentPage)
+                    <span class="px-3 py-1.5 bg-[#1a3a1a] border border-[#3fb950] text-gh-green rounded">{{ $p }}</span>
                 @else
-                    <button wire:click="gotoPage({{ $page }})" class="px-3 py-1.5 text-gh-muted border border-gh rounded hover:border-[#58a6ff] hover:text-gh-blue transition-colors cursor-pointer">{{ $page }}</button>
+                    <a href="{{ $pgUrl($p) }}" class="px-3 py-1.5 text-gh-muted border border-gh rounded hover:border-[#58a6ff] hover:text-gh-blue transition-colors">{{ $p }}</a>
                 @endif
-            @endforeach
+            @endfor
 
-            {{-- Next --}}
-            @if($posts->hasMorePages())
-                <button wire:click="nextPage" class="px-3 py-1.5 text-gh-muted border border-gh rounded hover:border-[#58a6ff] hover:text-gh-blue transition-colors cursor-pointer">next &gt;</button>
-            @else
+            @if($currentPage >= $lastPage)
                 <span class="px-3 py-1.5 text-gh-subtle border border-gh-subtle rounded cursor-not-allowed">next &gt;</span>
+            @else
+                <a href="{{ $pgUrl($currentPage + 1) }}" class="px-3 py-1.5 text-gh-muted border border-gh rounded hover:border-[#58a6ff] hover:text-gh-blue transition-colors">next &gt;</a>
             @endif
+
         </div>
     @endif
 </div>

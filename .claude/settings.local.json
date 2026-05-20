@@ -1,0 +1,41 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(Get-ChildItem \"E:\\\\Workplace\\\\webcuatui\\\\app\" -Recurse | Where-Object { !$_.PSIsContainer } | Select-Object FullName)",
+      "PowerShell(Get-ChildItem \"E:\\\\Workplace\\\\webcuatui\\\\resources\" -Recurse | Where-Object { !$_.PSIsContainer } | Select-Object FullName)",
+      "Bash(git checkout *)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(php -l \"E:\\\\Workplace\\\\webcuatui\\\\app\\\\Services\\\\BackupService.php\")",
+      "Bash(php -l \"E:\\\\Workplace\\\\webcuatui\\\\app\\\\Filament\\\\Pages\\\\BackupManager.php\")",
+      "PowerShell(php -l \"E:\\\\Workplace\\\\webcuatui\\\\app\\\\Services\\\\BackupService.php\"; php -l \"E:\\\\Workplace\\\\webcuatui\\\\app\\\\Filament\\\\Pages\\\\BackupManager.php\")",
+      "Bash(git commit *)",
+      "Bash(git push *)",
+      "Bash(gh pr *)",
+      "PowerShell(php -l \"E:\\\\Workplace\\\\webcuatui\\\\app\\\\Filament\\\\Pages\\\\BackupManager.php\")",
+      "Bash(git pull *)",
+      "PowerShell(Head *)",
+      "PowerShell(php -v)",
+      "Skill(ck:frontend-design)",
+      "Skill(ck:ui-ux-pro-max)",
+      "Read(//c/Users/nguyen/.claude/skills/ui-ux-pro-max/**)",
+      "Bash(.venv/Scripts/python.exe scripts/search.py \"developer blog terminal code-editor monospace dark minimal\" --design-system -p \"DevBlog TALL Stack\" -f markdown)",
+      "Bash(python scripts/search.py \"developer blog terminal code-editor monospace dark minimal\" --design-system -p \"DevBlog TALL Stack\" -f markdown)",
+      "PowerShell(& \"C:\\\\Users\\\\nguyen\\\\.claude\\\\skills\\\\ui-ux-pro-max\\\\.venv\\\\Scripts\\\\python.exe\" \"C:\\\\Users\\\\nguyen\\\\.claude\\\\skills\\\\ui-ux-pro-max\\\\scripts\\\\search.py\" \"monospace terminal hacker dark code\" --domain typography -n 5 2>&1 | Select-Object -First 40)",
+      "Bash(python scripts/search.py \"monospace terminal dark blog\" --domain typography -n 4)",
+      "PowerShell(php -l \"E:\\\\Workplace\\\\webcuatui\\\\app\\\\Livewire\\\\BlogList.php\")",
+      "Bash(php artisan *)",
+      "Bash(php.exe artisan *)",
+      "PowerShell(php artisan view:cache 2>&1 | Select-Object -First 80)",
+      "PowerShell(php artisan route:list 2>&1 | Select-Object -First 10)",
+      "PowerShell(php artisan tinker --execute=\"view\\('home', ['latestArticles' => []]\\)\" 2>&1)",
+      "PowerShell(php -r \"echo 'PHP OK';\" 2>&1)",
+      "PowerShell(php artisan view:clear 2>&1; php artisan config:clear 2>&1)",
+      "PowerShell(php artisan view:clear 2>&1)",
+      "Bash(php -r \"require 'E:/Workplace/webcuatui/vendor/autoload.php'; echo 'ok';\")",
+      "Bash(npm install *)",
+      "Bash(Get-ChildItem app/Http/Middleware/)",
+      "Bash(Select-Object Name)"
+    ]
+  }
+}
