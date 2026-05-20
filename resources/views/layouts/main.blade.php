@@ -7,12 +7,22 @@
 
     <title>@yield('title', config('app.name', 'Laravel'))</title>
     <meta name="description" content="@yield('description', 'Freelancer SAP ERP, SAP Business One, Integration system')">
-    
+
     <!-- Open Graph -->
-    <meta property="og:image" content="@yield('og:image', 'https://toilamerp.com/images/og.png')">
     <meta property="og:title" content="@yield('og:title', 'SAP ERP, SAP Business One, SAP')">
+    <meta property="og:description" content="@yield('og:description', 'Freelancer SAP ERP, SAP Business One, Integration system')">
+    <meta property="og:image" content="@yield('og:image', 'https://toilamerp.com/images/og.png')">
     <meta property="og:url" content="{{ url()->current() }}" />
-    <meta property="og:type" content="article" />
+    <meta property="og:type" content="@yield('og:type', 'website')" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="@yield('twitter:card', 'summary_large_image')">
+    <meta name="twitter:title" content="@yield('twitter:title', 'SAP ERP, SAP Business One, SAP')">
+    <meta name="twitter:description" content="@yield('twitter:description', 'Freelancer SAP ERP, SAP Business One, Integration system')">
+    <meta name="twitter:image" content="@yield('twitter:image', 'https://toilamerp.com/images/og.png')">
+
+    @yield('canonical_link')
+    @yield('jsonld')
     
     <meta name="google-adsense-account" content="ca-pub-6568899988616854" />
 
