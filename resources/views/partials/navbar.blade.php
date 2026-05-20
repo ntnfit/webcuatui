@@ -1,5 +1,5 @@
-<nav x-data="{ open: false }"
-     class="fixed top-0 left-0 right-0 z-50 bg-white/95 dark:bg-[#0d1117]/95 backdrop-blur-sm border-b border-gray-200 dark:border-[#21262d] transition-colors duration-200">
+﻿<nav x-data="{ open: false }"
+     class="fixed top-0 left-0 right-0 z-50 bg-white/95 dark:bg-[#0d1117]/95 backdrop-blur-sm border-b border-gray-200 dark:border-gh-subtle transition-colors duration-200">
 
     {{-- Scroll progress bar --}}
     <div id="nav-progress"
@@ -11,9 +11,9 @@
 
             {{-- Brand --}}
             <a href="/" class="flex items-center gap-1 font-mono shrink-0 group">
-                <span class="text-[#3fb950] text-sm group-hover:brightness-125 transition-all">~/</span>
-                <span class="text-sm font-semibold text-gray-900 dark:text-[#e6edf3] transition-colors">HarryDev</span>
-                <span class="hidden sm:inline text-[10px] text-gray-400 dark:text-[#656d76] ml-1 transition-colors">v2.0</span>
+                <span class="text-gh-green text-sm group-hover:brightness-125 transition-all">~/</span>
+                <span class="text-sm font-semibold text-gray-900 dark:text-gh transition-colors">HarryDev</span>
+                <span class="hidden sm:inline text-[10px] text-gray-400 dark:text-gh-subtle ml-1 transition-colors">v2.0</span>
             </a>
 
             {{-- Desktop nav links --}}
@@ -33,9 +33,9 @@
                        @if($item['section']) data-section="{{ $item['section'] }}" @endif
                        class="nav-link px-3 py-1.5 text-[11px] font-mono rounded-md transition-colors
                               {{ ($item['section'] === null && request()->is('blogs*'))
-                                  ? 'text-[#58a6ff] bg-[#121d2f] dark:bg-[#121d2f]'
-                                  : 'text-gray-500 dark:text-[#8b949e] hover:text-gray-900 dark:hover:text-[#e6edf3] hover:bg-gray-100 dark:hover:bg-[#161b22]' }}">
-                        <span class="text-gray-300 dark:text-[#656d76]">./</span>{{ $item['label'] }}
+                                  ? 'text-gh-blue bg-gh-b-blue dark:bg-gh-b-blue'
+                                  : 'text-gray-500 dark:text-gh-muted hover:text-gray-900 dark:hover:text-gh hover:bg-gray-100 dark:hover:bg-gh-surface' }}">
+                        <span class="text-gray-300 dark:text-gh-subtle">./</span>{{ $item['label'] }}
                     </a>
                 @endforeach
             </div>
@@ -46,7 +46,7 @@
                 {{-- Theme toggle --}}
                 <button id="theme-toggle"
                         aria-label="Toggle theme"
-                        class="p-2 rounded-md text-gray-500 dark:text-[#656d76] hover:text-gray-900 dark:hover:text-[#e6edf3] hover:bg-gray-100 dark:hover:bg-[#161b22] transition-colors">
+                        class="p-2 rounded-md text-gray-500 dark:text-gh-subtle hover:text-gray-900 dark:hover:text-gh hover:bg-gray-100 dark:hover:bg-gh-surface transition-colors">
                     {{-- Moon: shown in light mode --}}
                     <svg class="h-4 w-4 block dark:hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
@@ -61,7 +61,7 @@
                 {{-- Cart --}}
                 <a href="{{ route('cart') }}" aria-label="Cart"
                    class="relative p-2 rounded-md transition-colors
-                          {{ request()->is('cart') ? 'text-[#58a6ff]' : 'text-gray-500 dark:text-[#656d76] hover:text-gray-900 dark:hover:text-[#e6edf3] hover:bg-gray-100 dark:hover:bg-[#161b22]' }}">
+                          {{ request()->is('cart') ? 'text-gh-blue' : 'text-gray-500 dark:text-gh-subtle hover:text-gray-900 dark:hover:text-gh hover:bg-gray-100 dark:hover:bg-gh-surface' }}">
                     <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
                         <line x1="3" x2="21" y1="6" y2="6"/>
@@ -76,7 +76,7 @@
                 {{-- Mobile burger --}}
                 <button @click="open = !open"
                         aria-label="Menu"
-                        class="md:hidden ml-1 p-2 rounded-md text-gray-500 dark:text-[#656d76] hover:text-gray-900 dark:hover:text-[#e6edf3] hover:bg-gray-100 dark:hover:bg-[#161b22] transition-colors">
+                        class="md:hidden ml-1 p-2 rounded-md text-gray-500 dark:text-gh-subtle hover:text-gray-900 dark:hover:text-gh hover:bg-gray-100 dark:hover:bg-gh-surface transition-colors">
                     <svg x-show="!open" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="18" y2="18"/>
                     </svg>
@@ -97,15 +97,15 @@
          x-transition:leave="transition ease-in duration-100"
          x-transition:leave-start="opacity-100 translate-y-0"
          x-transition:leave-end="opacity-0 -translate-y-1"
-         class="md:hidden border-t border-gray-200 dark:border-[#21262d] bg-white dark:bg-[#0d1117]">
+         class="md:hidden border-t border-gray-200 dark:border-gh-subtle bg-white dark:bg-gh-base">
         <div class="max-w-6xl mx-auto px-4 py-3 flex flex-col gap-0.5">
             @foreach($navItems as $item)
                 <a href="{{ $item['href'] }}"
                    @click="open = false"
                    class="flex items-center gap-1 px-3 py-2.5 text-xs font-mono rounded-md
-                          text-gray-500 dark:text-[#8b949e] hover:text-gray-900 dark:hover:text-[#e6edf3]
-                          hover:bg-gray-100 dark:hover:bg-[#161b22] transition-colors">
-                    <span class="text-gray-300 dark:text-[#656d76]">./</span>{{ $item['label'] }}
+                          text-gray-500 dark:text-gh-muted hover:text-gray-900 dark:hover:text-gh
+                          hover:bg-gray-100 dark:hover:bg-gh-surface transition-colors">
+                    <span class="text-gray-300 dark:text-gh-subtle">./</span>{{ $item['label'] }}
                 </a>
             @endforeach
         </div>
@@ -147,10 +147,10 @@ document.addEventListener('DOMContentLoaded', function () {
         });
         navLinks.forEach(link => {
             const isActive = link.dataset.section === active;
-            link.classList.toggle('text-[#58a6ff]', isActive);
-            link.classList.toggle('dark:text-[#58a6ff]', isActive);
+            link.classList.toggle('text-gh-blue', isActive);
+            link.classList.toggle('dark:text-gh-blue', isActive);
             link.classList.toggle('text-gray-500', !isActive);
-            link.classList.toggle('dark:text-[#8b949e]', !isActive);
+            link.classList.toggle('dark:text-gh-muted', !isActive);
         });
     }
     window.addEventListener('scroll', onScroll, { passive: true });

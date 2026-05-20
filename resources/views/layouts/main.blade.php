@@ -58,7 +58,7 @@
         }
     </style>
 </head>
-<body class="font-sans antialiased min-h-screen bg-white dark:bg-gray-900 transition-colors duration-500">
+<body class="font-sans antialiased min-h-screen bg-gh-base transition-colors duration-200">
     
     <main>
         @yield('content')

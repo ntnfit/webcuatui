@@ -283,3 +283,84 @@
     .prose [style*="color: #00ff00"] {
     }
 }
+
+/* =============================================
+   GitHub-style design tokens — light / dark
+   ============================================= */
+:root {
+  --gh-bg:      #ffffff;
+  --gh-surface: #f6f8fa;
+  --gh-raised:  #eaeef2;
+  --gh-bd0:     #d0d7de;
+  --gh-bd1:     #d8dee4;
+  --gh-text:    #24292f;
+  --gh-muted:   #57606a;
+  --gh-subtle:  #6e7781;
+  --gh-green:   #1a7f37;
+  --gh-blue:    #0969da;
+  --gh-orange:  #bc4c00;
+  --gh-purple:  #8250df;
+  --gh-red:     #cf222e;
+  --gh-yellow:  #9a6700;
+  /* badge tints */
+  --gh-b-blue-bg: #ddf4ff; --gh-b-blue-br: #54aeff;
+  --gh-b-purple-bg: #fbefff; --gh-b-purple-br: #d2a8ff;
+  --gh-b-orange-bg: #fff1e5; --gh-b-orange-br: #ffa657;
+  --gh-b-green-bg: #dafbe1;  --gh-b-green-br: #4ac26b;
+  --gh-b-red-bg: #ffebe9;    --gh-b-red-br: #ff8182;
+}
+
+.dark {
+  --gh-bg:      #0d1117;
+  --gh-surface: #161b22;
+  --gh-raised:  #21262d;
+  --gh-bd0:     #21262d;
+  --gh-bd1:     #30363d;
+  --gh-text:    #e6edf3;
+  --gh-muted:   #8b949e;
+  --gh-subtle:  #656d76;
+  --gh-green:   #3fb950;
+  --gh-blue:    #58a6ff;
+  --gh-orange:  #f0883e;
+  --gh-purple:  #bc8cff;
+  --gh-red:     #f85149;
+  --gh-yellow:  #d29922;
+  --gh-b-blue-bg: #121d2f;   --gh-b-blue-br: #1f3a5c;
+  --gh-b-purple-bg: #1e1228; --gh-b-purple-br: #3d1d6b;
+  --gh-b-orange-bg: #2a1800; --gh-b-orange-br: #5a3000;
+  --gh-b-green-bg: #0f1f0f;  --gh-b-green-br: #1a3a1a;
+  --gh-b-red-bg: #2a0f0f;    --gh-b-red-br: #6b1c1c;
+}
+
+/* Background utilities */
+@utility bg-gh-base    { background-color: var(--gh-bg); }
+@utility bg-gh-surface { background-color: var(--gh-surface); }
+@utility bg-gh-raised  { background-color: var(--gh-raised); }
+@utility bg-gh-b-blue   { background-color: var(--gh-b-blue-bg); }
+@utility bg-gh-b-purple { background-color: var(--gh-b-purple-bg); }
+@utility bg-gh-b-orange { background-color: var(--gh-b-orange-bg); }
+@utility bg-gh-b-green  { background-color: var(--gh-b-green-bg); }
+@utility bg-gh-b-red    { background-color: var(--gh-b-red-bg); }
+
+/* Border utilities */
+@utility border-gh-subtle { border-color: var(--gh-bd0); }
+@utility border-gh        { border-color: var(--gh-bd1); }
+@utility border-gh-b-blue   { border-color: var(--gh-b-blue-br); }
+@utility border-gh-b-purple { border-color: var(--gh-b-purple-br); }
+@utility border-gh-b-orange { border-color: var(--gh-b-orange-br); }
+@utility border-gh-b-green  { border-color: var(--gh-b-green-br); }
+@utility border-gh-b-red    { border-color: var(--gh-b-red-br); }
+
+/* Text utilities */
+@utility text-gh        { color: var(--gh-text); }
+@utility text-gh-muted  { color: var(--gh-muted); }
+@utility text-gh-subtle { color: var(--gh-subtle); }
+@utility text-gh-green  { color: var(--gh-green); }
+@utility text-gh-blue   { color: var(--gh-blue); }
+@utility text-gh-orange { color: var(--gh-orange); }
+@utility text-gh-purple { color: var(--gh-purple); }
+@utility text-gh-red    { color: var(--gh-red); }
+@utility text-gh-yellow { color: var(--gh-yellow); }
+
+/* Placeholder utility */
+@utility placeholder-gh-subtle { &::placeholder { color: var(--gh-subtle); } }

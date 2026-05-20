@@ -1,4 +1,4 @@
-@extends('layouts.main')
+﻿@extends('layouts.main')
 
 @section('title', 'HarryDev — Full-Stack & SAP Developer')
 @section('description', 'Full-Stack Developer & SAP Business One specialist. Laravel, React, Next.js, TypeScript, MySQL, SAP B1 DI API. Based in Vietnam.')
@@ -17,8 +17,8 @@
 @section('jsonld')
 <script type="application/ld+json">
 {
-    "@context": "https://schema.org",
-    "@type": "Person",
+    "@@context": "https://schema.org",
+    "@@type": "Person",
     "name": "HarryDev",
     "url": "{{ url('/') }}",
     "jobTitle": "Full-Stack & SAP Developer",
@@ -33,7 +33,7 @@
 @section('content')
     @include('partials.navbar')
 
-    <div class="pt-16 bg-[#0d1117]">
+    <div class="pt-16 bg-gh-base">
         @include('partials.hero')
         @include('partials.about')
         @include('partials.skills')

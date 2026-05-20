@@ -1,12 +1,12 @@
-<section id="projects" class="py-16 bg-[#0d1117] border-b border-[#21262d]">
+﻿<section id="projects" class="py-16 bg-gh-base border-b border-gh-subtle">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
 
-        <div class="text-[10px] font-mono text-[#656d76] uppercase tracking-widest mb-2 flex items-center gap-3">
-            <span class="text-[#3fb950]">//</span> clients & partners
-            <div class="h-px flex-1 bg-[#21262d]"></div>
+        <div class="text-[10px] font-mono text-gh-subtle uppercase tracking-widest mb-2 flex items-center gap-3">
+            <span class="text-gh-green">//</span> clients & partners
+            <div class="h-px flex-1 bg-gh-raised"></div>
         </div>
-        <p class="text-xs font-mono text-[#656d76] mb-8">
-            <span class="text-[#8b949e]">{{ 12 }}</span> companies trusted · domestic &amp; international
+        <p class="text-xs font-mono text-gh-subtle mb-8">
+            <span class="text-gh-muted">{{ 12 }}</span> companies trusted · domestic &amp; international
         </p>
 
         @php
@@ -26,10 +26,10 @@
         ];
         @endphp
 
-        <div class="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 gap-px bg-[#21262d] border border-[#21262d] rounded-lg overflow-hidden">
+        <div class="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 gap-px bg-gh-raised border border-gh-subtle rounded-lg overflow-hidden">
             @foreach($companies as $company)
                 <a href="{{ $company['link'] }}" target="_blank" rel="noopener noreferrer"
-                   class="group flex items-center justify-center p-5 bg-[#0d1117] hover:bg-[#161b22] transition-colors">
+                   class="group flex items-center justify-center p-5 bg-gh-base hover:bg-gh-surface transition-colors">
                     <img src="{{ $company['logo'] }}" alt="{{ $company['name'] }}"
                          class="h-8 w-full object-contain grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300"
                          onerror="this.parentElement.style.display='none'">
@@ -39,7 +39,7 @@
 
         <div class="mt-8 text-center">
             <a href="#contact"
-               class="inline-flex items-center gap-2 px-5 py-2.5 bg-[#161b22] hover:bg-[#21262d] border border-[#30363d] hover:border-[#58a6ff] text-sm font-mono text-[#8b949e] hover:text-[#58a6ff] rounded transition-colors">
+               class="inline-flex items-center gap-2 px-5 py-2.5 bg-gh-surface hover:bg-gh-raised border border-gh hover:border-[#58a6ff] text-sm font-mono text-gh-muted hover:text-gh-blue rounded transition-colors">
                 <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
                 liên hệ hợp tác →
             </a>
