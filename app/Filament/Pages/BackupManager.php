@@ -15,7 +15,7 @@ class BackupManager extends Page
 
     protected static ?string $navigationLabel = 'Backup & Restore';
 
-    protected static \UnitEnum|string|null $navigationGroup = 'System';
+    protected static string|\UnitEnum|null $navigationGroup = 'Settings';
 
     protected static ?int $navigationSort = 99;
 

@@ -115,18 +115,21 @@ class BlogsController extends Controller
                 ->orderBy('created_at', 'asc')
                 ->first();
 
+            $thumbnailUrl = $blog->cover_photo_path ? asset('storage/'.$blog->cover_photo_path) : null;
+
             return view('blogs.show', [
                 'blog' => [
                     'id' => $blog->id,
                     'title' => $blog->title,
                     'slug' => $blog->slug,
                     'body' => $this->adjustInlineStylesForDarkMode($blog->body),
-                    'excerpt' => $blog->excerpt,
-                    'featured_image' => $blog->featured_image,
-                    'thumbnail_url' => asset('storage/'.$blog->cover_photo_path),
+                    'excerpt' => $blog->sub_title ?? '',
+                    'thumbnail_url' => $thumbnailUrl,
                     'categories' => $blog->categories->pluck('name'),
                     'tags' => $blog->tags->pluck('name'),
                     'type' => $blog->type,
+                    'canonical_url' => route('blogs.show', $blog->slug),
+                    'created_at_iso' => $blog->created_at->toIso8601String(),
                     'author' => [
                         'name' => $blog->user->name,
                         'avatar' => $blog->user->avatar ?? 'https://github.com/shadcn.png',
@@ -137,24 +140,22 @@ class BlogsController extends Controller
                     'stars' => $blog->stars ?? 0,
                     'views' => $blog->view ?? 0,
                 ],
-                'latestBlogs' => $latestBlogs->map(function ($blog) {
+                'latestBlogs' => $latestBlogs->map(function ($b) {
                     return [
-                        'id' => $blog->id,
-                        'slug' => $blog->slug,
-                        'title' => $blog->title,
-                        'excerpt' => $blog->excerpt,
-                        'thumbnail_url' => $blog->thumbnail_url,
-                        'date' => $blog->created_at->format('d/m/Y'),
+                        'id' => $b->id,
+                        'slug' => $b->slug,
+                        'title' => $b->title,
+                        'thumbnail_url' => $b->cover_photo_path ? asset('storage/'.$b->cover_photo_path) : null,
+                        'date' => $b->created_at->format('d/m/Y'),
                     ];
                 }),
-                'relatedBlogs' => $relatedBlogs->map(function ($blog) {
+                'relatedBlogs' => $relatedBlogs->map(function ($b) {
                     return [
-                        'id' => $blog->id,
-                        'slug' => $blog->slug,
-                        'title' => $blog->title,
-                        'excerpt' => $blog->excerpt,
-                        'thumbnail_url' => $blog->thumbnail_url,
-                        'date' => $blog->created_at->format('d/m/Y'),
+                        'id' => $b->id,
+                        'slug' => $b->slug,
+                        'title' => $b->title,
+                        'thumbnail_url' => $b->cover_photo_path ? asset('storage/'.$b->cover_photo_path) : null,
+                        'date' => $b->created_at->format('d/m/Y'),
                     ];
                 }),
                 'navigation' => [
@@ -171,21 +172,16 @@ class BlogsController extends Controller
                 ],
             ]);
         } catch (Exception $e) {
-            // Xử lý lỗi và trả về trang lỗi
-            return view('errors.404', ['error' => 'Không thể tìm thấy bài viết này. '.$e->getMessage()]);
+            abort(404, 'Không thể tìm thấy bài viết này.');
         }
     }
 
     public function adjustInlineStylesForDarkMode(string $html): string
     {
-        // Chuyển màu đen sang trắng nếu có
-        $html = preg_replace('/color:\\s*#000000/i', 'color: #ffffff', $html);
-
-        // Tuỳ chọn: chuyển một số màu khác để rõ hơn trong dark mode
-        $html = preg_replace('/color:\\s*#222222/i', 'color: #dddddd', $html);
-
-        // Tuỳ chọn: xử lý background nếu cần
-        $html = preg_replace('/background-color:\\s*#ffffff/i', 'background-color: #1e1e1e', $html);
+        // Strip inline color/background styles from TinyMCE content so CSS
+        // variables (--gh-text, --gh-bg) handle dark/light switching instead.
+        $html = preg_replace('/\s*color\s*:\s*#(?:000000|222222|333333|111111)\s*;?/i', '', $html);
+        $html = preg_replace('/\s*background-color\s*:\s*#(?:ffffff|fefefe|f9f9f9)\s*;?/i', '', $html);
 
         return $html;
     }

@@ -1,39 +1,73 @@
-<section id="about" class="py-16 px-6 sm:px-10 lg:px-20 bg-gray-50 dark:bg-gray-900 transition-colors duration-500">
-    <div class="max-w-6xl mx-auto">
-        <h2 class="text-3xl md:text-4xl font-bold text-center mb-8 tracking-tight transition-all duration-500 font-sans text-gray-800 dark:text-white opacity-100 translate-y-0">
-            ✨ Về Tôi
-        </h2>
+﻿<section id="about" class="py-16 bg-gh-base border-b border-gh-subtle">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center transition-all duration-500 opacity-100 translate-y-0">
-            <!-- Thông tin giới thiệu -->
-            <div class="space-y-6">
-                <p class="text-base md:text-lg text-gray-700 dark:text-gray-300 leading-relaxed font-sans transition-colors duration-500">
-                    Xin chào! Mình là <strong class="text-sky-600 dark:text-sky-400 transition-colors duration-500">Harry Dev</strong>,
-                    một lập trình viên đam mê với hơn 5 năm kinh nghiệm xây dựng ứng dụng web, hệ thống doanh nghiệp và tích hợp giải pháp công nghệ.
-                    Mình luôn hướng đến việc tạo ra sản phẩm đẹp, nhanh, tối ưu và dễ sử dụng.
-                </p>
+        <div class="text-[10px] font-mono text-gh-subtle uppercase tracking-widest mb-6 flex items-center gap-3">
+            <span class="text-gh-green">//</span> about
+            <div class="h-px flex-1 bg-gh-raised"></div>
+        </div>
 
-                <ul class="space-y-3">
-                    @foreach([
-                        'Phát triển WebApp với React, Next.js và Tailwind CSS',
-                        'Triển khai & tối ưu hệ thống ERP cho doanh nghiệp',
-                        'Tối ưu hóa hiệu suất và trải nghiệm người dùng (UX/UI)',
-                        'Thiết kế API và tích hợp hệ thống SAP B1 / OData / SDK',
-                    ] as $item)
-                        <li class="flex items-start">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 mt-1 text-sky-500 dark:text-blue-400 mr-3 shrink-0 transition-colors duration-500"><path d="M20 6 9 17l-5-5"/></svg>
-                            <span class="text-gray-700 dark:text-gray-300 font-sans transition-colors duration-500">{{ $item }}</span>
-                        </li>
-                    @endforeach
-                </ul>
+        <div class="grid grid-cols-1 lg:grid-cols-[240px_1fr] gap-5">
+
+            {{-- Photo panel --}}
+            <div class="bg-gh-surface border border-gh rounded-lg overflow-hidden">
+                <div class="aspect-square">
+                    <img src="/images/me.jpg" alt="Harry Dev"
+                         class="w-full h-full object-cover object-top grayscale hover:grayscale-0 transition-all duration-500">
+                </div>
+                <div class="p-4 font-mono border-t border-gh-subtle">
+                    <div class="text-sm font-semibold text-gh mb-1">Harry Dev</div>
+                    <div class="text-[11px] text-gh-muted">Full-Stack · SAP · ERP</div>
+                    <div class="flex items-center gap-1.5 mt-2">
+                        <svg class="h-3 w-3 text-gh-subtle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                        <span class="text-[10px] text-gh-subtle">Ho Chi Minh City, VN</span>
+                    </div>
+                </div>
             </div>
 
-            <!-- Hình ảnh minh họa -->
-            <div class="relative group">
-                <div class="rounded-2xl overflow-hidden shadow-lg dark:shadow-gray-800/30 transform transition-all duration-500 group-hover:scale-105 group-hover:shadow-2xl">
-                    <img src="/images/me.jpg" alt="Harry Dev" class="object-cover w-full h-full transition-all duration-500 ease-in-out group-hover:opacity-95">
+            {{-- Content --}}
+            <div class="space-y-5">
+                {{-- Bio --}}
+                <div class="bg-gh-surface border border-gh rounded-lg p-6">
+                    <div class="text-[10px] font-mono text-gh-subtle mb-3">README.md</div>
+                    <p class="text-sm text-gh leading-7 mb-4">
+                        Mình là <span class="text-gh-blue font-mono">Harry Dev</span> — một lập trình viên đam mê
+                        với hơn <span class="text-gh font-mono">5 năm kinh nghiệm</span> xây dựng ứng dụng web,
+                        hệ thống doanh nghiệp và tích hợp giải pháp SAP ERP. Mình tin rằng code tốt là code mà
+                        người đọc không cần comments để hiểu.
+                    </p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        @foreach([
+                            'Phát triển WebApp với React, Laravel, Tailwind',
+                            'Triển khai & tối ưu hệ thống ERP doanh nghiệp',
+                            'Thiết kế API & tích hợp SAP B1 / OData / SDK',
+                            'Tối ưu hiệu suất và trải nghiệm người dùng',
+                        ] as $item)
+                            <div class="flex items-start gap-2 text-sm">
+                                <span class="text-gh-green font-mono mt-0.5 shrink-0">▸</span>
+                                <span class="text-gh-muted">{{ $item }}</span>
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
-                <div class="absolute -inset-1 rounded-2xl bg-linear-to-tr from-blue-300 via-pink-200 to-purple-300 dark:from-blue-900/30 dark:via-pink-900/20 dark:to-purple-900/30 opacity-20 blur-2xl z-[-1] transition-colors duration-500"></div>
+
+                {{-- Timeline strip --}}
+                <div class="bg-gh-surface border border-gh rounded-lg p-5 font-mono">
+                    <div class="text-[10px] text-gh-subtle uppercase tracking-widest mb-4">// git log --oneline</div>
+                    <div class="space-y-3">
+                        @foreach([
+                            ['hash' => 'a3f9c21', 'year' => '2024', 'msg' => 'feat: Freelance SAP & Web consultant'],
+                            ['hash' => '7d8b034', 'year' => '2022', 'msg' => 'feat: Senior developer at tech company'],
+                            ['hash' => 'c2e5f18', 'year' => '2020', 'msg' => 'feat: SAP B1 integration specialist'],
+                            ['hash' => '1a4d792', 'year' => '2019', 'msg' => 'init: first commit — web developer'],
+                        ] as $entry)
+                            <div class="flex items-center gap-3 text-xs">
+                                <span class="text-gh-orange shrink-0">{{ $entry['hash'] }}</span>
+                                <span class="text-gh-subtle shrink-0">{{ $entry['year'] }}</span>
+                                <span class="text-gh">{{ $entry['msg'] }}</span>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
             </div>
         </div>
     </div>

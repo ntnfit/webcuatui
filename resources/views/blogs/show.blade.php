@@ -1,353 +1,473 @@
-@extends('layouts.main')
+﻿@extends('layouts.main')
 
-@section('title', $blog['title'] . ' | My Blog')
-@section('description', $blog['excerpt'])
+@section('title', $blog['title'] . ' | HarryDev')
+@section('description', \Illuminate\Support\Str::limit(strip_tags($blog['excerpt'] ?? $blog['title']), 155))
+@section('og:title', $blog['title'])
+@section('og:description', \Illuminate\Support\Str::limit(strip_tags($blog['excerpt'] ?? $blog['title']), 155))
+@section('og:image', $blog['thumbnail_url'])
+@section('og:type', 'article')
+@section('twitter:card', 'summary_large_image')
+@section('twitter:title', $blog['title'])
+@section('twitter:description', \Illuminate\Support\Str::limit(strip_tags($blog['excerpt'] ?? $blog['title']), 155))
+@section('twitter:image', $blog['thumbnail_url'])
+
+@section('canonical_link')
+<link rel="canonical" href="{{ $blog['canonical_url'] ?? request()->url() }}">
+@endsection
+
+@section('jsonld')
+<script type="application/ld+json">
+{
+  "@@context": "https://schema.org",
+  "@@type": "Article",
+  "headline": {{ Illuminate\Support\Js::from($blog['title']) }},
+  "description": {{ Illuminate\Support\Js::from(\Illuminate\Support\Str::limit(strip_tags($blog['excerpt'] ?? ''), 155)) }},
+  "image": "{{ $blog['thumbnail_url'] }}",
+  "datePublished": "{{ $blog['created_at_iso'] ?? '' }}",
+  "author": { "@@type": "Person", "name": {{ Illuminate\Support\Js::from($blog['author']['name']) }} },
+  "publisher": { "@@type": "Person", "name": "HarryDev" },
+  "mainEntityOfPage": { "@@type": "WebPage", "@@id": "{{ $blog['canonical_url'] ?? request()->url() }}" }
+}
+</script>
+@endsection
 
 @section('content')
-    @include('partials.navbar')
-    
-    <!-- Highlight.js CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" media="(prefers-color-scheme: dark)">
-    <style>
-        /* Custom styles for code blocks */
-        pre { position: relative; }
-        .code-block-header {
-            position: absolute;
-            top: 0.5rem;
-            right: 0.5rem;
-            z-index: 10;
-        }
-        .hljs {
-            border-radius: 0.5rem;
-            padding: 1rem;
-        }
-        /* Blog content styles */
-        .prose img { border-radius: 0.5rem; }
-        .prose h1, .prose h2, .prose h3, .prose h4 { color: inherit; }
-        .prose a { color: #3b82f6; text-decoration: none; }
-        .prose a:hover { text-decoration: underline; }
-        .dark .prose strong { color: white; }
-        .dark .prose code { color: #e5e7eb; background-color: #374151; padding: 0.2rem 0.4rem; border-radius: 0.25rem; }
-        .prose code { color: #1f2937; background-color: #f3f4f6; padding: 0.2rem 0.4rem; border-radius: 0.25rem; }
-        .prose pre code { background-color: transparent; padding: 0; color: inherit; }
-    </style>
+@include('partials.navbar')
 
-    <div class="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-500">
-        <div class="pt-16">
-            <div class="max-w-7xl mx-auto px-4 py-8">
-                <div class="animate-fade-in-up">
-                    <!-- Back Button -->
-                    <div class="mb-6">
-                        <a href="{{ route('blogs.index') }}" class="inline-flex items-center text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 h-4 w-4"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
-                            Quay lại danh sách bài viết
-                        </a>
-                    </div>
+{{-- hljs themes (toggled by dark class, not media query) --}}
+<link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+<link id="hljs-dark"  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
 
-                    <!-- Header -->
-                    <div class="mb-8">
-                        <div class="mb-4">
-                            @php
-                                $types = [
-                                    'article' => ['label' => 'Bài viết', 'class' => 'bg-blue-50 text-blue-600 border-blue-200 dark:bg-blue-900/30 dark:text-blue-400 dark:border-blue-800/50'],
-                                    'news' => ['label' => 'Tin tức', 'class' => 'bg-purple-50 text-purple-600 border-purple-200 dark:bg-purple-900/30 dark:text-purple-400 dark:border-purple-800/50'],
-                                    'trick' => ['label' => 'Mẹo', 'class' => 'bg-amber-50 text-amber-600 border-amber-200 dark:bg-amber-900/30 dark:text-amber-400 dark:border-amber-800/50']
-                                ];
-                                $typeInfo = $types[$blog['type']] ?? ['label' => $blog['type'], 'class' => 'bg-gray-50 text-gray-600 border-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600'];
-                            @endphp
-                            <span class="rounded-full border px-3 py-1 text-sm font-medium {{ $typeInfo['class'] }}">
-                                {{ $typeInfo['label'] }}
+{{-- Reading progress --}}
+<div id="reading-progress" class="fixed top-0 left-0 h-[2px] bg-[#3fb950] z-50 transition-all duration-75 ease-out pointer-events-none" style="width:0%"></div>
+
+<div class="min-h-dvh bg-gh-base text-gh pt-16"
+     x-data="blogShow()"
+     x-init="init()">
+
+    {{-- Article header section --}}
+    <div class="border-b border-gh-subtle">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 py-8">
+
+            {{-- Breadcrumb --}}
+            <div class="flex items-center gap-1 text-xs font-mono text-gh-subtle mb-6 flex-wrap">
+                <a href="{{ route('blogs.index') }}" class="text-gh-blue hover:underline">~/blog</a>
+                <span>/</span>
+                <span class="text-gh-muted truncate max-w-[240px] sm:max-w-none">{{ $blog['slug'] }}</span>
+            </div>
+
+            @php
+                $typeMeta = [
+                    'article' => ['color' => 'text-gh-blue', 'bg' => 'bg-gh-b-blue', 'border' => 'border-gh-b-blue'],
+                    'news'    => ['color' => 'text-gh-purple', 'bg' => 'bg-gh-b-purple', 'border' => 'border-gh-b-purple'],
+                    'trick'   => ['color' => 'text-gh-orange', 'bg' => 'bg-gh-b-orange', 'border' => 'border-gh-b-orange'],
+                ];
+                $tm = $typeMeta[$blog['type']] ?? ['color' => 'text-gh-muted', 'bg' => 'bg-gh-surface', 'border' => 'border-gh'];
+            @endphp
+
+            {{-- Type badge --}}
+            <div class="mb-4">
+                <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-mono border {{ $tm['bg'] }} {{ $tm['color'] }} {{ $tm['border'] }}">
+                    {{ $blog['type'] }}
+                </span>
+            </div>
+
+            {{-- Title --}}
+            <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-gh leading-tight tracking-tight mb-5 max-w-3xl">
+                {{ $blog['title'] }}
+            </h1>
+
+            {{-- Meta row --}}
+            <div class="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs font-mono text-gh-muted mb-6">
+                <span class="flex items-center gap-1.5">
+                    <svg class="h-3.5 w-3.5 shrink-0 text-gh-subtle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="4" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                    {{ $blog['date'] }}
+                </span>
+                <span class="flex items-center gap-1.5">
+                    <svg class="h-3.5 w-3.5 shrink-0 text-gh-subtle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    ~{{ $blog['reading_time'] }} min read
+                </span>
+                <span class="flex items-center gap-1.5">
+                    <svg class="h-3.5 w-3.5 shrink-0 text-gh-subtle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+                    {{ number_format($blog['views']) }} views
+                </span>
+                @if(($blog['stars'] ?? 0) > 0)
+                <span class="flex items-center gap-1.5 text-gh-yellow">
+                    <svg class="h-3.5 w-3.5 shrink-0" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    {{ $blog['stars'] }}
+                </span>
+                @endif
+            </div>
+
+            {{-- Author --}}
+            <div class="flex items-center gap-3">
+                <img src="{{ $blog['author']['avatar'] }}" alt="{{ $blog['author']['name'] }}"
+                    class="w-9 h-9 rounded-full object-cover ring-1 ring-[#30363d]"
+                    onerror="this.src='https://github.com/shadcn.png'">
+                <div>
+                    <div class="text-sm font-mono font-semibold text-gh">{{ $blog['author']['name'] }}</div>
+                    @if(!empty($blog['author']['bio']))
+                        <div class="text-xs font-mono text-gh-muted">{{ $blog['author']['bio'] }}</div>
+                    @endif
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- Cover image --}}
+    @if(!empty($blog['thumbnail_url']))
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 pt-6">
+            <div class="rounded-md overflow-hidden border border-gh-subtle">
+                <img src="{{ $blog['thumbnail_url'] }}" alt="{{ $blog['title'] }}"
+                    class="w-full max-h-[420px] object-cover"
+                    loading="lazy"
+                    onerror="this.parentElement.remove()">
+            </div>
+        </div>
+    @endif
+
+    {{-- Body + sidebar --}}
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-10">
+        <div class="grid grid-cols-1 lg:grid-cols-[1fr_240px] gap-10">
+
+            {{-- Article body --}}
+            <article class="min-w-0">
+                <div id="blog-content"
+                    class="prose dark:prose-invert
+                           prose-headings:font-mono prose-headings:text-gh prose-headings:scroll-mt-24
+                           prose-h2:border-b prose-h2:border-gh-subtle prose-h2:pb-2
+                           prose-p:text-gh prose-p:leading-7
+                           prose-a:text-gh-blue prose-a:no-underline hover:prose-a:underline
+                           prose-strong:text-gh
+                           prose-code:text-gh-orange prose-code:bg-gh-surface prose-code:border prose-code:border-gh prose-code:rounded prose-code:px-1.5 prose-code:py-0.5 prose-code:text-sm prose-code:font-mono prose-code:before:content-none prose-code:after:content-none
+                           prose-pre:bg-gh-surface prose-pre:border prose-pre:border-gh prose-pre:rounded-md prose-pre:relative prose-pre:overflow-x-auto
+                           prose-blockquote:border-l-[#3fb950] prose-blockquote:text-gh-muted prose-blockquote:bg-gh-surface prose-blockquote:py-1 prose-blockquote:px-4 prose-blockquote:rounded-r
+                           prose-li:text-gh prose-li:marker:text-gh-green
+                           prose-hr:border-gh-subtle
+                           prose-img:rounded-md prose-img:border prose-img:border-gh-subtle prose-img:max-w-full
+                           prose-table:block prose-table:overflow-x-auto
+                           prose-th:bg-gh-surface prose-th:text-gh prose-td:border-gh
+                           max-w-none overflow-hidden">
+                    {!! $blog['body'] !!}
+                </div>
+
+                {{-- Tags & categories --}}
+                <div class="mt-10 pt-6 border-t border-gh-subtle space-y-3">
+                    @if(!empty($blog['categories']) && count($blog['categories']) > 0)
+                        <div class="flex flex-wrap items-center gap-2">
+                            <span class="text-xs font-mono text-gh-subtle">category:</span>
+                            @foreach($blog['categories'] as $cat)
+                                <a href="{{ route('blogs.index', ['category' => \Illuminate\Support\Str::slug($cat)]) }}"
+                                    class="inline-flex items-center px-2.5 py-1 rounded text-xs font-mono bg-gh-b-blue text-gh-blue border border-gh-b-blue hover:border-[#58a6ff] transition-colors">
+                                    {{ $cat }}
+                                </a>
+                            @endforeach
+                        </div>
+                    @endif
+
+                    @if(!empty($blog['tags']) && count($blog['tags']) > 0)
+                        <div class="flex flex-wrap items-center gap-2">
+                            <span class="text-xs font-mono text-gh-subtle">tags:</span>
+                            @foreach($blog['tags'] as $tag)
+                                <span class="inline-flex items-center px-2.5 py-1 rounded text-xs font-mono bg-gh-surface text-gh-muted border border-gh">
+                                    #{{ $tag }}
+                                </span>
+                            @endforeach
+                        </div>
+                    @endif
+                </div>
+
+                {{-- Share button --}}
+                <div class="mt-6">
+                    <button @click="shareOpen = true"
+                        class="inline-flex items-center gap-2 px-4 py-2 rounded-md text-xs font-mono border border-gh bg-gh-surface text-gh-muted hover:border-[#58a6ff] hover:text-gh-blue transition-colors cursor-pointer">
+                        <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+                        share this post
+                    </button>
+                </div>
+
+                {{-- Prev / Next --}}
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-12 pt-8 border-t border-gh-subtle">
+                    @if($navigation['previous'])
+                        <a href="{{ route('blogs.show', $navigation['previous']['slug']) }}"
+                            class="group flex flex-col gap-1 p-4 rounded border border-gh bg-gh-surface hover:border-[#58a6ff] transition-colors">
+                            <span class="text-[10px] font-mono text-gh-subtle flex items-center gap-1">
+                                <svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>
+                                prev
                             </span>
-                        </div>
+                            <span class="text-sm font-mono text-gh group-hover:text-gh-blue transition-colors line-clamp-2 leading-snug">
+                                {{ $navigation['previous']['title'] }}
+                            </span>
+                        </a>
+                    @else
+                        <div></div>
+                    @endif
 
-                        <h1 class="text-4xl font-bold text-gray-800 dark:text-white mb-4 transition-colors duration-500">
-                            {{ $blog['title'] }}
-                        </h1>
+                    @if($navigation['next'])
+                        <a href="{{ route('blogs.show', $navigation['next']['slug']) }}"
+                            class="group flex flex-col gap-1 p-4 rounded border border-gh bg-gh-surface hover:border-[#58a6ff] transition-colors text-right">
+                            <span class="text-[10px] font-mono text-gh-subtle flex items-center justify-end gap-1">
+                                next
+                                <svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+                            </span>
+                            <span class="text-sm font-mono text-gh group-hover:text-gh-blue transition-colors line-clamp-2 leading-snug">
+                                {{ $navigation['next']['title'] }}
+                            </span>
+                        </a>
+                    @else
+                        <div></div>
+                    @endif
+                </div>
+            </article>
 
-                        <div class="flex flex-wrap items-center gap-4 text-gray-600 dark:text-gray-400 mb-6">
-                            <div class="flex items-center gap-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
-                                <span>{{ $blog['date'] }}</span>
-                            </div>
-                            <div class="flex items-center gap-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                                <span>{{ $blog['reading_time'] }} phút đọc</span>
-                            </div>
-                            <div class="flex items-center gap-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
-                                <span>{{ $blog['views'] }} lượt xem</span>
-                            </div>
-                            <div class="flex items-center gap-2 text-amber-500 dark:text-amber-400">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                                <span>{{ $blog['stars'] }}</span>
-                            </div>
-                        </div>
+            {{-- Sidebar --}}
+            <aside class="hidden lg:block">
+                <div class="sticky top-24 space-y-8">
 
-                        <div class="flex items-center gap-3 mb-6">
-                            <div class="h-12 w-12 rounded-full overflow-hidden">
-                                <img src="{{ $blog['author']['avatar'] }}" alt="{{ $blog['author']['name'] }}" class="h-full w-full object-cover" onerror="this.onerror=null;this.src='https://github.com/shadcn.png';">
-                            </div>
-                            <div>
-                                <div class="font-medium text-gray-800 dark:text-white transition-colors duration-500">
-                                    {{ $blog['author']['name'] }}
-                                </div>
-                                @if(!empty($blog['author']['bio']))
-                                    <div class="text-sm text-gray-500 dark:text-gray-400">
-                                        {{ $blog['author']['bio'] }}
-                                    </div>
-                                @endif
-                            </div>
+                    {{-- Table of Contents --}}
+                    <div id="toc-container" class="hidden">
+                        <div class="text-[10px] font-mono text-gh-subtle uppercase tracking-widest mb-3 flex items-center gap-1.5">
+                            <svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+                            contents
                         </div>
+                        <nav id="toc" class="space-y-0.5 border-l border-gh-subtle pl-3"></nav>
                     </div>
 
-                    <!-- Featured Image -->
-                    @if(!empty($blog['thumbnail_url']) || !empty($blog['featured_image']))
-                        <div class="mb-8 relative overflow-hidden group rounded-xl shadow-lg border border-gray-100 dark:border-gray-800">
-                            <div class="relative aspect-21/9 w-full overflow-hidden bg-gray-100 dark:bg-gray-800">
-                                <img src="{{ $blog['thumbnail_url'] ?? $blog['featured_image'] }}" 
-                                    alt="{{ $blog['title'] }}" 
-                                    class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-105"
-                                    loading="lazy"
-                                    onerror="this.onerror=null;this.src='https://via.placeholder.com/1200x600?text=Blog+Image';">
-                                <div class="absolute inset-0 bg-linear-to-t from-black/20 to-transparent opacity-0 dark:opacity-40 transition-opacity duration-300"></div>
+                    {{-- Related --}}
+                    @if(!empty($relatedBlogs) && count($relatedBlogs) > 0)
+                        <div>
+                            <div class="text-[10px] font-mono text-gh-subtle uppercase tracking-widest mb-3 flex items-center gap-1.5">
+                                <svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                                related
+                            </div>
+                            <div class="space-y-3">
+                                @foreach($relatedBlogs as $related)
+                                    <a href="{{ route('blogs.show', $related['slug']) }}"
+                                        class="group flex gap-3 items-start p-2 -mx-2 rounded hover:bg-gh-surface transition-colors">
+                                        @if(!empty($related['thumbnail_url']))
+                                            <img src="{{ $related['thumbnail_url'] }}" alt="{{ $related['title'] }}"
+                                                class="w-12 h-12 rounded border border-gh-subtle object-cover shrink-0"
+                                                onerror="this.style.display='none'">
+                                        @endif
+                                        <div class="min-w-0">
+                                            <h4 class="text-xs font-mono text-gh group-hover:text-gh-blue transition-colors line-clamp-2 leading-snug">
+                                                {{ $related['title'] }}
+                                            </h4>
+                                            <span class="text-[10px] font-mono text-gh-subtle mt-0.5 block">{{ $related['date'] }}</span>
+                                        </div>
+                                    </a>
+                                @endforeach
                             </div>
                         </div>
                     @endif
 
-                    <!-- Content -->
-                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-12">
-                        <div class="lg:col-span-9">
-                            <div class="prose dark:prose-invert max-w-none text-gray-800 dark:text-gray-200">
-                                {!! $blog['body'] !!}
+                    {{-- Latest --}}
+                    @if(!empty($latestBlogs) && count($latestBlogs) > 0)
+                        <div>
+                            <div class="text-[10px] font-mono text-gh-subtle uppercase tracking-widest mb-3 flex items-center gap-1.5">
+                                <svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+                                latest
                             </div>
-
-                            <!-- Tags & Categories -->
-                            <div class="mt-8 border-t border-gray-200 dark:border-gray-800 pt-6">
-                                @if(!empty($blog['categories']))
-                                    <div class="mb-4">
-                                        <h3 class="text-lg font-semibold mb-3 text-gray-800 dark:text-white">Danh mục</h3>
-                                        <div class="flex flex-wrap gap-2">
-                                            @foreach($blog['categories'] as $category)
-                                                <a href="{{ route('blogs.index', ['category' => Str::slug($category)]) }}" 
-                                                    class="inline-flex items-center px-3 py-1.5 rounded-full text-sm bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-300 hover:bg-blue-100 dark:hover:bg-blue-900 transition-colors duration-300">
-                                                    {{ $category }}
-                                                </a>
-                                            @endforeach
-                                        </div>
-                                    </div>
-                                @endif
-
-                                @if(!empty($blog['tags']))
-                                    <div>
-                                        <h3 class="text-lg font-semibold mb-3 text-gray-800 dark:text-white">Tags</h3>
-                                        <div class="flex flex-wrap gap-2">
-                                            @foreach($blog['tags'] as $tag)
-                                                <span class="inline-flex items-center px-3 py-1.5 rounded-full text-sm bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-600">
-                                                    <span class="text-blue-500 dark:text-blue-400 mr-1">#</span>
-                                                    {{ $tag }}
-                                                </span>
-                                            @endforeach
-                                        </div>
-                                    </div>
-                                @endif
-                            </div>
-
-                            <!-- Share Button -->
-                            <div class="mt-6">
-                                <button onclick="openShareModal()" class="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-300">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" x2="12" y1="2" y2="15"/></svg>
-                                    Chia sẻ bài viết
-                                </button>
-                            </div>
-
-                            <!-- Navigation -->
-                            <div class="flex flex-wrap md:flex-nowrap justify-between gap-4 mt-12 pt-6 border-t border-gray-200 dark:border-gray-800">
-                                @if($navigation['previous'])
-                                    <a href="{{ route('blogs.show', $navigation['previous']['slug']) }}" class="flex-1 p-4 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:shadow-md transition-shadow duration-300">
-                                        <div class="flex items-center text-gray-600 dark:text-gray-400 mb-2">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1 h-4 w-4"><path d="m15 18-6-6 6-6"/></svg>
-                                            <span>Bài trước</span>
-                                        </div>
-                                        <h3 class="font-medium text-gray-800 dark:text-white line-clamp-2">
-                                            {{ $navigation['previous']['title'] }}
-                                        </h3>
+                            <div class="space-y-2">
+                                @foreach($latestBlogs as $latest)
+                                    <a href="{{ route('blogs.show', $latest['slug']) }}"
+                                        class="group block p-2 -mx-2 rounded hover:bg-gh-surface transition-colors">
+                                        <h4 class="text-xs font-mono text-gh group-hover:text-gh-blue transition-colors line-clamp-2 leading-snug">
+                                            {{ $latest['title'] }}
+                                        </h4>
+                                        <span class="text-[10px] font-mono text-gh-subtle mt-0.5 block">{{ $latest['date'] }}</span>
                                     </a>
-                                @else
-                                    <div class="flex-1"></div>
-                                @endif
-
-                                @if($navigation['next'])
-                                    <a href="{{ route('blogs.show', $navigation['next']['slug']) }}" class="flex-1 p-4 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:shadow-md transition-shadow duration-300 text-right">
-                                        <div class="flex items-center justify-end text-gray-600 dark:text-gray-400 mb-2">
-                                            <span>Bài sau</span>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-1 h-4 w-4"><path d="m9 18 6-6-6-6"/></svg>
-                                        </div>
-                                        <h3 class="font-medium text-gray-800 dark:text-white line-clamp-2">
-                                            {{ $navigation['next']['title'] }}
-                                        </h3>
-                                    </a>
-                                @else
-                                    <div class="flex-1"></div>
-                                @endif
+                                @endforeach
                             </div>
                         </div>
-                        
-                        <!-- Sidebar (Related Posts) -->
-                        <div class="lg:col-span-3">
-                            <div class="sticky top-24">
-                                <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-4">Bài viết liên quan</h3>
-                                <div class="space-y-4">
-                                    @foreach($relatedBlogs as $related)
-                                        <a href="{{ route('blogs.show', $related['slug']) }}" class="block group">
-                                            <div class="bg-white dark:bg-gray-800 rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-all duration-300">
-                                                @if(!empty($related['thumbnail_url']))
-                                                    <div class="h-32 overflow-hidden">
-                                                        <img src="{{ $related['thumbnail_url'] }}" alt="{{ $related['title'] }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                                                    </div>
-                                                @endif
-                                                <div class="p-4">
-                                                    <h4 class="font-medium text-gray-800 dark:text-white line-clamp-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                                                        {{ $related['title'] }}
-                                                    </h4>
-                                                    <div class="text-xs text-gray-500 dark:text-gray-400 mt-2">
-                                                        {{ $related['date'] }}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    @endforeach
-                                </div>
-                            </div>
-                        </div>
+                    @endif
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    {{-- Share modal — inside x-data scope --}}
+    <div x-show="shareOpen"
+         x-transition:enter="transition ease-out duration-200"
+         x-transition:enter-start="opacity-0"
+         x-transition:enter-end="opacity-100"
+         x-transition:leave="transition ease-in duration-150"
+         x-transition:leave-start="opacity-100"
+         x-transition:leave-end="opacity-0"
+         class="fixed inset-0 z-50 flex items-center justify-center p-4"
+         @keydown.escape.window="shareOpen = false"
+         style="display:none">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" @click="shareOpen = false"></div>
+        <div class="relative w-full max-w-sm bg-gh-surface border border-gh rounded-lg shadow-2xl overflow-hidden"
+             x-transition:enter="transition ease-out duration-200"
+             x-transition:enter-start="opacity-0 scale-95"
+             x-transition:enter-end="opacity-100 scale-100">
+
+            {{-- Window chrome --}}
+            <div class="flex items-center gap-1.5 px-4 py-3 border-b border-gh bg-gh-raised select-none">
+                <span class="w-2.5 h-2.5 rounded-full bg-[#f85149]"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-[#d29922]"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-[#3fb950]"></span>
+                <span class="ml-2 text-[10px] font-mono text-gh-subtle flex-1">share_post.sh</span>
+                <button @click="shareOpen = false" class="text-gh-subtle hover:text-gh transition-colors cursor-pointer" aria-label="Close">
+                    <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+                </button>
+            </div>
+
+            <div class="p-5 space-y-4">
+                {{-- Copy URL row --}}
+                <div>
+                    <div class="text-[10px] font-mono text-gh-subtle mb-2">// copy link</div>
+                    <div class="flex gap-2">
+                        <input type="text" readonly value="{{ request()->url() }}"
+                            class="flex-1 text-[11px] px-3 py-2 rounded border border-gh bg-gh-base text-gh-muted font-mono focus:outline-none truncate">
+                        <button @click="copyUrl()"
+                            class="px-3 py-2 rounded border font-mono text-[11px] transition-colors cursor-pointer shrink-0"
+                            :class="copied
+                                ? 'bg-gh-b-green border-gh-b-green text-gh-green'
+                                : 'bg-gh-raised border-gh text-gh hover:border-gh-blue hover:text-gh-blue'">
+                            <span x-text="copied ? '✓ copied' : 'copy'"></span>
+                        </button>
+                    </div>
+                </div>
+
+                {{-- Social buttons --}}
+                <div>
+                    <div class="text-[10px] font-mono text-gh-subtle mb-2">// share on</div>
+                    <div class="flex flex-col gap-2">
+                        <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(request()->url()) }}"
+                            target="_blank" rel="noopener noreferrer"
+                            class="flex items-center gap-3 px-4 py-2.5 rounded border border-gh bg-gh-base hover:bg-gh-raised hover:border-[#1877f2] text-gh-muted hover:text-gh transition-colors group">
+                            <svg class="h-4 w-4 text-[#1877f2] shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                            <span class="text-xs font-mono">Facebook</span>
+                            <svg class="h-3 w-3 ml-auto opacity-0 group-hover:opacity-100 transition-opacity" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>
+                        </a>
+                        <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ urlencode(request()->url()) }}&title={{ urlencode($blog['title']) }}"
+                            target="_blank" rel="noopener noreferrer"
+                            class="flex items-center gap-3 px-4 py-2.5 rounded border border-gh bg-gh-base hover:bg-gh-raised hover:border-[#0a66c2] text-gh-muted hover:text-gh transition-colors group">
+                            <svg class="h-4 w-4 text-[#0a66c2] shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                            <span class="text-xs font-mono">LinkedIn</span>
+                            <svg class="h-3 w-3 ml-auto opacity-0 group-hover:opacity-100 transition-opacity" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>
+                        </a>
+                        <a href="https://twitter.com/intent/tweet?url={{ urlencode(request()->url()) }}&text={{ urlencode($blog['title']) }}"
+                            target="_blank" rel="noopener noreferrer"
+                            class="flex items-center gap-3 px-4 py-2.5 rounded border border-gh bg-gh-base hover:bg-gh-raised hover:border-[#1da1f2] text-gh-muted hover:text-gh transition-colors group">
+                            <svg class="h-4 w-4 text-[#1da1f2] shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.84 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg>
+                            <span class="text-xs font-mono">Twitter / X</span>
+                            <svg class="h-3 w-3 ml-auto opacity-0 group-hover:opacity-100 transition-opacity" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <!-- Share Modal -->
-    <div id="share-modal" class="fixed inset-0 z-50 hidden overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-        <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-            <div class="fixed inset-0 bg-black/30 backdrop-blur-sm transition-opacity" aria-hidden="true" onclick="closeShareModal()"></div>
-            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-            <div class="inline-block align-bottom bg-white dark:bg-gray-800 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-                <div class="bg-white dark:bg-gray-800 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                    <div class="sm:flex sm:items-start">
-                        <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
-                            <div class="flex justify-between items-center mb-4">
-                                <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-white" id="modal-title">
-                                    Chia sẻ bài viết
-                                </h3>
-                                <button onclick="closeShareModal()" class="text-gray-400 hover:text-gray-500 focus:outline-none">
-                                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                                    </svg>
-                                </button>
-                            </div>
-                            
-                            <div class="mt-2">
-                                <div class="flex rounded-md shadow-sm mb-6">
-                                    <input type="text" id="share-url" readonly class="flex-1 min-w-0 block w-full px-3 py-2 rounded-none rounded-l-md border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-500 dark:text-gray-300 sm:text-sm" value="{{ request()->url() }}">
-                                    <button onclick="copyShareUrl()" class="inline-flex items-center px-4 py-2 border border-l-0 border-gray-300 dark:border-gray-600 rounded-r-md bg-gray-50 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 text-sm font-medium">
-                                        <span id="copy-text">Copy</span>
-                                    </button>
-                                </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>
+function blogShow() {
+    return {
+        shareOpen: false,
+        copied: false,
 
-                                <h4 class="text-sm font-medium text-gray-900 dark:text-white mb-3">Chia sẻ qua mạng xã hội</h4>
-                                <div class="grid grid-cols-3 gap-3">
-                                    <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(request()->url()) }}" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm text-sm font-medium text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                        <svg class="h-5 w-5 text-blue-600 mr-2" fill="currentColor" viewBox="0 0 24 24">
-                                            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                                        </svg>
-                                        Facebook
-                                    </a>
-                                    <a href="https://twitter.com/intent/tweet?url={{ urlencode(request()->url()) }}&text={{ urlencode($blog['title']) }}" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm text-sm font-medium text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                        <svg class="h-5 w-5 text-sky-500 mr-2" fill="currentColor" viewBox="0 0 24 24">
-                                            <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.84 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
-                                        </svg>
-                                        Twitter
-                                    </a>
-                                    <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ urlencode(request()->url()) }}&title={{ urlencode($blog['title']) }}" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm text-sm font-medium text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                        <svg class="h-5 w-5 text-blue-700 mr-2" fill="currentColor" viewBox="0 0 24 24">
-                                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                                        </svg>
-                                        LinkedIn
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+        init() {
+            this.syncHljs();
+            new MutationObserver(() => this.syncHljs())
+                .observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
 
-    <!-- Highlight.js Script -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', (event) => {
-            // Initialize Highlight.js
-            hljs.highlightAll();
+            this.$nextTick(() => {
+                this.initHighlight();
+                this.initToc();
+                this.initProgress();
+            });
+        },
 
-            // Add copy buttons to code blocks
-            document.querySelectorAll('pre code').forEach((block) => {
+        syncHljs() {
+            const dark = document.documentElement.classList.contains('dark');
+            const l = document.getElementById('hljs-light');
+            const d = document.getElementById('hljs-dark');
+            if (l) l.disabled = dark;
+            if (d) d.disabled = !dark;
+        },
+
+        initHighlight() {
+            document.querySelectorAll('#blog-content pre code').forEach(block => {
+                hljs.highlightElement(block);
                 const pre = block.parentElement;
-                
-                // Create copy button
-                const button = document.createElement('button');
-                button.className = 'code-block-header cursor-pointer text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 transition-colors duration-200 flex items-center justify-center w-8 h-8 rounded-md bg-white/90 dark:bg-gray-700/90 shadow-sm border border-gray-200 dark:border-gray-600';
-                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg>';
-                button.title = 'Sao chép code';
-                
-                button.addEventListener('click', () => {
+                pre.style.position = 'relative';
+                const btn = document.createElement('button');
+                btn.className = 'absolute top-2 right-2 px-2 py-1 rounded text-[10px] font-mono bg-gh-raised border border-gh text-gh-muted hover:text-gh hover:border-[#58a6ff] transition-colors cursor-pointer';
+                btn.textContent = 'copy';
+                btn.addEventListener('click', () => {
                     navigator.clipboard.writeText(block.textContent).then(() => {
-                        button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>';
-                        button.classList.add('text-green-500', 'dark:text-green-400');
+                        btn.textContent = '✓ copied';
+                        btn.classList.add('text-gh-green', 'border-[#3fb950]');
                         setTimeout(() => {
-                            button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg>';
-                            button.classList.remove('text-green-500', 'dark:text-green-400');
+                            btn.textContent = 'copy';
+                            btn.classList.remove('text-gh-green', 'border-[#3fb950]');
                         }, 2000);
                     });
                 });
-
-                pre.appendChild(button);
+                pre.appendChild(btn);
             });
-        });
+        },
 
-        // Share Modal Logic
-        function openShareModal() {
-            document.getElementById('share-modal').classList.remove('hidden');
-        }
+        initToc() {
+            const headings = document.querySelectorAll('#blog-content h2, #blog-content h3');
+            if (headings.length < 2) return;
 
-        function closeShareModal() {
-            document.getElementById('share-modal').classList.add('hidden');
-        }
+            const toc = document.getElementById('toc');
+            const container = document.getElementById('toc-container');
+            container.classList.remove('hidden');
 
-        function copyShareUrl() {
-            const urlInput = document.getElementById('share-url');
-            urlInput.select();
-            urlInput.setSelectionRange(0, 99999); // For mobile devices
-            
-            navigator.clipboard.writeText(urlInput.value).then(() => {
-                const copyText = document.getElementById('copy-text');
-                const originalText = copyText.innerText;
-                copyText.innerText = 'Copied!';
-                copyText.classList.add('text-green-600', 'dark:text-green-400');
-                
-                setTimeout(() => {
-                    copyText.innerText = originalText;
-                    copyText.classList.remove('text-green-600', 'dark:text-green-400');
-                }, 2000);
+            headings.forEach((h, i) => {
+                if (!h.id) h.id = 'h-' + i;
+                const a = document.createElement('a');
+                a.href = '#' + h.id;
+                a.textContent = h.textContent;
+                a.dataset.id = h.id;
+                a.className = [
+                    'block py-1 text-[10px] font-mono leading-snug transition-colors truncate',
+                    h.tagName === 'H3' ? 'pl-3' : '',
+                    'text-gh-subtle hover:text-gh-blue',
+                ].join(' ');
+                toc.appendChild(a);
             });
-        }
 
-        // Close modal when clicking outside
-        window.onclick = function(event) {
-            const modal = document.getElementById('share-modal');
-            if (event.target == modal) {
-                closeShareModal();
-            }
-        }
-    </script>
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) return;
+                    toc.querySelectorAll('a').forEach(a => {
+                        const active = a.dataset.id === entry.target.id;
+                        a.classList.toggle('text-gh-blue', active);
+                        a.classList.toggle('text-gh-subtle', !active);
+                        a.classList.toggle('font-medium', active);
+                    });
+                });
+            }, { rootMargin: '-20% 0% -70% 0%' });
+
+            headings.forEach(h => observer.observe(h));
+        },
+
+        initProgress() {
+            const bar = document.getElementById('reading-progress');
+            const article = document.getElementById('blog-content');
+            if (!bar || !article) return;
+
+            window.addEventListener('scroll', () => {
+                const { top, height } = article.getBoundingClientRect();
+                const pct = Math.max(0, Math.min(100, (-top / (height - window.innerHeight)) * 100));
+                bar.style.width = pct + '%';
+            }, { passive: true });
+        },
+
+        copyUrl() {
+            navigator.clipboard.writeText('{{ request()->url() }}').then(() => {
+                this.copied = true;
+                setTimeout(() => { this.copied = false; }, 2000);
+            });
+        },
+    };
+}
+</script>
 @endsection

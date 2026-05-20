@@ -4,7 +4,6 @@
 use App\Http\Controllers\BlogsController;
 use App\Http\Controllers\ShopController;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 Route::get('/test', [BlogsController::class, 'index']);
 Route::get('/', function () {
@@ -28,7 +27,3 @@ Route::post('/api/cart/items', [ShopController::class, 'getCartItems'])->name('c
 Route::get('/checkout', [ShopController::class, 'checkout'])->name('checkout');
 Route::post('/checkout', [ShopController::class, 'processCheckout'])->name('checkout.process');
 
-// // 404 route - must be the last route
-// Route::fallback(function () {
-//     return Inertia::render('NotFound');
-// })->name('not-found');
