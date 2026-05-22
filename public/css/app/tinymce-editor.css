@@ -1,0 +1,15 @@
+/* ── Z-index fixes so TinyMCE dialogs float above Repeater/Builder rows ── */
+.fi-fo-repeater .tox-tinymce,
+.fi-fo-builder  .tox-tinymce,
+[wire\:sortable] .tox-tinymce  { z-index: 1    !important; }
+
+.fi-fo-repeater .tox-tinymce-aux,
+.fi-fo-builder  .tox-tinymce-aux,
+[wire\:sortable] .tox-tinymce-aux { z-index: 9999 !important; }
+
+/* Prevent sticky toolbar from stacking on top of the Filament header */
+.fi-fo-repeater .tox .tox-toolbar,
+.fi-fo-builder  .tox .tox-toolbar { position: relative !important; }
+
+.fi-fo-repeater .tox .tox-editor-header,
+.fi-fo-builder  .tox .tox-editor-header { position: relative !important; z-index: auto !important; }
