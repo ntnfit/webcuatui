@@ -1,24 +1,15 @@
 /**
  * TinyMCE Alpine.js component for Filament.
  *
- * Loaded lazily via Filament's x-load / x-load-src mechanism.
- * Must be a default ESM export — called with NO arguments.
- *
- * Config is read from data-* attributes on the host element to avoid
- * double-quote escaping issues inside HTML attributes:
- *   data-state-path   — Livewire state path (e.g. "data.body")
- *   data-editor-config — JSON blob with all TinyMCE options
+ * Uses $wire.get/set instead of $entangle to avoid passing Alpine reactive
+ * proxy objects to TinyMCE's setContent (which requires a plain string).
  */
 export default function tinyeditor() {
     return {
-        state: null,
         isUploading: false,
-
-        /** @type {Record<string, any>} */
         _cfg: {},
+        _statePath: null,
         _morphHandler: null,
-
-        // ── Helpers ────────────────────────────────────────────────────────
 
         editor() {
             return window.tinymce?.get(this._cfg.editorId) ?? null;
@@ -30,35 +21,28 @@ export default function tinyeditor() {
             if (mode === false)   return 'oxide';
             if (mode === 'class') return document.documentElement.classList.contains('dark') ? 'oxide-dark' : 'oxide';
             if (mode === 'media') return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'oxide-dark' : 'oxide';
-            // auto — honour this site's localStorage appearance key
             const pref = localStorage.getItem('appearance') ?? 'system';
             if (pref === 'dark') return 'oxide-dark';
             if (pref === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches) return 'oxide-dark';
             return 'oxide';
         },
 
-        // ── Lifecycle ──────────────────────────────────────────────────────
-
         init() {
-            // Read config from data attributes (avoids HTML attribute quote issues)
-            const statePath = this.$el.dataset.statePath;
+            this._statePath = this.$el.dataset.statePath;
             this._cfg = JSON.parse(this.$el.dataset.editorConfig || '{}');
 
             if (this._cfg.disabled) return;
 
-            // Two-way bind to Livewire state
-            this.state = this.$wire.$entangle(statePath);
-
             this._boot();
 
-            // Sync editor when Livewire updates state from outside (e.g. reset)
-            this.$watch('state', (value) => {
+            // Sync Livewire → editor when state changes from outside
+            this.$wire.$watch(this._statePath, (value) => {
                 const ed = this.editor();
                 if (!ed || this.isUploading) return;
-                if (value !== ed.getContent()) ed.setContent(value ?? '');
+                const content = typeof value === 'string' ? value : '';
+                if (content !== ed.getContent()) ed.setContent(content);
             });
 
-            // Re-initialise after Livewire morphs the DOM (e.g. Repeater add-row)
             this._morphHandler = () => {
                 this.$nextTick(() => {
                     if (document.getElementById(this._cfg.editorId) && !this.editor()) {
@@ -76,12 +60,12 @@ export default function tinyeditor() {
             }
         },
 
-        // ── Editor init ────────────────────────────────────────────────────
-
         _boot() {
-            // TinyMCE CDN script may still be loading — retry until ready
             if (!window.tinymce) { setTimeout(() => this._boot(), 120); return; }
             if (this.editor()) return;
+
+            const targetEl = document.getElementById(this._cfg.editorId);
+            if (!targetEl) { setTimeout(() => this._boot(), 120); return; }
 
             const { editorId, plugins, toolbar, height, minHeight, menubar,
                     toolbarSticky, toolbarStickyOffset, customConfigs,
@@ -90,7 +74,7 @@ export default function tinyeditor() {
             const skin = this._skin();
 
             window.tinymce.init({
-                selector: `#${editorId}`,
+                target: targetEl,
                 plugins: plugins ?? '',
                 toolbar: toolbar ?? '',
                 height: height ?? 500,
@@ -114,13 +98,13 @@ export default function tinyeditor() {
                 ...(customConfigs ?? {}),
                 setup: (editor) => {
                     editor.on('init', () => {
-                        if (this.state) editor.setContent(this.state);
+                        // Use $wire.get to get a plain string, never a reactive proxy
+                        const raw = this.$wire.get(this._statePath);
+                        editor.setContent(typeof raw === 'string' ? raw : '');
                     });
-                    // Push HTML to Livewire on blur or any content mutation
                     editor.on('blur change', () => {
-                        this.state = editor.getContent();
+                        this.$wire.set(this._statePath, editor.getContent());
                     });
-                    // Disable Filament modal x-trap while a TinyMCE dialog is open
                     editor.on('OpenWindow', () => {
                         this.$el.closest('[x-trap\\.noscroll]')
                             ?.setAttribute('x-trap.noscroll', 'false');
@@ -132,8 +116,6 @@ export default function tinyeditor() {
                 },
             });
         },
-
-        // ── Image upload ───────────────────────────────────────────────────
 
         _upload(blobInfo, progress, uploadUrl, uploadToken) {
             return new Promise((resolve, reject) => {

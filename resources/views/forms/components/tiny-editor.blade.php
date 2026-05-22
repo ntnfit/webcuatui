@@ -1,5 +1,5 @@
 @php
-    $editorId  = 'tinyeditor-' . $getId();
+    $editorId  = 'tinyeditor-' . str_replace('.', '-', $getId());
     $statePath = $getStatePath();
     $disabled  = $isDisabled();
     $tinyJsUrl = asset('vendor/tinymce/tinymce.min.js');
@@ -36,15 +36,6 @@
     </style>
     @endonce
 
-    {{--
-        x-load-js / x-load-css must be JSON arrays.
-        Use {{ json_encode() }} so double-quotes are HTML-escaped to &quot;
-        (getAttribute() decodes them back → valid JSON for Filament's x-load parser).
-
-        x-data stays simple ("tinyeditor" with no inline args) to avoid
-        @js() outputs breaking the double-quoted attribute.
-        All config is passed via data-* + @json() which uses " for quotes.
-    --}}
     <div
         wire:ignore
         x-load
@@ -53,7 +44,7 @@
         x-load-css="{{ json_encode(array_filter([$cssUrl])) }}"
         x-data="tinyeditor"
         data-state-path="{{ $statePath }}"
-        data-editor-config="@json($editorConfig)"
+        data-editor-config="{{ json_encode($editorConfig, JSON_HEX_TAG | JSON_HEX_AMP) }}"
     >
         @unless ($disabled)
             <textarea id="{{ $editorId }}"></textarea>
