@@ -31,15 +31,28 @@ export default function tinyeditor({ state = null, statePath = null, editorConfi
             if (this._cfg.disabled) return;
 
             this._boot();
+            this._registerMorphHandler();
 
-            this.$watch('state', (value) => {
-                const ed = this.editor();
-                if (!ed || this.isUploading) return;
+            if (this.state !== null) {
+                this.$watch('state', (value) => {
+                    this._syncEditorContent(value);
+                });
+            } else {
+                this.$wire.$watch(this.statePath, (value) => {
+                    this._syncEditorContent(value);
+                });
+            }
+        },
 
-                const content = this._contentFromState(value);
-                if (content !== ed.getContent()) ed.setContent(content);
-            });
+        _syncEditorContent(value) {
+            const ed = this.editor();
+            if (!ed || this.isUploading) return;
 
+            const content = this._contentFromState(value);
+            if (content !== ed.getContent()) ed.setContent(content);
+        },
+
+        _registerMorphHandler() {
             this._morphHandler = () => {
                 this.$nextTick(() => {
                     if (document.getElementById(this._cfg.editorId) && !this.editor()) {
@@ -111,10 +124,16 @@ export default function tinyeditor({ state = null, statePath = null, editorConfi
                 ...(customConfigs ?? {}),
                 setup: (editor) => {
                     editor.on('init', () => {
-                        editor.setContent(this._contentFromState(this.state));
+                        editor.setContent(this._currentContent());
                     });
                     editor.on('blur change', () => {
-                        this.state = editor.getContent();
+                        const content = editor.getContent();
+
+                        if (this.state !== null) {
+                            this.state = content;
+                        } else {
+                            this.$wire.set(this.statePath, content);
+                        }
                     });
                     editor.on('OpenWindow', () => {
                         this.$el.closest('[x-trap\\.noscroll]')?.setAttribute('x-trap.noscroll', 'false');
@@ -131,6 +150,12 @@ export default function tinyeditor({ state = null, statePath = null, editorConfi
             if (typeof value?.initialValue === 'string') return value.initialValue;
 
             return '';
+        },
+
+        _currentContent() {
+            if (this.state !== null) return this._contentFromState(this.state);
+
+            return this._contentFromState(this.$wire.get(this.statePath));
         },
 
         _upload(blobInfo, progress, uploadUrl, uploadToken) {
