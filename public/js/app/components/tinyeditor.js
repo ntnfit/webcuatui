@@ -1,14 +1,9 @@
-/**
- * TinyMCE Alpine.js component for Filament.
- *
- * Async-alpine calls module.default(Alpine) — so we must register via
- * Alpine.data() here instead of just exporting a factory function.
- */
-export default function (Alpine) {
-    Alpine.data('tinyeditor', () => ({
+export default function tinyeditor({ state = null, statePath = null, editorConfig = null } = {}) {
+    return {
+        state,
+        statePath,
         isUploading: false,
         _cfg: {},
-        _statePath: null,
         _morphHandler: null,
 
         editor() {
@@ -18,28 +13,30 @@ export default function (Alpine) {
         _skin() {
             const mode = this._cfg.darkMode;
             if (mode === 'force') return 'oxide-dark';
-            if (mode === false)   return 'oxide';
+            if (mode === false) return 'oxide';
             if (mode === 'class') return document.documentElement.classList.contains('dark') ? 'oxide-dark' : 'oxide';
             if (mode === 'media') return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'oxide-dark' : 'oxide';
+
             const pref = localStorage.getItem('appearance') ?? 'system';
             if (pref === 'dark') return 'oxide-dark';
             if (pref === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches) return 'oxide-dark';
+
             return 'oxide';
         },
 
         init() {
-            this._statePath = this.$el.dataset.statePath;
-            this._cfg = JSON.parse(this.$el.dataset.editorConfig || '{}');
+            this._cfg = editorConfig ?? JSON.parse(this.$el.dataset.editorConfig || '{}');
+            this.statePath = this.statePath ?? this.$el.dataset.statePath;
 
             if (this._cfg.disabled) return;
 
             this._boot();
 
-            // Sync Livewire → editor when state changes from outside
-            this.$wire.$watch(this._statePath, (value) => {
+            this.$watch('state', (value) => {
                 const ed = this.editor();
                 if (!ed || this.isUploading) return;
-                const content = typeof value === 'string' ? value : '';
+
+                const content = this._contentFromState(value);
                 if (content !== ed.getContent()) ed.setContent(content);
             });
 
@@ -55,21 +52,38 @@ export default function (Alpine) {
 
         destroy() {
             this.editor()?.destroy();
+
             if (this._morphHandler) {
                 document.removeEventListener('livewire:morph', this._morphHandler);
             }
         },
 
         _boot() {
-            if (!window.tinymce) { setTimeout(() => this._boot(), 120); return; }
+            if (!window.tinymce) {
+                setTimeout(() => this._boot(), 120);
+                return;
+            }
+
             if (this.editor()) return;
 
             const targetEl = document.getElementById(this._cfg.editorId);
-            if (!targetEl) { setTimeout(() => this._boot(), 120); return; }
+            if (!targetEl) {
+                setTimeout(() => this._boot(), 120);
+                return;
+            }
 
-            const { editorId, plugins, toolbar, height, minHeight, menubar,
-                    toolbarSticky, toolbarStickyOffset, customConfigs,
-                    uploadUrl, uploadToken } = this._cfg;
+            const {
+                plugins,
+                toolbar,
+                height,
+                minHeight,
+                menubar,
+                toolbarSticky,
+                toolbarStickyOffset,
+                customConfigs,
+                uploadUrl,
+                uploadToken,
+            } = this._cfg;
 
             const skin = this._skin();
 
@@ -93,27 +107,30 @@ export default function (Alpine) {
                 images_upload_url: uploadUrl,
                 images_upload_credentials: true,
                 automatic_uploads: true,
-                images_upload_handler: (blobInfo, progress) =>
-                    this._upload(blobInfo, progress, uploadUrl, uploadToken),
+                images_upload_handler: (blobInfo, progress) => this._upload(blobInfo, progress, uploadUrl, uploadToken),
                 ...(customConfigs ?? {}),
                 setup: (editor) => {
                     editor.on('init', () => {
-                        const raw = this.$wire.get(this._statePath);
-                        editor.setContent(typeof raw === 'string' ? raw : '');
+                        editor.setContent(this._contentFromState(this.state));
                     });
                     editor.on('blur change', () => {
-                        this.$wire.set(this._statePath, editor.getContent());
+                        this.state = editor.getContent();
                     });
                     editor.on('OpenWindow', () => {
-                        this.$el.closest('[x-trap\\.noscroll]')
-                            ?.setAttribute('x-trap.noscroll', 'false');
+                        this.$el.closest('[x-trap\\.noscroll]')?.setAttribute('x-trap.noscroll', 'false');
                     });
                     editor.on('CloseWindow', () => {
-                        this.$el.closest('[x-trap\\.noscroll]')
-                            ?.setAttribute('x-trap.noscroll', 'isOpen');
+                        this.$el.closest('[x-trap\\.noscroll]')?.setAttribute('x-trap.noscroll', 'isOpen');
                     });
                 },
             });
+        },
+
+        _contentFromState(value) {
+            if (typeof value === 'string') return value;
+            if (typeof value?.initialValue === 'string') return value.initialValue;
+
+            return '';
         },
 
         _upload(blobInfo, progress, uploadUrl, uploadToken) {
@@ -127,7 +144,7 @@ export default function (Alpine) {
                     method: 'POST',
                     headers: {
                         'X-CSRF-TOKEN': uploadToken,
-                        'Accept': 'application/json',
+                        Accept: 'application/json',
                     },
                     body,
                 })
@@ -140,8 +157,10 @@ export default function (Alpine) {
                         resolve(data.location);
                     })
                     .catch((err) => reject(`Upload failed: ${err.message}`))
-                    .finally(() => { this.isUploading = false; });
+                    .finally(() => {
+                        this.isUploading = false;
+                    });
             });
         },
-    }));
+    };
 }

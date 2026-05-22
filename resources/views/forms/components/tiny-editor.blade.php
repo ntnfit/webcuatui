@@ -42,7 +42,11 @@
         x-load-src="{{ \Filament\Support\Facades\FilamentAsset::getAlpineComponentSrc('tinyeditor') }}"
         x-load-js="{{ json_encode([$tinyJsUrl]) }}"
         x-load-css="{{ json_encode(array_filter([$cssUrl])) }}"
-        x-data="tinyeditor"
+        x-data="tinyeditor({
+            state: $wire.{{ $applyStateBindingModifiers("entangle('{$statePath}')", isOptimisticallyLive: false) }},
+            statePath: @js($statePath),
+            editorConfig: @js($editorConfig),
+        })"
         data-state-path="{{ $statePath }}"
         data-editor-config="{{ json_encode($editorConfig, JSON_HEX_TAG | JSON_HEX_AMP) }}"
     >
