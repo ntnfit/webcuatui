@@ -81,6 +81,8 @@ class AdminPanelProvider extends PanelProvider
 
     public function boot(): void
     {
+        FilamentAsset::appVersion(substr(md5_file(resource_path('js/tinymce-alpine-component.js')), 0, 12));
+
         FilamentAsset::register([
             Css::make('ckeditor5', 'https://cdn.ckeditor.com/ckeditor5/43.2.0/ckeditor5.css'),
 
