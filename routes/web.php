@@ -1,9 +1,15 @@
 <?php
 
 
+use App\Http\Controllers\Admin\TinyMceUploadController;
 use App\Http\Controllers\BlogsController;
 use App\Http\Controllers\ShopController;
 use Illuminate\Support\Facades\Route;
+
+// TinyMCE image upload — signed URL enforces disk/directory; auth guards admin-only access
+Route::post('/admin/tinymce/upload', [TinyMceUploadController::class, 'store'])
+    ->middleware(['web', 'auth'])
+    ->name('tinymce.upload');
 
 Route::get('/test', [BlogsController::class, 'index']);
 Route::get('/', function () {

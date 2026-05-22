@@ -7,8 +7,7 @@ use Filament\Schemas\Components\Fieldset;
 use Filament\Schemas\Components\Tabs;
 use Filament\Schemas\Components\Tabs\Tab;
 use Filament\Schemas\Components\Utilities\Set;
-//use AmidEsfahani\FilamentTinyEditor\TinyEditor;
-use Filament\Forms\Components\RichEditor;
+use App\Forms\Components\TinyEditor;
 use App\Enums\PostStatus;
 use App\Enums\TypePost;
 use Filament\Forms\Components\DateTimePicker;
@@ -157,12 +156,11 @@ class blogs extends Model
                                     //                                        ->output(TiptapOutput::Html)
                                     //                                        ->required()
                                     //                                        ->columnSpanFull(),
-                                    RichEditor::make('body')
+                                    TinyEditor::make('body')
+                                        ->profile('default')
                                         ->fileAttachmentsDisk('public')
-                                        ->fileAttachmentsVisibility('public')
                                         ->fileAttachmentsDirectory('uploads')
-                                       
-                                      //  ->ltr() // Set RTL or use ->direction('auto|rtl|ltr')
+                                        ->height(500)
                                         ->columnSpan('full')
                                         ->required(),
                                 ]),
@@ -185,9 +183,10 @@ class blogs extends Model
                                         ->label('Sub Title English')
                                         ->maxLength(255)
                                         ->columnSpanFull(),
-                                    RichEditor::make('body_en')
+                                    TinyEditor::make('body_en')
                                         ->label('Body English')
-                                
+                                        ->profile('default')
+                                        ->height(500)
                                         ->columnSpanFull(),
                                 ]),
                         ]),

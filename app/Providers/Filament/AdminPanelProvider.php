@@ -9,6 +9,7 @@ use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
+use Filament\Support\Assets\AlpineComponent;
 use Filament\Support\Assets\Css;
 use Filament\Support\Assets\Js;
 use Filament\Support\Colors\Color;
@@ -82,8 +83,10 @@ class AdminPanelProvider extends PanelProvider
     {
         FilamentAsset::register([
             Css::make('ckeditor5', 'https://cdn.ckeditor.com/ckeditor5/43.2.0/ckeditor5.css'),
-            //         Js::make('ckeditor5', 'https://cdn.ckeditor.com/ckeditor5/43.2.0/ckeditor5.js'),
-            //         Js::make('ckeditor5/', 'https://cdn.ckeditor.com/ckeditor5/43.2.0/'),
+
+            // TinyMCE — loaded lazily only on pages that contain a TinyEditor field
+            AlpineComponent::make('tinyeditor', resource_path('js/tinymce-alpine-component.js')),
+            Css::make('tinymce-editor', resource_path('css/tinymce-editor.css'))->loadedOnRequest(),
         ]);
     }
 }
