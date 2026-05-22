@@ -85,8 +85,8 @@ class AdminPanelProvider extends PanelProvider
             Css::make('ckeditor5', 'https://cdn.ckeditor.com/ckeditor5/43.2.0/ckeditor5.css'),
 
             // TinyMCE — loaded lazily only on pages that contain a TinyEditor field
-            AlpineComponent::make('tinyeditor', resource_path('js/tinymce-alpine-component.js')),
-            Css::make('tinymce-editor', resource_path('css/tinymce-editor.css'))->loadedOnRequest(),
+            AlpineComponent::make('tinyeditor', resource_path('js/tinymce-alpine-component.js'))->version('1'),
+            Css::make('tinymce-editor', resource_path('css/tinymce-editor.css'))->loadedOnRequest()->version('1'),
         ]);
     }
 }
