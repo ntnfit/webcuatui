@@ -25,6 +25,7 @@
     @yield('jsonld')
     
     <meta name="google-adsense-account" content="ca-pub-6568899988616854" />
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6568899988616854" crossorigin="anonymous"></script>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -64,16 +65,6 @@
         @yield('content')
     </main>
 
-    <script>
-        // Google Ads
-        const script = document.createElement('script');
-        script.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6568899988616854";
-        script.async = true;
-        script.crossOrigin = "anonymous";
-        document.head.appendChild(script);
-    </script>
-    
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6568899988616854" crossOrigin="anonymous"></script>
     <script src="https://messenger.svc.chative.io/static/v1.0/channels/s085dc69b-a8f0-47d9-a88f-ed1dd85b0b4d/messenger.js?mode=livechat" defer="defer"></script>
     @livewireScripts
 </body>
