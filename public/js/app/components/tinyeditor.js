@@ -1,11 +1,11 @@
 /**
  * TinyMCE Alpine.js component for Filament.
  *
- * Uses $wire.get/set instead of $entangle to avoid passing Alpine reactive
- * proxy objects to TinyMCE's setContent (which requires a plain string).
+ * Async-alpine calls module.default(Alpine) — so we must register via
+ * Alpine.data() here instead of just exporting a factory function.
  */
-export default function tinyeditor() {
-    return {
+export default function (Alpine) {
+    Alpine.data('tinyeditor', () => ({
         isUploading: false,
         _cfg: {},
         _statePath: null,
@@ -98,7 +98,6 @@ export default function tinyeditor() {
                 ...(customConfigs ?? {}),
                 setup: (editor) => {
                     editor.on('init', () => {
-                        // Use $wire.get to get a plain string, never a reactive proxy
                         const raw = this.$wire.get(this._statePath);
                         editor.setContent(typeof raw === 'string' ? raw : '');
                     });
@@ -144,5 +143,5 @@ export default function tinyeditor() {
                     .finally(() => { this.isUploading = false; });
             });
         },
-    };
+    }));
 }
