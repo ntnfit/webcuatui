@@ -2,10 +2,23 @@
     $editorId  = 'tinyeditor-' . $getId();
     $statePath = $getStatePath();
     $disabled  = $isDisabled();
-    $tinyJsUrl = 'https://cdn.jsdelivr.net/npm/tinymce@'
-               . config('filament-tinyeditor.version', '8.0.2')
-               . '/tinymce.js';
+    $tinyJsUrl = asset('vendor/tinymce/tinymce.min.js');
     $cssUrl    = \Filament\Support\Facades\FilamentAsset::getStyleHref('tinymce-editor');
+    $editorConfig = [
+        'editorId'            => $editorId,
+        'plugins'             => $getPlugins(),
+        'toolbar'             => $getToolbar(),
+        'height'              => $getHeight(),
+        'minHeight'           => $getMinHeight(),
+        'menubar'             => $isMenuBarVisible(),
+        'toolbarSticky'       => $isToolbarSticky(),
+        'toolbarStickyOffset' => $getToolbarStickyOffset(),
+        'darkMode'            => $getDarkMode(),
+        'customConfigs'       => json_decode($getCustomConfigs()),
+        'uploadUrl'           => $getUploadUrl(),
+        'uploadToken'         => csrf_token(),
+        'disabled'            => $disabled,
+    ];
 @endphp
 
 <x-dynamic-component :component="$getFieldWrapperView()" :field="$field">
@@ -40,21 +53,7 @@
         x-load-css="{{ json_encode(array_filter([$cssUrl])) }}"
         x-data="tinyeditor"
         data-state-path="{{ $statePath }}"
-        data-editor-config="@json([
-            'editorId'            => $editorId,
-            'plugins'             => $getPlugins(),
-            'toolbar'             => $getToolbar(),
-            'height'              => $getHeight(),
-            'minHeight'           => $getMinHeight(),
-            'menubar'             => $isMenuBarVisible(),
-            'toolbarSticky'       => $isToolbarSticky(),
-            'toolbarStickyOffset' => $getToolbarStickyOffset(),
-            'darkMode'            => $getDarkMode(),
-            'customConfigs'       => json_decode($getCustomConfigs()),
-            'uploadUrl'           => $getUploadUrl(),
-            'uploadToken'         => csrf_token(),
-            'disabled'            => $disabled,
-        ])"
+        data-editor-config="@json($editorConfig)"
     >
         @unless ($disabled)
             <textarea id="{{ $editorId }}"></textarea>
