@@ -3,6 +3,7 @@
 
 use App\Http\Controllers\Admin\TinyMceUploadController;
 use App\Http\Controllers\BlogsController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ShopController;
 use Illuminate\Support\Facades\Route;
 
@@ -12,13 +13,7 @@ Route::post('/admin/tinymce/upload', [TinyMceUploadController::class, 'store'])
     ->name('tinymce.upload');
 
 Route::get('/test', [BlogsController::class, 'index']);
-Route::get('/', function () {
-    $posts = \App\Models\blogs::with(['user', 'categories', 'tags'])->published()->take(6)->get();
-
-    return view('home', [
-        'latestArticles' => $posts->map(fn ($post) => $post->getDataArray()),
-    ]);
-})->name('home');
+Route::get('/', HomeController::class)->name('home');
 
 // Blog routes
 Route::get('/blogs', [BlogsController::class, 'index'])->name('blogs.index');

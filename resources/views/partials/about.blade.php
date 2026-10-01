@@ -11,7 +11,7 @@
             {{-- Photo panel --}}
             <div class="bg-gh-surface border border-gh rounded-lg overflow-hidden">
                 <div class="aspect-square">
-                    <img src="/images/me.jpg" alt="Harry Dev"
+                    <img src="/images/me.webp" alt="Harry Dev" width="480" height="480" loading="lazy" decoding="async"
                          class="w-full h-full object-cover object-top grayscale hover:grayscale-0 transition-all duration-500">
                 </div>
                 <div class="p-4 font-mono border-t border-gh-subtle">

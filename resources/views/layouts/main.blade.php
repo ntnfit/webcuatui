@@ -25,7 +25,10 @@
     @yield('jsonld')
     
     <meta name="google-adsense-account" content="ca-pub-6568899988616854" />
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6568899988616854" crossorigin="anonymous"></script>
+    {{-- Skipped on the home page: auto-ads overlay the hero and add ~400KB of requests --}}
+    @unless (request()->routeIs('home'))
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6568899988616854" crossorigin="anonymous"></script>
+    @endunless
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -36,7 +39,6 @@
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/main.js'])
-    @livewireStyles
 
     <!-- Dark Mode Script -->
     <script>
@@ -66,6 +68,5 @@
     </main>
 
     <script src="https://messenger.svc.chative.io/static/v1.0/channels/s085dc69b-a8f0-47d9-a88f-ed1dd85b0b4d/messenger.js?mode=livechat" defer="defer"></script>
-    @livewireScripts
 </body>
 </html>
