@@ -60,7 +60,7 @@
 
     @include('partials.footer')
 
-    <script src="https://messenger.svc.chative.io/static/v1.0/channels/s085dc69b-a8f0-47d9-a88f-ed1dd85b0b4d/messenger.js?mode=livechat" defer="defer"></script>
+    <script src="https://messenger.svc.chative.io/static/v1.0/channels/s6e8b5d63-105e-466d-a317-5e598eebf73d/messenger.js?mode=livechat" defer="defer"></script>
     @stack('scripts')
 </body>
 </html>
