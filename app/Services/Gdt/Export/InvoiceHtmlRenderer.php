@@ -30,6 +30,12 @@ class InvoiceHtmlRenderer
         return $this->finish($html ?? $this->fallback($invoice->payload()));
     }
 
+    /** Generated layout from cached invoice data only, with no portal call. */
+    public function renderFromData(TaxInvoice $invoice): string
+    {
+        return $this->finish($this->fallback($invoice->payload()));
+    }
+
     /** @param array<string, string> $entries */
     private function fromArchive(array $entries, TaxInvoice $invoice): ?string
     {
