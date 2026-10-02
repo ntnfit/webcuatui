@@ -27,7 +27,7 @@ class ItemSelector
      */
     public function select(Collection $candidates, int $limit, ?CarbonImmutable $now = null): Collection
     {
-        $now ??= CarbonImmutable::now();
+        $now ??= now()->toImmutable();
         $maxAge = (int) $this->settings->get('max_age_hours');
         $cap = max(1, (int) $this->settings->get('per_source_cap'));
         $threshold = (float) $this->settings->get('title_similarity');
