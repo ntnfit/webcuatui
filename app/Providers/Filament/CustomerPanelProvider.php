@@ -31,6 +31,7 @@ class CustomerPanelProvider extends PanelProvider
             ->path('customer')
             ->login()
             ->registration()
+            ->databaseNotifications()
             ->tenant(Company::class, slugAttribute: 'id')
             ->tenantRegistration(RegisterCompany::class)
             ->tenantProfile(EditCompanyProfile::class)

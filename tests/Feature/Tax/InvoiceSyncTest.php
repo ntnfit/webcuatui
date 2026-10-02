@@ -4,6 +4,7 @@ use App\Models\Company;
 use App\Models\GdtSession;
 use App\Models\TaxInvoice;
 use App\Services\Gdt\GdtClient;
+use App\Services\Gdt\GdtException;
 use App\Services\Gdt\InvoiceSearch;
 use App\Services\Gdt\InvoiceSyncService;
 use Illuminate\Http\Client\Request;
@@ -109,7 +110,7 @@ it('fails when the standard source errors', function () {
     Http::fake(['*' => Http::response([], 500)]);
 
     expect(fn () => app(InvoiceSyncService::class)->sync($this->company, searchFor()))
-        ->toThrow(\App\Services\Gdt\GdtException::class);
+        ->toThrow(GdtException::class);
 });
 
 it('rejects periods over 30 days, reversed ranges and bad directions', function () {

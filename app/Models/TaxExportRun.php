@@ -17,8 +17,6 @@ class TaxExportRun extends Model
 
     public const TYPE_EXCEL = 'excel';
 
-    public const TYPE_PDF_ZIP = 'pdf_zip';
-
     public const STATUS_PENDING = 'pending';
 
     public const STATUS_RUNNING = 'running';
