@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use DB;
-use Exception;
 use App\Models\ContactReason;
 use App\Models\Contacts;
+use DB;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
@@ -77,29 +77,16 @@ class ContactController extends Controller
             ], 422);
         }
 
-        // Nếu không có contact_reason_id, sử dụng ID mặc định hoặc tạo mới
-        if (! $request->contact_reason_id) {
-            $contactReason = ContactReason::firstOrCreate(
-                ['name' => 'Website Contact'],
-                ['name' => 'Website Contact']
-            );
-            $contact_reason_id = $contactReason->id;
-        } else {
-            $contact_reason_id = $request->contact_reason_id;
-        }
-
-        // Lưu thông tin liên hệ vào database
-        $contact = Contacts::create([
-            'full_name' => $request->name,
-            'email' => $request->email,
-            'phone_number' => $request->phone_number,
-            'company_name' => $request->company_name,
-            'message' => $request->message,
-            'contact_reason_id' => $contact_reason_id,
-        ]);
-
-        // Gửi email thông báo
-        $this->sendContactNotification($contact);
+        $contact = $this->recordInquiry(
+            [
+                'full_name' => $request->name,
+                'email' => $request->email,
+                'phone_number' => $request->phone_number,
+                'company_name' => $request->company_name,
+                'message' => $request->message,
+            ],
+            $request->contact_reason_id ? (int) $request->contact_reason_id : null,
+        );
 
         return response()->json([
             'status' => 'success',
@@ -109,35 +96,49 @@ class ContactController extends Controller
     }
 
     /**
-     * Gửi email thông báo khi có liên hệ mới
+     * Lưu một liên hệ/yêu cầu báo giá và gửi email thông báo.
+     * Dùng chung cho form liên hệ và form yêu cầu báo giá addon.
+     *
+     * @param  array{full_name: string, email: string, phone_number?: ?string, company_name?: ?string, message: string, topic?: ?string}  $data
+     * @param  int|null  $contactReasonId  Mặc định là lý do "Website Contact".
+     * @param  string  $reasonName  Tên lý do tạo mới khi chưa có $contactReasonId.
      */
-    private function sendContactNotification(Contacts $contact)
+    public function recordInquiry(array $data, ?int $contactReasonId = null, string $reasonName = 'Website Contact'): Contacts
     {
-        $to = 'ntnguyen0310@gmail.com'; // Email admin
-        $subject = 'Liên hệ mới từ website';
+        $contactReasonId ??= ContactReason::firstOrCreate(['name' => $reasonName])->id;
 
-        $data = [
-            'contact' => $contact,
-            'subject' => $subject,
-        ];
+        $contact = Contacts::create($data + ['contact_reason_id' => $contactReasonId]);
 
-        // Gửi email sử dụng class Mail của Laravel
-        Mail::send('emails.contact-notification', $data, function ($message) use ($to, $subject, $contact) {
-            $message->to($to)
-                ->subject($subject)
-                ->replyTo($contact->email, $contact->full_name);
-        });
+        $this->sendContactNotification($contact);
 
-        // Gửi email phản hồi tự động cho người dùng
-        $userSubject = 'Cảm ơn bạn đã liên hệ';
-        $userData = [
-            'contact' => $contact,
-            'subject' => $userSubject,
-        ];
+        return $contact;
+    }
 
-        Mail::send('emails.contact-autoreply', $userData, function ($message) use ($contact, $userSubject) {
-            $message->to($contact->email, $contact->full_name)
-                ->subject($userSubject);
-        });
+    /**
+     * Gửi email thông báo khi có liên hệ mới.
+     * Lỗi gửi mail được ghi log nhưng không làm mất liên hệ đã lưu.
+     */
+    private function sendContactNotification(Contacts $contact): void
+    {
+        try {
+            $to = 'ntnguyen0310@gmail.com'; // Email admin
+            $subject = 'Liên hệ mới từ website';
+
+            Mail::send('emails.contact-notification', ['contact' => $contact, 'subject' => $subject], function ($message) use ($to, $subject, $contact) {
+                $message->to($to)
+                    ->subject($subject)
+                    ->replyTo($contact->email, $contact->full_name);
+            });
+
+            // Gửi email phản hồi tự động cho người dùng
+            $userSubject = 'Cảm ơn bạn đã liên hệ';
+
+            Mail::send('emails.contact-autoreply', ['contact' => $contact, 'subject' => $userSubject], function ($message) use ($contact, $userSubject) {
+                $message->to($contact->email, $contact->full_name)
+                    ->subject($userSubject);
+            });
+        } catch (Exception $e) {
+            report($e);
+        }
     }
 }

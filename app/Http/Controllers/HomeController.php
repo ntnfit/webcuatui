@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\blogs;
+use App\Models\Product;
 use Illuminate\Support\Facades\Cache;
 
 class HomeController extends Controller
@@ -19,6 +20,14 @@ class HomeController extends Controller
                 ->all();
         });
 
-        return view('home', ['latestArticles' => $latestArticles]);
+        // Same cache window for the addon showcase.
+        $featuredAddons = Cache::remember('home.featured-addons', now()->addMinutes(10), function () {
+            return Product::active()->addons()->orderBy('name')->take(6)->get();
+        });
+
+        return view('home', [
+            'latestArticles' => $latestArticles,
+            'featuredAddons' => $featuredAddons,
+        ]);
     }
 }
