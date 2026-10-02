@@ -1,15 +1,15 @@
-﻿@extends('layouts.main')
+﻿@extends('layouts.app')
 
 @section('title', $blog['title'] . ' | HarryDev')
 @section('description', \Illuminate\Support\Str::limit(strip_tags($blog['excerpt'] ?? $blog['title']), 155))
 @section('og:title', $blog['title'])
 @section('og:description', \Illuminate\Support\Str::limit(strip_tags($blog['excerpt'] ?? $blog['title']), 155))
-@section('og:image', $blog['thumbnail_url'])
+@section('og:image', $blog['thumbnail_url'] ?? asset('images/og.png'))
 @section('og:type', 'article')
 @section('twitter:card', 'summary_large_image')
 @section('twitter:title', $blog['title'])
 @section('twitter:description', \Illuminate\Support\Str::limit(strip_tags($blog['excerpt'] ?? $blog['title']), 155))
-@section('twitter:image', $blog['thumbnail_url'])
+@section('twitter:image', $blog['thumbnail_url'] ?? asset('images/og.png'))
 
 @section('canonical_link')
 <link rel="canonical" href="{{ $blog['canonical_url'] ?? request()->url() }}">
@@ -22,7 +22,7 @@
   "@@type": "Article",
   "headline": {{ Illuminate\Support\Js::from($blog['title']) }},
   "description": {{ Illuminate\Support\Js::from(\Illuminate\Support\Str::limit(strip_tags($blog['excerpt'] ?? ''), 155)) }},
-  "image": "{{ $blog['thumbnail_url'] }}",
+  "image": "{{ $blog['thumbnail_url'] ?? asset('images/og.png') }}",
   "datePublished": "{{ $blog['created_at_iso'] ?? '' }}",
   "author": { "@@type": "Person", "name": {{ Illuminate\Support\Js::from($blog['author']['name']) }} },
   "publisher": { "@@type": "Person", "name": "HarryDev" },
@@ -31,8 +31,16 @@
 </script>
 @endsection
 
+@push('ads')
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6568899988616854" crossorigin="anonymous"></script>
+@endpush
+
+{{-- This page uses x-data for the share dialog; Livewire is not loaded here, so bring Alpine in directly. --}}
+@push('head')
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.9/dist/cdn.min.js"></script>
+@endpush
+
 @section('content')
-@include('partials.navbar')
 
 {{-- hljs themes (toggled by dark class, not media query) --}}
 <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
@@ -41,7 +49,7 @@
 {{-- Reading progress --}}
 <div id="reading-progress" class="fixed top-0 left-0 h-[2px] bg-[#3fb950] z-50 transition-all duration-75 ease-out pointer-events-none" style="width:0%"></div>
 
-<div class="min-h-dvh bg-gh-base text-gh pt-16"
+<div class="min-h-dvh bg-gh-base text-gh pt-0"
      x-data="blogShow()"
      x-init="init()">
 
@@ -101,9 +109,12 @@
 
             {{-- Author --}}
             <div class="flex items-center gap-3">
-                <img src="{{ $blog['author']['avatar'] }}" alt="{{ $blog['author']['name'] }}"
-                    class="w-9 h-9 rounded-full object-cover ring-1 ring-[#30363d]"
-                    onerror="this.src='https://github.com/shadcn.png'">
+                @if(!empty($blog['author']['avatar']))
+                    <img src="{{ $blog['author']['avatar'] }}" alt="{{ $blog['author']['name'] }}" width="36" height="36"
+                        class="w-9 h-9 rounded-full object-cover ring-1 ring-line">
+                @else
+                    <span class="flex h-9 w-9 items-center justify-center rounded-full bg-raised font-mono text-sm text-muted ring-1 ring-line" aria-hidden="true">{{ \Illuminate\Support\Str::upper(\Illuminate\Support\Str::substr($blog['author']['name'], 0, 1)) }}</span>
+                @endif
                 <div>
                     <div class="text-sm font-mono font-semibold text-gh">{{ $blog['author']['name'] }}</div>
                     @if(!empty($blog['author']['bio']))
