@@ -19,8 +19,9 @@ jobs:
           host: ${{ secrets.DEPLOY_HOST }}
           username: flashvps
           key: ${{ secrets.DEPLOY_SSH_KEY }}
-          # SHA256 fingerprint of the server's ED25519 host key (pins the host, blocks MITM)
-          fingerprint: SHA256:Ri0qpej3tWgnVqrbgdxlf5cpFSNojm91KR4Ll8pS+Nk
+          # SHA256 fingerprint of the server's ECDSA host key, the type the Go SSH client negotiates
+          # first (pins the host, blocks MITM)
+          fingerprint: SHA256:5MDFMb0PnCHtLYMkm2EhvnF401+klFOygCJLlxlQA7k
           port: 22
           script_stop: true
           script: |
