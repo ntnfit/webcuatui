@@ -16,7 +16,7 @@ use Livewire\Livewire;
 beforeEach(function () {
     $this->withoutVite();
     GdtClient::$initialDelayMs = 0;
-    $this->company = Company::factory()->create();
+    $this->company = Company::factory()->licensed()->create();
     $this->other = Company::factory()->create();
     $this->actingAs($this->company->owner, 'customer');
     Filament::setCurrentPanel('customer');

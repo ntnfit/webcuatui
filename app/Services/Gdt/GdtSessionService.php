@@ -50,6 +50,9 @@ class GdtSessionService
     /** Client bound to the company's token; throws when the company is not connected. */
     public function clientFor(Company $company): GdtClient
     {
+        // Every portal data call (sync, detail, XML, HTML, exports) goes through here.
+        $company->assertLicensed();
+
         $session = $this->activeSession($company);
 
         if (! $session) {

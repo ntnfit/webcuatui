@@ -74,7 +74,7 @@ it('surfaces a portal login failure without storing a session', function () {
 });
 
 it('refuses to build a client for a company without an active session', function () {
-    $company = Company::factory()->create();
+    $company = Company::factory()->licensed()->create();
     GdtSession::withoutGlobalScopes()->create([
         'company_id' => $company->id, 'token' => 'old', 'expires_at' => now()->subMinute(),
     ]);
@@ -85,7 +85,7 @@ it('refuses to build a client for a company without an active session', function
 
 it('drops the stored token when the portal answers 401', function () {
     Http::fake(['*' => Http::response([], 401)]);
-    $company = Company::factory()->create();
+    $company = Company::factory()->licensed()->create();
     GdtSession::withoutGlobalScopes()->create([
         'company_id' => $company->id, 'token' => 'tok', 'expires_at' => now()->addHour(),
     ]);

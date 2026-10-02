@@ -4,6 +4,7 @@ namespace App\Filament\Customer\Resources\TaxInvoices;
 
 use App\Filament\Customer\Resources\TaxInvoices\Pages\ListTaxInvoices;
 use App\Models\TaxInvoice;
+use Filament\Facades\Filament;
 use Filament\Forms\Components\DatePicker;
 use Filament\Resources\Resource;
 use Filament\Tables\Columns\TextColumn;
@@ -30,6 +31,15 @@ class TaxInvoiceResource extends Resource
     public static function canCreate(): bool
     {
         return false;
+    }
+
+    /** Without a valid license the cached invoice data stays hidden; the page shows the notice instead. */
+    public static function getEloquentQuery(): Builder
+    {
+        $query = parent::getEloquentQuery();
+        $tenant = Filament::getTenant();
+
+        return $tenant && $tenant->hasValidLicense() ? $query : $query->whereRaw('1 = 0');
     }
 
     public static function table(Table $table): Table

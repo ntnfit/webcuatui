@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Company;
 use App\Models\Customer;
+use App\Models\TaxLicense;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -21,6 +22,12 @@ class CompanyFactory extends Factory
             'mst' => fake()->unique()->numerify('##########'),
             'address' => fake()->address(),
         ];
+    }
+
+    /** Give the company a currently valid Tax license. */
+    public function licensed(): static
+    {
+        return $this->afterCreating(fn (Company $company) => TaxLicense::factory()->create(['company_id' => $company->id]));
     }
 
     /** Attach the owner as an `owner` member so tenancy sees the company. */

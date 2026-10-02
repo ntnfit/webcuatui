@@ -7,7 +7,7 @@ use App\Models\TaxInvoice;
 
 /**
  * Invoices are synced from the GDT portal and never edited by hand, so only reading is allowed,
- * and only for members of the owning company.
+ * and only for members of a company holding a valid Tax license.
  */
 class TaxInvoicePolicy
 {
@@ -18,7 +18,7 @@ class TaxInvoicePolicy
 
     public function view(Customer $customer, TaxInvoice $invoice): bool
     {
-        return $customer->canAccessTenant($invoice->company);
+        return $customer->canAccessTenant($invoice->company) && $invoice->company->hasValidLicense();
     }
 
     public function create(Customer $customer): bool

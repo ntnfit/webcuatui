@@ -31,6 +31,8 @@ class ExportRequestService
             throw new RuntimeException('Bạn không có quyền với công ty này.');
         }
 
+        $company->assertLicensed();
+
         $active = TaxExportRun::withoutGlobalScopes()
             ->where('company_id', $company->getKey())
             ->whereIn('status', [TaxExportRun::STATUS_PENDING, TaxExportRun::STATUS_RUNNING])

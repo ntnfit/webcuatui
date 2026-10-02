@@ -64,7 +64,7 @@ class TaxExportRunResource extends Resource
                     ->label('Tải xuống')
                     ->icon('heroicon-o-arrow-down-tray')
                     ->authorize('view')
-                    ->visible(fn (TaxExportRun $record) => $record->isDownloadable())
+                    ->visible(fn (TaxExportRun $record) => $record->isDownloadable() && $record->company->hasValidLicense())
                     ->action(function (TaxExportRun $record) {
                         $disk = Storage::disk(ExportRunner::DISK);
 

@@ -90,8 +90,8 @@ it('denies access to a company the customer does not belong to', function () {
 });
 
 it('scopes tax invoices to the active tenant and policy', function () {
-    $mine = Company::factory()->create();
-    $theirs = Company::factory()->create();
+    $mine = Company::factory()->licensed()->create();
+    $theirs = Company::factory()->licensed()->create();
     TaxInvoice::factory()->create(['company_id' => $mine->id]);
     TaxInvoice::factory()->count(2)->create(['company_id' => $theirs->id]);
 

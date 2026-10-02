@@ -33,6 +33,9 @@ class ExportRunner
         $run->update(['status' => TaxExportRun::STATUS_RUNNING, 'error' => null]);
 
         try {
+            // The license may have lapsed while the job waited in the queue.
+            $run->company->assertLicensed();
+
             $search = InvoiceSearch::fromArray($run->filters);
             $invoices = $this->invoicesFor($run, $search);
 

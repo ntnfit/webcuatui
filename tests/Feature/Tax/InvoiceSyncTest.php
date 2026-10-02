@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Http;
 
 beforeEach(function () {
     GdtClient::$initialDelayMs = 0;
-    $this->company = Company::factory()->create();
+    $this->company = Company::factory()->licensed()->create();
     GdtSession::withoutGlobalScopes()->create([
         'company_id' => $this->company->id, 'token' => 'tok', 'expires_at' => now()->addHour(),
     ]);

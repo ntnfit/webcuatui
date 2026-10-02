@@ -19,7 +19,7 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 beforeEach(function () {
     GdtClient::$initialDelayMs = 0;
     Storage::fake('local');
-    $this->company = Company::factory()->create();
+    $this->company = Company::factory()->licensed()->create();
     $this->customer = $this->company->owner;
     GdtSession::withoutGlobalScopes()->create([
         'company_id' => $this->company->id, 'token' => 'tok', 'expires_at' => now()->addHour(),
@@ -125,7 +125,7 @@ it('fails with a helpful message when there is nothing to export', function () {
 });
 
 it('never exports invoices of another company', function () {
-    $other = Company::factory()->create();
+    $other = Company::factory()->licensed()->create();
     seedInvoices($this->company, 1);
     seedInvoices($other, 3);
     Http::fake(['*/invoices/detail*' => Http::response(['hdhhdvu' => []])]);
@@ -137,7 +137,7 @@ it('never exports invoices of another company', function () {
 });
 
 it('refuses selected ids that belong to another company', function () {
-    $other = Company::factory()->create();
+    $other = Company::factory()->licensed()->create();
     seedInvoices($other, 1);
     $foreignId = TaxInvoice::withoutGlobalScopes()->where('company_id', $other->id)->value('id');
 
