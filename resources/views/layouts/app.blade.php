@@ -49,7 +49,7 @@
     @vite(['resources/css/app.css', 'resources/js/main.js'])
     @stack('head')
 </head>
-<body class="min-h-dvh bg-base font-sans text-fg antialiased">
+<body class="min-h-dvh bg-canvas font-sans text-fg antialiased">
     <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:left-2 focus:top-2 focus:z-[60] focus:rounded focus:bg-surface focus:px-3 focus:py-2 focus:text-sm">Bỏ qua điều hướng</a>
 
     @include('partials.navbar')

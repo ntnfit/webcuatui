@@ -1,4 +1,4 @@
-<footer class="border-t border-line-soft bg-base py-10">
+<footer class="border-t border-line-soft bg-canvas py-10">
     <div class="container-page">
         <div class="grid gap-8 sm:grid-cols-[1.4fr_1fr_1fr]">
             <div class="font-mono">

@@ -11,7 +11,7 @@
    Design tokens
    Raw values switch between light and dark; the
    @theme block below exposes them as utilities
-   (bg-base, bg-surface, text-fg, border-line, ...).
+   (bg-canvas, bg-surface, text-fg, border-line, ...).
    ============================================= */
 :root {
   color-scheme: light;
@@ -78,7 +78,7 @@
   --radius-md: 0.375rem;
   --radius-lg: 0.5rem;
 
-  --color-base:    var(--gh-bg);
+  --color-canvas:  var(--gh-bg);
   --color-surface: var(--gh-surface);
   --color-raised:  var(--gh-raised);
   --color-line:    var(--gh-bd1);
@@ -206,7 +206,7 @@
     @apply mb-1.5 block font-mono text-[11px] text-subtle;
   }
   .field {
-    @apply w-full rounded-md border border-line bg-base px-3 py-2.5 font-mono text-sm text-fg placeholder:text-subtle focus:border-link focus:outline-none focus:ring-1 focus:ring-link/30;
+    @apply w-full rounded-md border border-line bg-canvas px-3 py-2.5 font-mono text-sm text-fg placeholder:text-subtle focus:border-link focus:outline-none focus:ring-1 focus:ring-link/30;
   }
 
   .badge {

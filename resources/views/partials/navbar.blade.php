@@ -8,7 +8,7 @@
     $navLinkBase = 'rounded-md px-3 py-1.5 font-mono text-xs transition-colors';
 @endphp
 
-<header class="sticky top-0 z-50 border-b border-line-soft bg-base/95 backdrop-blur">
+<header class="sticky top-0 z-50 border-b border-line-soft bg-canvas/95 backdrop-blur">
     <nav class="container-page" aria-label="Điều hướng chính">
         <div class="flex h-14 items-center justify-between">
 

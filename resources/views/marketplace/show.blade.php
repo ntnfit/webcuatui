@@ -123,9 +123,9 @@
                             <li class="card flex flex-col gap-1 p-4 sm:flex-row sm:items-center sm:gap-4">
                                 <span class="font-mono text-xs text-subtle">{{ str_pad((string) ($i + 1), 2, '0', STR_PAD_LEFT) }}</span>
                                 <span class="flex flex-wrap items-center gap-2 text-sm">
-                                    <span class="rounded border border-line bg-base px-2 py-0.5 font-mono text-xs">{{ $step['from'] ?? '' }}</span>
+                                    <span class="rounded border border-line bg-canvas px-2 py-0.5 font-mono text-xs">{{ $step['from'] ?? '' }}</span>
                                     <span class="text-link" aria-hidden="true">→</span>
-                                    <span class="rounded border border-line bg-base px-2 py-0.5 font-mono text-xs">{{ $step['to'] ?? '' }}</span>
+                                    <span class="rounded border border-line bg-canvas px-2 py-0.5 font-mono text-xs">{{ $step['to'] ?? '' }}</span>
                                 </span>
                                 @if (! empty($step['note']))
                                     <span class="text-sm text-muted sm:ml-auto">{{ $step['note'] }}</span>
