@@ -86,8 +86,10 @@ class BlogsController extends Controller
     {
         try {
             // Lấy bài viết chính theo slug
+            // Only published posts are public, so unpublishing (admin takedown) really removes the page.
             $blog = Blogs::with(['categories', 'tags', 'user'])
                 ->where('slug', $slug)
+                ->where('status', \App\Enums\PostStatus::PUBLISHED->value)
                 ->firstOrFail();
             // Tăng lượt xem
             $blog->increment('view');

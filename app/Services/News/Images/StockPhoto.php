@@ -22,6 +22,6 @@ final class StockPhoto
         $provider = $this->provider === 'unsplash' ? 'Unsplash' : 'Pexels';
         $link = fn (string $url, string $label) => '<a href="'.e($url).'" target="_blank" rel="nofollow noopener">'.e($label).'</a>';
 
-        return 'Ảnh: '.$link($this->photographerUrl, $this->photographer).' / '.$link($this->photoUrl, $provider);
+        return 'Photo by '.$link($this->photographerUrl, $this->photographer).' on '.$link($this->photoUrl, $provider);
     }
 }

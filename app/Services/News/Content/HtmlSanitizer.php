@@ -124,7 +124,7 @@ class HtmlSanitizer
     {
         $url = preg_replace('/[\x00-\x20\x7F]+/u', '', $url) ?? '';
 
-        if (preg_match('#^https?://[^/?#]+#i', $url)) {
+        if (preg_match('~^https?://[^/?#]+~i', $url)) {
             return $url;
         }
         if (str_starts_with($url, '/') && ! str_starts_with($url, '//')) {

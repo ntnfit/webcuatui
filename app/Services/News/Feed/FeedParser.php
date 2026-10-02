@@ -134,9 +134,11 @@ class FeedParser
         $media = $node->children(self::NS_MEDIA);
         foreach (['content', 'thumbnail'] as $tag) {
             foreach ($media->{$tag} ?? [] as $m) {
-                $type = (string) $m['type'];
-                if ($tag === 'thumbnail' || $type === '' || str_starts_with($type, 'image/') || (string) $m['medium'] === 'image') {
-                    if ($url = $this->httpUrl((string) $m['url'])) {
+                // Attributes of a namespaced element are not namespaced themselves: read them via attributes().
+                $attrs = $m->attributes();
+                $type = (string) $attrs['type'];
+                if ($tag === 'thumbnail' || $type === '' || str_starts_with($type, 'image/') || (string) $attrs['medium'] === 'image') {
+                    if ($url = $this->httpUrl((string) $attrs['url'])) {
                         return $url;
                     }
                 }

@@ -2,11 +2,9 @@
 
 namespace App\Services\News\Writing;
 
-use Anthropic\Client;
 use Anthropic\Core\Exceptions\AnthropicException;
 use App\Models\NewsItem;
 use App\Services\News\NewsSettings;
-use Closure;
 use Illuminate\Support\Facades\Log;
 
 /**
@@ -16,11 +14,10 @@ use Illuminate\Support\Facades\Log;
  */
 class ClaudeArticleWriter implements ArticleWriter
 {
-    /** @param  (Closure(string): object)|null  $clientFactory  builds the SDK client from the API key (swapped in tests) */
     public function __construct(
         private readonly NewsSettings $settings,
         private readonly ArticlePrompt $prompt,
-        private readonly ?Closure $clientFactory = null,
+        private readonly ClaudeClientFactory $clients,
     ) {}
 
     public function isConfigured(): bool
@@ -42,8 +39,7 @@ class ClaudeArticleWriter implements ArticleWriter
         }
 
         try {
-            $client = $this->clientFactory ? ($this->clientFactory)($key) : new Client(apiKey: $key, requestOptions: ['timeout' => 300]);
-            $message = $client->messages->create(
+            $message = $this->clients->make($key)->messages->create(
                 model: $model,
                 maxTokens: (int) $this->settings->get('max_tokens'),
                 system: [['type' => 'text', 'text' => $this->prompt->system(), 'cacheControl' => ['type' => 'ephemeral']]],
