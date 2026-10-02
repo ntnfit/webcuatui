@@ -25,12 +25,12 @@ final class LicenseNotice
             $license = $company->activeLicense();
             $since = $license ? ' (hết hạn '.$license->expires_at->format('d/m/Y').')' : '';
 
-            return self::box('#fef2f2', '#b91c1c', e(self::blockedMessage()).e($since));
+            return self::box('#fef2f2', '#b91c1c', e('Giấy phép không hợp lệ. '.self::blockedMessage().$since));
         }
 
         $license = $company->activeLicense();
         $days = $company->licenseDaysLeft();
-        $text = 'Gói Tax có hiệu lực đến '.$license->expires_at->format('d/m/Y').", còn {$days} ngày.";
+        $text = 'Giấy phép hợp lệ, hết hạn ngày '.$license->expires_at->format('d/m/Y').", còn {$days} ngày.";
 
         if ($days <= self::WARNING_DAYS) {
             return self::box('#fffbeb', '#b45309', e($text.' Liên hệ '.self::CONTACT_EMAIL.' để gia hạn.'));

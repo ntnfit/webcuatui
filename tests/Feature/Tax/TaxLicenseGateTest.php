@@ -159,11 +159,28 @@ it('shows a notice when blocked and a warning style when 14 days or less remain'
     expect(LicenseNotice::bannerHtml($fine))->toContain('#15803d')->not->toContain('gia hạn');
 });
 
-it('renders the banner on the tenant dashboard', function () {
+it('states plainly whether the license is valid and until when', function () {
+    $none = Company::factory()->create();
+    expect(LicenseNotice::bannerHtml($none))->toContain('Giấy phép không hợp lệ');
+
+    $fine = Company::factory()->create();
+    TaxLicense::factory()->create(['company_id' => $fine->id, 'expires_at' => now()->addDays(40)]);
+    expect(LicenseNotice::bannerHtml($fine))
+        ->toContain('Giấy phép hợp lệ')
+        ->toContain(now()->addDays(40)->format('d/m/Y'));
+});
+
+it('renders the banner on the tool pages and lands on them without a dashboard', function () {
     $company = Company::factory()->create();
     $this->actingAs($company->owner, 'customer');
 
-    $this->get("/customer/{$company->id}")->assertOk()->assertSee('chưa kích hoạt hoặc đã hết hạn');
+    $this->get("/customer/{$company->id}/connect-gdt")->assertOk()->assertSee('Giấy phép không hợp lệ');
+    $this->get("/customer/{$company->id}")->assertRedirect();
+});
+
+it('serves the customer sign-in and registration pages in Vietnamese', function () {
+    $this->get('/customer/login')->assertOk()->assertSee('Đăng nhập');
+    $this->get('/customer/register')->assertOk()->assertSee('Đăng ký');
 });
 
 it('lets an admin assign a license and records who created it', function () {

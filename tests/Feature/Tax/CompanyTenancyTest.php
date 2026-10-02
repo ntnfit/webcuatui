@@ -83,9 +83,10 @@ it('denies access to a company the customer does not belong to', function () {
 
     $this->actingAs($customer, 'customer');
 
-    $this->get("/customer/{$mine->id}")->assertOk();
-    // Another company's tenant URL must not reveal that the company exists.
+    $this->get("/customer/{$mine->id}/connect-gdt")->assertOk();
+    // Another company's tenant URLs must not reveal that the company exists.
     $this->get("/customer/{$theirs->id}")->assertNotFound();
+    $this->get("/customer/{$theirs->id}/connect-gdt")->assertNotFound();
     expect($customer->canAccessTenant($theirs))->toBeFalse();
 });
 

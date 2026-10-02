@@ -7,19 +7,17 @@ use App\Filament\Customer\Pages\Tenancy\EditCompanyProfile;
 use App\Filament\Customer\Pages\Tenancy\RegisterCompany;
 use App\Filament\Customer\Resources\TaxExportRuns\Pages\ListTaxExportRuns;
 use App\Filament\Customer\Resources\TaxInvoices\Pages\ListTaxInvoices;
+use App\Http\Middleware\UseVietnameseLocale;
 use App\Models\Company;
 use App\Services\Gdt\LicenseNotice;
 use Filament\Facades\Filament;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
-use Filament\Pages\Dashboard;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
 use Filament\View\PanelsRenderHook;
-use Filament\Widgets\AccountWidget;
-use Filament\Widgets\FilamentInfoWidget;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -36,6 +34,7 @@ class CustomerPanelProvider extends PanelProvider
         return $panel
             ->id('customer')
             ->path('customer')
+            ->brandName('HarryDev · Công cụ thuế')
             ->login()
             ->registration()
             ->databaseNotifications()
@@ -47,22 +46,15 @@ class CustomerPanelProvider extends PanelProvider
                 fn (): HtmlString => new HtmlString(
                     ($company = Filament::getTenant()) ? LicenseNotice::bannerHtml($company) : ''
                 ),
-                scopes: [Dashboard::class, ConnectGdt::class, ListTaxInvoices::class, ListTaxExportRuns::class],
+                scopes: [ConnectGdt::class, ListTaxInvoices::class, ListTaxExportRuns::class],
             )
             ->colors([
                 'primary' => Color::Amber,
             ])
             ->discoverResources(in: app_path('Filament/Customer/Resources'), for: 'App\\Filament\\Customer\\Resources')
             ->discoverPages(in: app_path('Filament/Customer/Pages'), for: 'App\\Filament\\Customer\\Pages')
-            ->pages([
-                Dashboard::class,
-            ])
-            ->discoverWidgets(in: app_path('Filament/Customer/Widgets'), for: 'App\\Filament\\Customer\\Widgets')
-            ->widgets([
-                AccountWidget::class,
-                FilamentInfoWidget::class,
-            ])
             ->middleware([
+                UseVietnameseLocale::class,
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
                 StartSession::class,
