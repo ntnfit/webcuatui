@@ -1,4 +1,4 @@
-﻿@extends('layouts.main')
+﻿@extends('layouts.app')
 
 @section('title', 'Blog — HarryDev | Lập trình, Công nghệ, ERP')
 @section('description', 'Chia sẻ kiến thức về lập trình, ERP và công nghệ. Bài viết về React, Laravel, SAP Business One và nhiều chủ đề khác.')
@@ -7,9 +7,8 @@
 @section('og:type', 'website')
 
 @section('content')
-@include('partials.navbar')
 
-<div class="min-h-dvh bg-gh-base text-gh pt-16">
+<div class="min-h-dvh bg-gh-base text-gh pt-0">
 
     {{-- Terminal header --}}
     <div class="border-b border-gh-subtle bg-gh-base">

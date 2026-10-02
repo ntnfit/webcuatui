@@ -4,9 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\View\View;
 
 class ToolsController extends Controller
 {
+    /** Landing page listing the public tools. */
+    public function index(): View
+    {
+        return view('tools.index');
+    }
+
     public function search(Request $request)
     {
         $query = $request->input('query');

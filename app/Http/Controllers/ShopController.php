@@ -11,7 +11,7 @@ class ShopController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Product::where('status', 'active');
+        $query = Product::active()->where('type', Product::TYPE_PHYSICAL);
 
         // Search
         if ($request->filled('search')) {
@@ -49,11 +49,11 @@ class ShopController extends Controller
 
     public function show($slug)
     {
-        $product = Product::where('slug', $slug)
+        $product = Product::where('type', Product::TYPE_PHYSICAL)->where('slug', $slug)
             ->where('status', 'active')
             ->firstOrFail();
 
-        $relatedProducts = Product::where('status', 'active')
+        $relatedProducts = Product::active()->where('type', Product::TYPE_PHYSICAL)
             ->where('id', '!=', $product->id)
             ->inRandomOrder()
             ->take(4)
@@ -73,7 +73,7 @@ class ShopController extends Controller
     public function getCartItems(Request $request)
     {
         $cartIds = $request->input('ids', []);
-        
+
         if (empty($cartIds)) {
             return response()->json([]);
         }
@@ -112,7 +112,7 @@ class ShopController extends Controller
 
         // Get cart from request
         $cart = $request->input('cart', []);
-        
+
         if (empty($cart)) {
             return response()->json(['error' => 'Cart is empty'], 400);
         }
@@ -120,7 +120,7 @@ class ShopController extends Controller
         // Calculate total
         $productIds = array_column($cart, 'id');
         $products = Product::whereIn('id', $productIds)->get();
-        
+
         $total = 0;
         foreach ($cart as $item) {
             $product = $products->firstWhere('id', $item['id']);

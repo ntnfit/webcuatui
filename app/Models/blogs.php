@@ -256,14 +256,15 @@ class blogs extends Model
             'slug' => $this->slug,
             'excerpt' => $this->sub_title ?? '', // dùng subtitle làm excerpt
             'publish_date' => $this->published_at?->diffForHumans(),
-            'thumbnail_url' => asset('storage/'.$this->cover_photo_path), // đảm bảo link đầy đủ
+            'thumbnail_url' => $this->cover_photo_path ? asset('storage/'.$this->cover_photo_path) : null,
             'type' => $this->type,
             'canonical_url' => $this->canonical_url,
-            'stars' => $this->stars ?? rand(20, 50), // tạm thời fake nếu chưa có field stars
+            // Chưa có nguồn dữ liệu thật cho lượt sao: trả 0 để view ẩn đi thay vì hiển thị số giả.
+            'stars' => (int) ($this->stars ?? 0),
 
             'author' => [
                 'name' => $this->user?->name ?? 'Ẩn danh',
-                'avatar' => $this->user?->avatar_url ?? 'https://github.com/shadcn.png',
+                'avatar' => $this->user?->avatar_url,
             ],
 
             'categories' => $this->categories->pluck('slug')->toArray(),

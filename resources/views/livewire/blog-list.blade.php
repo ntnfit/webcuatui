@@ -127,9 +127,12 @@
                 {{-- Footer --}}
                 <div class="flex items-center justify-between pt-3 border-t border-gh-subtle mt-auto">
                     <div class="flex items-center gap-2">
-                        <img src="{{ $post['author']['avatar'] }}" alt="{{ $post['author']['name'] }}"
-                            class="w-5 h-5 rounded-full object-cover ring-1 ring-[#30363d]"
-                            onerror="this.src='https://github.com/shadcn.png'">
+                        @if(!empty($post['author']['avatar']))
+                            <img src="{{ $post['author']['avatar'] }}" alt="{{ $post['author']['name'] }}" width="20" height="20"
+                                class="w-5 h-5 rounded-full object-cover ring-1 ring-line">
+                        @else
+                            <span class="flex h-5 w-5 items-center justify-center rounded-full bg-raised font-mono text-[9px] text-muted ring-1 ring-line" aria-hidden="true">{{ \Illuminate\Support\Str::upper(\Illuminate\Support\Str::substr($post['author']['name'], 0, 1)) }}</span>
+                        @endif
                         <span class="text-[10px] font-mono text-gh-subtle">{{ $post['author']['name'] }}</span>
                     </div>
                     <span class="text-[10px] font-mono text-gh-subtle">{{ $post['publish_date'] ?? $post['date'] ?? '' }}</span>

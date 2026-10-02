@@ -1,13 +1,12 @@
-@extends('layouts.main')
+@extends('layouts.app')
 
 @section('title', 'Shop | My Portfolio')
 @section('description', 'Browse our products')
 
 @section('content')
-    @include('partials.navbar')
     
     <div class="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-500">
-        <div class="pt-16">
+        <div class="pt-0">
             <!-- Hero Section -->
             <div class="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 py-12">
                 <div class="max-w-7xl mx-auto px-4">
@@ -230,5 +229,4 @@
         }
     </script>
 
-    @include('partials.footer')
 @endsection
