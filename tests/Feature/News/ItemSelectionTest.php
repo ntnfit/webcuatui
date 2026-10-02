@@ -59,7 +59,7 @@ it('drops titles that match an existing post and urls already published', functi
 it('caps items per source and ranks by relevance, freshness and weight', function () {
     config(['news.per_source_cap' => 2]);
     $busy = NewsSource::factory()->create(['weight' => 1]);
-    $heavy = NewsSource::factory()->create(['weight' => 5]);
+    $heavy = NewsSource::factory()->create(['weight' => 9]);
     $items = [];
     foreach (['AI agents for ERP automation', 'LLM security tips', 'Programming news roundup', 'Cloud pricing update'] as $title) {
         $items[] = newsCandidate($busy, $title);

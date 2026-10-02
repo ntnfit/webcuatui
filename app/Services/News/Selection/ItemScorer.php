@@ -26,7 +26,7 @@ class ItemScorer
 
         $weight = 10 * max(0, (int) ($item->source?->weight ?? 1));
 
-        $relevance = min(40, $this->hits($item, self::KEYWORDS, 6, 3));
+        $relevance = min(50, $this->hits($item, self::KEYWORDS, 10, 5));
         $boosted = min(30, $this->hits($item, $boost, 10, 5));
 
         return (int) round($freshness + $weight + $relevance + $boosted);

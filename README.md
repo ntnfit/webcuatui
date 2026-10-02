@@ -35,6 +35,15 @@ npm run dev
 
 Build production assets: `npm run build`.
 
+## Tin công nghệ tự động
+
+Mỗi ngày (mặc định 09:00 giờ Việt Nam) hệ thống đọc các feed RSS/Atom, chọn tối đa 10 tin, nhờ Claude viết lại thành bài SEO tiếng Việt kèm ảnh và nguồn tham khảo, rồi đăng tự động.
+
+- Cấu hình toàn bộ ở admin: `/admin/cau-hinh-tin-tu-dong` (công tắc tổng, đăng tự động hay lưu nháp, giờ chạy, số bài, model, prompt bổ sung, ảnh, API key mã hóa). Giá trị lưu DB ghi đè `config/news.php`, vốn đọc từ biến môi trường trong `.env.example`.
+- Nguồn tin, nhật ký chạy và gỡ bài nhanh: nhóm "Tin tự động" trong admin.
+- Cần: `php artisan migrate`, `php artisan db:seed --class=NewsSourceSeeder`, `php artisan storage:link`, cron `schedule:run` mỗi phút và queue worker (nút "Chạy ngay").
+- Lệnh: `php artisan news:crawl [--dry-run] [--limit=N] [--source=tên|id]`. `--dry-run` chỉ in danh sách sẽ đăng, không gọi Claude, không ghi gì.
+
 ## Kiểm thử
 
 ```bash
