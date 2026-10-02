@@ -12,7 +12,6 @@ Route::post('/admin/tinymce/upload', [TinyMceUploadController::class, 'store'])
     ->middleware(['web', 'auth'])
     ->name('tinymce.upload');
 
-Route::get('/test', [BlogsController::class, 'index']);
 Route::get('/', HomeController::class)->name('home');
 
 // Blog routes
