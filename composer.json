@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "anthropic-ai/sdk": "^0.54.0",
         "archtechx/laravel-seo": "^0.10.1",
         "bacon/bacon-qr-code": "^3.1",
         "filament/filament": "^5.9",
