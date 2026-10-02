@@ -10,9 +10,10 @@
     "require": {
         "php": "^8.2",
         "archtechx/laravel-seo": "^0.10.1",
+        "bacon/bacon-qr-code": "^3.1",
         "filament/filament": "^5.9",
         "filament/infolists": "^5.9",
-"jeffgreco13/filament-breezy": "~3.0",
+        "jeffgreco13/filament-breezy": "~3.0",
         "laravel/framework": "^13.0",
         "laravel/sanctum": "*",
         "laravel/socialite": "^5.16",
