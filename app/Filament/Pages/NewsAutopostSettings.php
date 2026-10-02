@@ -163,7 +163,7 @@ class NewsAutopostSettings extends Page
                         app(NewsSettings::class)->clearSecret($provider);
                         Notification::make()->title("Đã xóa key {$label}")->success()->send();
                     }),
-            ]);
+            ])->key("key-actions-{$provider}");
         }
 
         return Section::make('API keys')->icon('heroicon-o-key')->components($components);
