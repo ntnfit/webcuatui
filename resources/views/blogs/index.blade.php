@@ -1,8 +1,8 @@
 ﻿@extends('layouts.app')
 
-@section('title', 'Blog — HarryDev | Lập trình, Công nghệ, ERP')
+@section('title', 'Blog — ToiLamERP | Lập trình, Công nghệ, ERP')
 @section('description', 'Chia sẻ kiến thức về lập trình, ERP và công nghệ. Bài viết về React, Laravel, SAP Business One và nhiều chủ đề khác.')
-@section('og:title', 'Blog — HarryDev')
+@section('og:title', 'Blog — ToiLamERP')
 @section('og:description', 'Chia sẻ kiến thức về lập trình, ERP và công nghệ.')
 @section('og:type', 'website')
 

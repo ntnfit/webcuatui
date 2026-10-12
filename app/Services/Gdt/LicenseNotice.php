@@ -8,7 +8,7 @@ use App\Models\Company;
 final class LicenseNotice
 {
     /** Same address as the site footer. */
-    public const CONTACT_EMAIL = 'sapb1devbtp@gmail.com';
+    public const CONTACT_EMAIL = 'harry@toilamerp.com';
 
     /** Banner turns to a warning when this many days or fewer remain. */
     public const WARNING_DAYS = 14;

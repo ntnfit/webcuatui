@@ -4,7 +4,7 @@
 
         <div class="grid gap-5 lg:grid-cols-[300px_1fr]">
             <div class="card space-y-4 p-5 font-mono text-sm">
-                <a href="mailto:sapb1devbtp@gmail.com" class="block text-muted hover:text-link">sapb1devbtp@gmail.com</a>
+                <a href="mailto:harry@toilamerp.com" class="block text-muted hover:text-link">harry@toilamerp.com</a>
                 <a href="tel:0981710031" class="block text-muted hover:text-link">0981 710 031</a>
                 <div class="flex gap-4 border-t border-line-soft pt-4 text-xs">
                     <a href="https://github.com/ntnfit" target="_blank" rel="noopener noreferrer" class="text-muted hover:text-fg">GitHub</a>

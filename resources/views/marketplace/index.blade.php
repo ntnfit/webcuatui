@@ -19,7 +19,7 @@
     $chipOff = 'border-line bg-surface text-muted hover:border-link hover:text-link';
 @endphp
 
-@section('title', $pageTitle.' | HarryDev')
+@section('title', $pageTitle.' | ToiLamERP')
 @section('description', $pageDescription)
 @section('og:title', $pageTitle)
 @section('og:description', $pageDescription)

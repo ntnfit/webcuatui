@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
-@section('title', 'Công cụ cho kế toán và ERP | HarryDev')
+@section('title', 'Công cụ cho kế toán và ERP | ToiLamERP')
 @section('description', 'Các công cụ trực tuyến cho kế toán và người dùng SAP Business One, bắt đầu với công cụ thuế trong khu vực khách hàng.')
-@section('og:title', 'Công cụ cho kế toán và ERP | HarryDev')
+@section('og:title', 'Công cụ cho kế toán và ERP | ToiLamERP')
 @section('og:description', 'Các công cụ trực tuyến cho kế toán và người dùng SAP Business One.')
 
 @section('content')

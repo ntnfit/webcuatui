@@ -6,22 +6,22 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     @php
-        $siteDescription = 'Addon tích hợp SAP Business One (VAS, hóa đơn điện tử, ngân hàng, SePay, Magento, Shopify), công cụ thuế và blog ERP.';
+        $siteDescription = 'ToiLamERP — ERP integration, business automation and AI-driven solutions: SAP Business One add-ons, e-invoicing, banking, CRM and enterprise APIs.';
         $defaultOgImage = asset('images/og.png');
     @endphp
 
-    <title>@yield('title', 'HarryDev — Addon tích hợp SAP Business One')</title>
+    <title>@yield('title', 'ToiLamERP — ERP & AI Solutions')</title>
     <meta name="description" content="@yield('description', $siteDescription)">
 
-    <meta property="og:site_name" content="HarryDev">
-    <meta property="og:title" content="@yield('og:title', 'HarryDev — Addon tích hợp SAP Business One')">
+    <meta property="og:site_name" content="ToiLamERP">
+    <meta property="og:title" content="@yield('og:title', 'ToiLamERP — ERP & AI Solutions')">
     <meta property="og:description" content="@yield('og:description', $siteDescription)">
     <meta property="og:image" content="@yield('og:image', $defaultOgImage)">
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:type" content="@yield('og:type', 'website')">
 
     <meta name="twitter:card" content="@yield('twitter:card', 'summary_large_image')">
-    <meta name="twitter:title" content="@yield('twitter:title', 'HarryDev — Addon tích hợp SAP Business One')">
+    <meta name="twitter:title" content="@yield('twitter:title', 'ToiLamERP — ERP & AI Solutions')">
     <meta name="twitter:description" content="@yield('twitter:description', $siteDescription)">
     <meta name="twitter:image" content="@yield('twitter:image', $defaultOgImage)">
 

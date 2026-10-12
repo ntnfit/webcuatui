@@ -17,6 +17,8 @@ Route::post('/admin/tinymce/upload', [TinyMceUploadController::class, 'store'])
 Route::get('/', HomeController::class)->name('home');
 Route::get('/sitemap.xml', [SitemapController::class, 'show'])->name('sitemap');
 
+Route::view('/about', 'about')->name('about');
+
 // Marketplace (SAP B1 addons)
 Route::get('/marketplace', [MarketplaceController::class, 'index'])->name('marketplace.index');
 Route::get('/marketplace/{slug}', [MarketplaceController::class, 'show'])->name('marketplace.show');

@@ -18,7 +18,7 @@
         'url' => route('marketplace.show', $addon->slug),
         'applicationCategory' => 'BusinessApplication',
         'operatingSystem' => 'SAP Business One '.implode(', ', $versions),
-        'brand' => ['@type' => 'Brand', 'name' => 'HarryDev'],
+        'brand' => ['@type' => 'Brand', 'name' => 'ToiLamERP'],
     ];
     if ($image) {
         $schema['image'] = $image;
@@ -35,7 +35,7 @@
     }
 @endphp
 
-@section('title', $addon->name.' | HarryDev')
+@section('title', $addon->name.' | ToiLamERP')
 @section('description', \Illuminate\Support\Str::limit($description, 155))
 @section('og:title', $addon->name)
 @section('og:description', \Illuminate\Support\Str::limit($description, 155))

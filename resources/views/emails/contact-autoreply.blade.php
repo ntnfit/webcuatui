@@ -84,7 +84,7 @@
             
             <div class="signature">
                 <p>Trân trọng,</p>
-                <p>HarryDev Team</p>
+                <p>ToiLamERP Team</p>
                 <p>Email: ntnguyen0310@gmail.com</p>
                 <p>Điện thoại: 0981710031</p>
             </div>

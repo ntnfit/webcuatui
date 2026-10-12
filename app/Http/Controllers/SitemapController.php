@@ -26,7 +26,7 @@ class SitemapController extends Controller
     {
         $sitemap = Sitemap::create();
 
-        foreach (['home', 'marketplace.index', 'tools.index', 'blogs.index', 'shop.index'] as $name) {
+        foreach (['home', 'marketplace.index', 'tools.index', 'blogs.index', 'shop.index', 'about'] as $name) {
             $sitemap->add(Url::create(route($name)));
         }
 

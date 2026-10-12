@@ -4,17 +4,18 @@
 <section class="border-b border-line-soft">
     <div class="container-page grid items-center gap-8 py-14 sm:py-20 lg:grid-cols-[1.15fr_1fr]">
         <div>
-            <p class="eyebrow mb-5">sap business one · integrations</p>
+            <p class="eyebrow mb-5">erp integration · automation · ai</p>
             <h1 class="text-3xl font-bold leading-tight tracking-tight sm:text-5xl">
-                Kết nối SAP Business One với kế toán, ngân hàng và kênh bán hàng online
+                ToiLamERP — ERP Integration &amp; Business Automation Solutions
             </h1>
             <p class="mt-5 max-w-xl text-base leading-relaxed text-muted">
-                Addon tích hợp cho SAP B1: báo cáo VAS, hóa đơn điện tử, ngân hàng, SePay, Magento và Shopify.
-                Kèm công cụ thuế và bài viết chia sẻ kinh nghiệm triển khai ERP.
+                Empowering businesses with intelligent ERP integration, automation, and AI-driven solutions.
+                ToiLamERP is a technology startup building enterprise software, specializing in SAP Business One
+                integration, ERP extensions, and intelligent business process automation.
             </p>
             <div class="mt-8 flex flex-wrap gap-3">
-                <a href="{{ route('marketplace.index') }}" class="btn btn-primary">Xem marketplace</a>
-                <a href="#contact" class="btn btn-secondary">Nhận tư vấn</a>
+                <a href="{{ route('marketplace.index') }}" class="btn btn-primary">Explore marketplace</a>
+                <a href="#contact" class="btn btn-secondary">Contact us</a>
             </div>
         </div>
 

@@ -34,7 +34,7 @@ class CustomerPanelProvider extends PanelProvider
         return $panel
             ->id('customer')
             ->path('customer')
-            ->brandName('HarryDev · Công cụ thuế')
+            ->brandName('ToiLamERP · Công cụ thuế')
             ->login()
             ->registration()
             ->databaseNotifications()

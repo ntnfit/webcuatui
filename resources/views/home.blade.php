@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
-@section('title', 'HarryDev — Addon tích hợp SAP Business One, công cụ thuế và blog ERP')
-@section('description', 'Addon tích hợp SAP Business One: VAS, hóa đơn điện tử, ngân hàng, SePay, Magento, Shopify. Kèm công cụ thuế và bài viết về ERP.')
-@section('og:title', 'HarryDev — Addon tích hợp SAP Business One')
-@section('twitter:title', 'HarryDev — Addon tích hợp SAP Business One')
+@section('title', 'ToiLamERP — ERP & AI Solutions')
+@section('description', 'ToiLamERP builds ERP integration, business automation and AI-driven solutions: SAP Business One add-ons, e-invoicing, banking, CRM and enterprise APIs.')
+@section('og:title', 'ToiLamERP — ERP & AI Solutions')
+@section('twitter:title', 'ToiLamERP — ERP & AI Solutions')
 
 @section('canonical_link')
 <link rel="canonical" href="{{ url('/') }}">
@@ -13,12 +13,14 @@
 <script type="application/ld+json">{!! json_encode([
     '@context' => 'https://schema.org',
     '@type' => 'WebSite',
-    'name' => 'HarryDev',
+    'name' => 'ToiLamERP',
     'url' => url('/'),
     'inLanguage' => 'vi',
     'author' => [
-        '@type' => 'Person',
-        'name' => 'HarryDev',
+        '@type' => 'Organization',
+        'name' => 'ToiLamERP',
+        'url' => url('/'),
+        'email' => 'harry@toilamerp.com',
         'sameAs' => ['https://github.com/ntnfit', 'https://www.linkedin.com/in/nguyen0310/'],
     ],
 ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG | JSON_HEX_AMP) !!}</script>
@@ -26,6 +28,7 @@
 
 @section('content')
     @include('partials.hero')
+    @include('partials.solutions')
     @include('partials.featured-addons', ['featuredAddons' => $featuredAddons])
     @include('partials.tools-strip')
     @include('partials.latest-articles', ['latestArticles' => $latestArticles])

@@ -1,6 +1,6 @@
 ﻿@extends('layouts.app')
 
-@section('title', $blog['title'] . ' | HarryDev')
+@section('title', $blog['title'] . ' | ToiLamERP')
 @section('description', \Illuminate\Support\Str::limit(strip_tags($blog['excerpt'] ?? $blog['title']), 155))
 @section('og:title', $blog['title'])
 @section('og:description', \Illuminate\Support\Str::limit(strip_tags($blog['excerpt'] ?? $blog['title']), 155))
@@ -25,7 +25,7 @@
   "image": "{{ $blog['thumbnail_url'] ?? asset('images/og.png') }}",
   "datePublished": "{{ $blog['created_at_iso'] ?? '' }}",
   "author": { "@@type": "Person", "name": {{ Illuminate\Support\Js::from($blog['author']['name']) }} },
-  "publisher": { "@@type": "Person", "name": "HarryDev" },
+  "publisher": { "@@type": "Organization", "name": "ToiLamERP" },
   "mainEntityOfPage": { "@@type": "WebPage", "@@id": "{{ $blog['canonical_url'] ?? request()->url() }}" }
 }
 </script>

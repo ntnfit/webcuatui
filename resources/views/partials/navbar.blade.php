@@ -12,9 +12,9 @@
     <nav class="container-page" aria-label="Điều hướng chính">
         <div class="flex h-14 items-center justify-between">
 
-            <a href="{{ route('home') }}" class="group flex shrink-0 items-center gap-1 font-mono" aria-label="HarryDev — trang chủ">
+            <a href="{{ route('home') }}" class="group flex shrink-0 items-center gap-1 font-mono" aria-label="ToiLamERP — trang chủ">
                 <span class="text-sm text-accent">~/</span>
-                <span class="text-sm font-semibold text-fg">HarryDev</span>
+                <span class="text-sm font-semibold text-fg">ToiLamERP</span>
                 <span class="ml-1 hidden text-[10px] text-subtle sm:inline">sap-b1</span>
             </a>
 
